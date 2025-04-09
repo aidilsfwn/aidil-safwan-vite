@@ -1,10 +1,10 @@
-# My Portfolio
+# aidil-safwan-vite
 
 A simple, responsive single-page portfolio website built with React, Vite, and TailwindCSS.
 
 ## 🛠️ Technologies
 
-- **React 18** - UI library
+- **React 19** - UI library
 - **Vite** - Build tool and development server
 - **TailwindCSS** - Utility-first CSS framework
 - **Lucide Icons** - Icon library
