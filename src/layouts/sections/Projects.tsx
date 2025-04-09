@@ -13,7 +13,7 @@ export const Projects = () => {
               {project.technologies.map((tech, techIndex) => (
                 <span
                   key={techIndex}
-                  className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded"
+                  className="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded"
                 >
                   {tech}
                 </span>

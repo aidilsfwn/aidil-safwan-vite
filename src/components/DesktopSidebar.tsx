@@ -1,44 +1,45 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  Github,
+  GraduationCap,
+  Linkedin,
+  Mail,
+  Contact,
+  EqualApproximately,
+  BugOff,
+  FolderKanban,
+} from "lucide-react";
 
 import { profile } from "../constants";
+
+const ITEMS = [
+  { label: "About", link: "#about", icon: <EqualApproximately /> },
+  { label: "Experience", link: "#experience", icon: <BriefcaseBusiness /> },
+  { label: "Education", link: "#education", icon: <GraduationCap /> },
+  { label: "Skills", link: "#skills", icon: <BugOff /> },
+  { label: "Projects", link: "#projects", icon: <FolderKanban /> },
+  { label: "Contact", link: "#contact", icon: <Contact /> },
+];
 
 export const DesktopSidebar = () => {
   return (
     <div className="hidden md:block md:fixed md:inset-y-0 md:left-0 md:w-64 md:bg-gray-900 md:text-white md:p-8">
       <div className="flex flex-col h-full justify-between">
         <div>
-          <h2 className="text-2xl font-bold mb-8">{profile.name}</h2>
+          <h2 className="text-indigo-300 text-2xl font-bold mb-8">
+            {profile.name}
+          </h2>
           <nav className="flex flex-col gap-4">
-            <a href="#about" className="hover:text-blue-400 transition-colors">
-              About
-            </a>
-            <a
-              href="#experience"
-              className="hover:text-blue-400 transition-colors"
-            >
-              Experience
-            </a>
-            <a
-              href="#education"
-              className="hover:text-blue-400 transition-colors"
-            >
-              Education
-            </a>
-            <a href="#skills" className="hover:text-blue-400 transition-colors">
-              Skills
-            </a>
-            <a
-              href="#projects"
-              className="hover:text-blue-400 transition-colors"
-            >
-              Projects
-            </a>
-            <a
-              href="#contact"
-              className="hover:text-blue-400 transition-colors"
-            >
-              Contact
-            </a>
+            {ITEMS.map((item) => {
+              return (
+                <div className="flex flex-wrap items-center hover:text-indigo-400 transition-colors">
+                  <div className="">{item.icon}</div>
+                  <a href={item.link} className="ml-4">
+                    {item.label}
+                  </a>
+                </div>
+              );
+            })}
           </nav>
         </div>
 

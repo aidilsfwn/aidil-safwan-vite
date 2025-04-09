@@ -8,7 +8,7 @@ export const MobileMenu = () => {
     <div className="md:hidden">
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className="fixed top-4 right-4 z-50 bg-blue-600 text-white p-2 rounded-full shadow-lg"
+        className="fixed top-4 right-4 z-50 bg-indigo-600 text-white p-2 rounded-full shadow-lg"
       >
         {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
