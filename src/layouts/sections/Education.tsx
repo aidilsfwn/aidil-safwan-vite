@@ -6,7 +6,9 @@ import { Timeline, TimelineItem } from "../../components";
 export const Education = () => {
   return (
     <section id="education" className="mb-16">
-      <h2 className="text-2xl font-bold mb-6 border-b pb-2">Education</h2>
+      <h2 className="text-indigo-700 border-indigo-200 text-2xl font-bold mb-6 border-b pb-2">
+        Education
+      </h2>
       <Timeline>
         {education.map((edu, index) => (
           <TimelineItem key={index} isLast={index === education.length - 1}>
@@ -23,18 +25,6 @@ export const Education = () => {
               </div>
               {edu.details && (
                 <p className="mb-3 text-gray-600">{edu.details}</p>
-              )}
-              {edu.achievements && (
-                <div className="mt-3">
-                  <h5 className="font-medium text-gray-700 mb-2">
-                    Achievements:
-                  </h5>
-                  <ul className="list-disc pl-5 space-y-1 text-gray-600">
-                    {edu.achievements.map((achievement, idx) => (
-                      <li key={idx}>{achievement}</li>
-                    ))}
-                  </ul>
-                </div>
               )}
             </div>
           </TimelineItem>

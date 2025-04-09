@@ -16,7 +16,7 @@ export const Hero = () => {
           <MapPin size={18} className="mr-2" />
           <span>{profile.location}</span>
         </div>
-        <p className="text-lg mb-6">{profile.bio}</p>
+        {/* <p className="text-lg mb-6">{profile.bio}</p> */}
         <div className="flex flex-wrap">
           <a
             href={profile.resumeUrl}

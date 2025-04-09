@@ -5,7 +5,9 @@ import { profile } from "../../constants";
 export const Contact = () => {
   return (
     <section id="contact" className="mb-8">
-      <h2 className="text-2xl font-bold mb-6 border-b pb-2">Contact</h2>
+      <h2 className="text-indigo-700 border-indigo-200 text-2xl font-bold mb-6 border-b pb-2">
+        Contact
+      </h2>
       <div className="max-w-lg">
         <p className="mb-4">
           Feel free to reach out for opportunities or just to connect!

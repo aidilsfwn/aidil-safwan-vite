@@ -1,10 +1,9 @@
 import {
-  Certifications,
   Contact,
   Education,
   Experience,
   Hero,
-  Projects,
+  // Projects,
   Skills,
 } from "./layouts/sections";
 import { Footer, MobileMenu, DesktopSidebar } from "./components";
@@ -18,11 +17,10 @@ export default function App() {
 
       <main className="md:ml-64 p-6 md:p-12">
         <Hero />
+        <Skills />
         <Experience />
         <Education />
-        <Certifications />
-        <Skills />
-        <Projects />
+        {/* <Projects /> */}
         <Contact />
         <Footer />
       </main>

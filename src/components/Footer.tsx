@@ -2,7 +2,7 @@ import { profile } from "../constants";
 
 export const Footer = () => {
   return (
-    <footer className="text-center text-gray-500 pt-8 pb-4 border-t">
+    <footer className="text-center text-indigo-300 pt-12 pb-2">
       <p>
         © {new Date().getFullYear()} {profile.name}. All rights reserved.
       </p>

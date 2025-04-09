@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { X, Menu } from "lucide-react";
+import { menu } from "../constants";
 
 export const MobileMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,48 +17,18 @@ export const MobileMenu = () => {
       {isMenuOpen && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-90 z-40 flex flex-col items-center justify-center">
           <div className="flex flex-col gap-8 text-center">
-            <a
-              href="#about"
-              onClick={() => setIsMenuOpen(false)}
-              className="text-white text-xl"
-            >
-              About
-            </a>
-            <a
-              href="#experience"
-              onClick={() => setIsMenuOpen(false)}
-              className="text-white text-xl"
-            >
-              Experience
-            </a>
-            <a
-              href="#education"
-              onClick={() => setIsMenuOpen(false)}
-              className="text-white text-xl"
-            >
-              Education
-            </a>
-            <a
-              href="#skills"
-              onClick={() => setIsMenuOpen(false)}
-              className="text-white text-xl"
-            >
-              Skills
-            </a>
-            <a
-              href="#projects"
-              onClick={() => setIsMenuOpen(false)}
-              className="text-white text-xl"
-            >
-              Projects
-            </a>
-            <a
-              href="#contact"
-              onClick={() => setIsMenuOpen(false)}
-              className="text-white text-xl"
-            >
-              Contact
-            </a>
+            {menu.map((item) => {
+              return (
+                <a
+                  key={item.label}
+                  href={item.link}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-white text-xl"
+                >
+                  {item.label}
+                </a>
+              );
+            })}
           </div>
         </div>
       )}
