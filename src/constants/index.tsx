@@ -14,7 +14,7 @@ export const profile = {
   // bio: "A lifelong knowledge seeker and problem solver at heart, I see coding as a tool to create meaningful solutions rather than just a profession. Currently, I’m a Senior Software Engineer at The Access Group, where I build and optimize digital solutions to enhance user experiences. Previously, I was a Frontend Developer at Aleph-Labs, crafting user-focused digital experiences. Before that, I worked as an Analyst Programmer at Public Bank, contributing to UI/UX design and mobile app development. Earlier in my career, I was a Software Engineer at INVOKE, where I developed web and mobile products and played a key role in various projects. My academic journey started in Electronic Engineering, but my passion for coding led me to pursue a Bachelor of Computer Science. My final-year project involved Twitter sentiment analysis, where I built a bilingual classification model and visualized the results. Outside of work, I love experimenting with personal projects, such as building my personal website and creating data-driven dashboards. I’m also passionate about giving back to the community, volunteering with Young Digital Leaders Malaysia and contributing to educational events at Petrosains. Driven by curiosity and a passion for learning, I’m always looking for opportunities to solve problems and grow. Let’s connect!",
   githubUrl: "https://github.com/aidilsfwn",
   linkedinUrl: "https://linkedin.com/in/aidilsafwan",
-  resumeUrl: "/Aidil-Safwan-0193607015-CV.pdf",
+  resumeUrl: "/AidilSafwanResume.pdf",
 };
 
 export const skills = [
