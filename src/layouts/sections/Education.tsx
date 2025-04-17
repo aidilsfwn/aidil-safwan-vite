@@ -5,8 +5,8 @@ import { Timeline, TimelineItem } from "../../components";
 
 export const Education = () => {
   return (
-    <section id="education" className="mb-16">
-      <h2 className="text-indigo-700 border-indigo-200 text-2xl font-bold mb-6 border-b pb-2">
+    <section id="education" className="mb-10">
+      <h2 className="text-indigo-700 border-indigo-200 text-2xl font-bold mb-10 border-b pb-2">
         Education
       </h2>
       <Timeline>

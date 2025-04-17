@@ -3,7 +3,7 @@ import {
   Education,
   Experience,
   Hero,
-  // Projects,
+  Projects,
   Skills,
 } from "./layouts/sections";
 import { Footer, MobileMenu, DesktopSidebar } from "./components";
@@ -20,7 +20,7 @@ export default function App() {
         <Skills />
         <Experience />
         <Education />
-        {/* <Projects /> */}
+        <Projects />
         <Contact />
         <Footer />
       </main>

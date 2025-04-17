@@ -2,7 +2,7 @@ import { skills } from "../../constants";
 
 export const Skills = () => {
   return (
-    <section id="skills" className="mb-16">
+    <section id="skills" className="mb-10">
       <h2 className="text-indigo-700 border-indigo-200 text-2xl font-bold mb-6 border-b pb-2">
         Skills
       </h2>

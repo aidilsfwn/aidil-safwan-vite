@@ -4,7 +4,7 @@ import { profile } from "../../constants";
 
 export const Hero = () => {
   return (
-    <section id="about" className="mb-16 md:mt-8">
+    <section id="about" className="mb-12 md:mt-8">
       <div className="max-w-4xl">
         <h1 className="text-indigo-700 text-4xl md:text-5xl font-bold mb-4">
           {profile.name}

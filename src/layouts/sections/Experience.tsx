@@ -1,17 +1,18 @@
 import { Calendar } from "lucide-react";
+
 import { experiences } from "../../constants";
 import { Timeline, TimelineItem } from "../../components";
 
 export const Experience = () => {
   return (
-    <section id="experience" className="mb-16">
+    <section id="experience" className="mb-10">
       <h2 className="text-indigo-700 border-indigo-200 text-2xl font-bold mb-6 border-b pb-2">
         Experience
       </h2>
       <Timeline>
         {experiences.map((exp, index) => (
           <TimelineItem key={index} isLast={index === experiences.length - 1}>
-            <div className="bg-background-surface p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
               <h3 className="text-xl font-semibold text-indigo-600">
                 {exp.title}
               </h3>

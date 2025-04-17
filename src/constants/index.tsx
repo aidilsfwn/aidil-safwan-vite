@@ -4,6 +4,7 @@ import {
   Contact,
   Laptop,
   User,
+  FolderKanban,
 } from "lucide-react";
 
 export const profile = {
@@ -115,16 +116,53 @@ export const certifications = [
 
 export const projects = [
   {
-    name: "E-commerce Platform",
+    title: "ChangeGPS",
     description:
-      "Built a scalable e-commerce platform handling 50,000+ daily users using React, Node.js, and MongoDB.",
-    technologies: ["React", "Node.js", "MongoDB", "Redis", "AWS"],
+      "A modern platform for accountants, offering practice management and compliance tools tailored to firms of all sizes.",
+    tech: ["Web Development", "React", "Laravel"],
+    image: "/images/cgps.webp",
   },
   {
-    name: "Real-time Analytics Dashboard",
+    title: "in1bank",
     description:
-      "Developed a real-time analytics dashboard using WebSockets and D3.js visualizations.",
-    technologies: ["TypeScript", "Socket.io", "D3.js", "Express", "PostgreSQL"],
+      "A digital-first Australian banking app with seamless in-app account creation and the same government guarantees as traditional banks.",
+    tech: ["Mobile Development", "React Native", "Redux"],
+    image: "/images/in1bank.webp",
+  },
+  {
+    title: "KWSP i-Akaun",
+    description:
+      "The refreshed KWSP i-Akaun app empowers users to monitor their retirement savings, manage transactions, and locate branches—all in one intuitive interface.",
+    tech: ["Mobile Development", "React Native", "Redux"],
+    image: "/images/kwsp.webp",
+  },
+  {
+    title: "MyPB",
+    description:
+      "Public Bank’s next-gen mobile banking app, combining financial services and lifestyle features in a sleek, unified experience.",
+    tech: ["Mobile Development", "React Native", "Redux", "iOS", "Android"],
+    image: "/images/mypb.webp",
+  },
+  {
+    title: "PBeXperience",
+    description:
+      "An internal productivity app by Public Bank, delivering a secure suite of digital tools to enhance employee efficiency on the go.",
+    tech: ["Mobile Development", "React Native", "Redux"],
+    image: "/images/pbx.webp",
+  },
+  {
+    title: "n9.digital",
+    description:
+      "The official digital gateway for Negeri Sembilan, enabling seamless interactions between citizens, businesses, and government agencies.",
+    tech: ["Mobile Development", "React Native", "Expo"],
+    image: "/images/n9.webp",
+  },
+  {
+    title: "invokeisdata",
+    description:
+      "A sleek landing page for Invoke, showcasing the firm’s capabilities in data analytics, insights, and political intelligence.",
+    tech: ["Web Development", "React", "Express"],
+    image: "/images/invoke.jpg",
   },
 ];
 
@@ -133,6 +171,6 @@ export const menu = [
   { label: "Skills", link: "#skills", icon: <Laptop /> },
   { label: "Experience", link: "#experience", icon: <BriefcaseBusiness /> },
   { label: "Education", link: "#education", icon: <GraduationCap /> },
-  // { label: "Projects", link: "#projects", icon: <FolderKanban /> },
+  { label: "Projects", link: "#projects", icon: <FolderKanban /> },
   { label: "Contact", link: "#contact", icon: <Contact /> },
 ];

@@ -17,5 +17,5 @@ export const TimelineItem = ({
 );
 
 export const Timeline = ({ children }: { children: ReactNode }) => {
-  return <div className="relative py-4">{children}</div>;
+  return <div className="relative">{children}</div>;
 };
