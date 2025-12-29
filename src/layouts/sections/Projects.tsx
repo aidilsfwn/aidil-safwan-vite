@@ -11,13 +11,19 @@ export const Projects = () => {
   const timer = useRef<number | null>(null);
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     loop: true,
+    renderMode: "performance",
+    drag: true,
+    defaultAnimation: {
+      duration: 1000,
+      easing: (t) => t,
+    },
     slides: {
       perView: 1,
       spacing: 16,
     },
     breakpoints: {
       "(min-width: 1024px)": {
-        slides: { perView: 3, spacing: 24 }, // Adjusted spacing to better fit 3 cards
+        slides: { perView: 3, spacing: 24 },
       },
     },
     created(slider) {
@@ -40,7 +46,7 @@ export const Projects = () => {
 
   return (
     <SectionWrapper id="projects" className="mb-20">
-      <h2 className="text-3xl font-bold mb-10 text-slate-200">Projects</h2>
+      <h2 className="text-3xl font-bold mb-6 text-slate-200">Projects</h2>
       <div className="flex flex-row gap-x-4 items-center">
         <button
           onClick={() => instanceRef.current?.prev()}
@@ -49,11 +55,11 @@ export const Projects = () => {
           <ChevronLeft size={20} />
         </button>
 
-        <div ref={sliderRef} className="keen-slider py-10 min-w-0">
+        <div ref={sliderRef} className="keen-slider py-4 min-w-0">
           {projects.map((project, index) => (
             <div
               key={index}
-              className="keen-slider__slide bg-slate-900/50 backdrop-blur-md rounded-2xl p-6 border border-slate-800 hover:border-indigo-500/30 transition-all hover:bg-slate-800/50 flex flex-col h-full"
+              className="keen-slider__slide bg-slate-900/50 backdrop-blur-md rounded-2xl p-6 border border-slate-800 hover:border-indigo-500/30 transition-colors duration-300 hover:bg-slate-800/50 flex flex-col h-full"
             >
               <img
                 src={project.image}
