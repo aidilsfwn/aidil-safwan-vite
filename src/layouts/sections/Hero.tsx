@@ -1,12 +1,9 @@
-import { MapPin, Download, ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
+import { MapPin, Download } from "lucide-react";
 
 import { profile } from "../../constants";
 import { SectionWrapper } from "../../components";
 
 export const Hero = () => {
-  const [isBioExpanded, setIsBioExpanded] = useState(false);
-
   return (
     <SectionWrapper id="about" className="mb-12 md:mt-8">
       <div className="max-w-3xl mx-auto text-center mt-20 md:mt-32">
@@ -21,26 +18,6 @@ export const Hero = () => {
           <span>{profile.location}</span>
         </div>
         
-        <div className="max-w-2xl mx-auto mb-10">
-          <p 
-            className={`text-lg md:text-xl text-slate-400 leading-relaxed transition-all duration-500 overflow-hidden ${
-              isBioExpanded ? "max-h-[2000px] opacity-100" : "max-h-24 opacity-80"
-            }`}
-          >
-            {profile.bio}
-          </p>
-          <button
-            onClick={() => setIsBioExpanded(!isBioExpanded)}
-            className="mt-4 flex items-center justify-center mx-auto text-indigo-400 hover:text-indigo-300 text-sm font-medium transition-colors"
-          >
-            {isBioExpanded ? (
-              <>Show Less <ChevronUp size={16} className="ml-1" /></>
-            ) : (
-              <>Read More <ChevronDown size={16} className="ml-1" /></>
-            )}
-          </button>
-        </div>
-
         <div className="flex justify-center">
           <a
             href={profile.resumeUrl}
