@@ -8,7 +8,7 @@ export const DesktopSidebar = () => {
     <div className="hidden md:block md:fixed md:inset-y-0 md:left-0 md:w-64 md:bg-gray-900 md:text-white md:p-8">
       <div className="flex flex-col h-full justify-between">
         <div>
-          <img src={memoji} className="rounded-xl w-1/2" />
+          <img src={memoji} className="rounded-xl w-1/2" loading="lazy" />
           <h2 className="text-indigo-300 text-2xl font-bold mt-4 mb-8">
             {profile.name}
           </h2>

@@ -12,38 +12,42 @@ export const profile = {
   title: "Senior Software Engineer @ The Access Group",
   location: "Kuala Lumpur, MY",
   email: "aidilsafwan.aas@gmail.com",
-  // bio: "A lifelong knowledge seeker and problem solver at heart, I see coding as a tool to create meaningful solutions rather than just a profession. Currently, I’m a Senior Software Engineer at The Access Group, where I build and optimize digital solutions to enhance user experiences. Previously, I was a Frontend Developer at Aleph-Labs, crafting user-focused digital experiences. Before that, I worked as an Analyst Programmer at Public Bank, contributing to UI/UX design and mobile app development. Earlier in my career, I was a Software Engineer at INVOKE, where I developed web and mobile products and played a key role in various projects. My academic journey started in Electronic Engineering, but my passion for coding led me to pursue a Bachelor of Computer Science. My final-year project involved Twitter sentiment analysis, where I built a bilingual classification model and visualized the results. Outside of work, I love experimenting with personal projects, such as building my personal website and creating data-driven dashboards. I’m also passionate about giving back to the community, volunteering with Young Digital Leaders Malaysia and contributing to educational events at Petrosains. Driven by curiosity and a passion for learning, I’m always looking for opportunities to solve problems and grow. Let’s connect!",
+  bio: "A lifelong knowledge seeker and problem solver at heart, I see coding as a tool to create meaningful solutions rather than just a profession. Currently, I’m a Senior Software Engineer at The Access Group, where I build and optimize digital solutions to enhance user experiences. Previously, I was a Frontend Developer at Aleph-Labs, crafting user-focused digital experiences. Before that, I worked as an Analyst Programmer at Public Bank, contributing to UI/UX design and mobile app development. Earlier in my career, I was a Software Engineer at INVOKE, where I developed web and mobile products and played a key role in various projects. My academic journey started in Electronic Engineering, but my passion for coding led me to pursue a Bachelor of Computer Science. My final-year project involved Twitter sentiment analysis, where I built a bilingual classification model and visualized the results. Outside of work, I love experimenting with personal projects, such as building my personal website and creating data-driven dashboards. I’m also passionate about giving back to the community, volunteering with Young Digital Leaders Malaysia and contributing to educational events at Petrosains. Driven by curiosity and a passion for learning, I’m always looking for opportunities to solve problems and grow. Let’s connect!",
   githubUrl: "https://github.com/aidilsfwn",
   linkedinUrl: "https://linkedin.com/in/aidilsafwan",
   resumeUrl: "/AidilSafwanResume.pdf",
 };
 
-export const skills = [
-  "Web Development",
-  "Mobile Development",
-  "Front End Development",
-  "Back End Development",
-  "Full Stack Development",
-  "JavaScript",
-  "TypeScript",
-  "React",
-  "React Native",
-  "Redux",
-  "Expo",
-  "Flutter",
-  "Node.js",
-  "PHP",
-  "Laravel",
-  "MongoDB",
-  "Docker",
-  "MySQL",
-];
+export const skills = {
+  Frontend: [
+    "React",
+    "TypeScript",
+    "JavaScript",
+    "Redux",
+    "UI/UX Implementation",
+  ],
+  Backend: ["Node.js", "Express", "PHP", "Laravel", "MySQL", "MongoDB"],
+  Mobile: ["React Native", "Expo", "Flutter", "iOS deployment", "Android deployment"],
+  "DevOps & Tools": ["Docker", "Git", "AWS", "Google Cloud", "CI/CD"],
+};
 
 export const experiences = [
   {
     title: "Senior Software Engineer",
     company: "The Access Group",
     period: "Mar 2025 - Present",
+    achievements: [
+      "Build and maintain full-stack systems using React + Vite, PHP Laravel, MySQL, and AWS, delivering scalable, cloud-native applications for The Access Group.",
+      "Collaborate closely with the Product Manager to translate business requirements into end-to-end technical solutions across the Access suite.",
+      "Mentor and guide engineers to optimize development workflows, boost team velocity, and uphold high standards of code quality.",
+      "Utilize AI-assisted development tools—including Devin, Claude, and GitHub Copilot—to accelerate delivery and minimize manual overhead.",
+      "Lead the integration of ChangeGPS into the Access ecosystem, evolving it from a standalone accounting tool into a modular, scalable platform for APAC markets.",
+      "Implement a microfrontend and microservices architecture, enabling independent deployments, modular scaling, and faster product iteration.",
+      "Spearhead the redevelopment of the ChangeGPS accounting suite, enhancing its ability to deliver compliance, advisory insights, and practice management capabilities on a modern, AI-augmented foundation.",
+      "Oversee the migration of CI/CD pipelines from Bitbucket to GitHub Actions, modernizing deployment automation and improving release efficiency across all environments.",
+      "Serve as interim technical lead during leadership transitions, ensuring delivery continuity, coordinating cross-functional efforts, and maintaining project momentum.",
+      "Act as Scrum Master, facilitating sprint planning, retrospectives, and capacity management while fostering agile practices that improve predictability and collaboration.",
+    ],
   },
   {
     title: "Frontend Developer",
@@ -121,6 +125,8 @@ export const projects = [
       "A modern platform for accountants, offering practice management and compliance tools tailored to firms of all sizes.",
     tech: ["Web Development", "React", "Laravel"],
     image: "/images/cgps.webp",
+    demoUrl: "https://changegps.com.au", // Example URL
+    repoUrl: "", // Private repo
   },
   {
     title: "in1bank",
@@ -128,6 +134,10 @@ export const projects = [
       "A digital-first Australian banking app with seamless in-app account creation and the same government guarantees as traditional banks.",
     tech: ["Mobile Development", "React Native", "Redux"],
     image: "/images/in1bank.webp",
+    demoUrl: "https://in1bank.com.au",
+    appStoreUrl: "https://apps.apple.com/au/app/in1bank/id1490235916",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=com.in1bank.mobile",
+    repoUrl: "",
   },
   {
     title: "KWSP i-Akaun",
@@ -135,6 +145,10 @@ export const projects = [
       "The refreshed KWSP i-Akaun app empowers users to monitor their retirement savings, manage transactions, and locate branches—all in one intuitive interface.",
     tech: ["Mobile Development", "React Native", "Redux"],
     image: "/images/kwsp.webp",
+    demoUrl: "https://www.kwsp.gov.my/en/member/i-akaun",
+    appStoreUrl: "https://apps.apple.com/my/app/kwsp-i-akaun/id1396563336",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=my.gov.kwsp.iakaun",
+    repoUrl: "",
   },
   {
     title: "MyPB",
@@ -142,6 +156,10 @@ export const projects = [
       "Public Bank’s next-gen mobile banking app, combining financial services and lifestyle features in a sleek, unified experience.",
     tech: ["Mobile Development", "React Native", "Redux", "iOS", "Android"],
     image: "/images/mypb.webp",
+    demoUrl: "https://www.pbebank.com",
+    appStoreUrl: "https://apps.apple.com/my/app/mypb-by-public-bank/id1527807753",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=com.publicbank.mypb",
+    repoUrl: "",
   },
   {
     title: "PBeXperience",
@@ -149,6 +167,10 @@ export const projects = [
       "An internal productivity app by Public Bank, delivering a secure suite of digital tools to enhance employee efficiency on the go.",
     tech: ["Mobile Development", "React Native", "Redux"],
     image: "/images/pbx.webp",
+    demoUrl: "",
+    appStoreUrl: "https://apps.apple.com/my/app/pbexperience/id1181226879",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=com.publicbank.pbe.mobile",
+    repoUrl: "",
   },
   {
     title: "n9.digital",
@@ -156,6 +178,10 @@ export const projects = [
       "The official digital gateway for Negeri Sembilan, enabling seamless interactions between citizens, businesses, and government agencies.",
     tech: ["Mobile Development", "React Native", "Expo"],
     image: "/images/n9.webp",
+    demoUrl: "https://n9.digital",
+    appStoreUrl: "https://apps.apple.com/my/app/n9-digital/id1481541604",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=my.n9.digital",
+    repoUrl: "",
   },
   {
     title: "invokeisdata",
@@ -163,6 +189,8 @@ export const projects = [
       "A sleek landing page for Invoke, showcasing the firm’s capabilities in data analytics, insights, and political intelligence.",
     tech: ["Web Development", "React", "Express"],
     image: "/images/invoke.jpg",
+    demoUrl: "https://invokeisdata.com",
+    repoUrl: "",
   },
 ];
 
