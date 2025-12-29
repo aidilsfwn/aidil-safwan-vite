@@ -1,32 +1,56 @@
-import { MapPin, Download } from "lucide-react";
+import { MapPin, Download, ChevronDown, ChevronUp } from "lucide-react";
+import { useState } from "react";
 
 import { profile } from "../../constants";
+import { SectionWrapper } from "../../components";
 
 export const Hero = () => {
+  const [isBioExpanded, setIsBioExpanded] = useState(false);
+
   return (
-    <section id="about" className="mb-12 md:mt-8">
-      <div className="max-w-4xl">
-        <h1 className="text-indigo-700 text-4xl md:text-5xl font-bold mb-4">
+    <SectionWrapper id="about" className="mb-12 md:mt-8">
+      <div className="max-w-3xl mx-auto text-center mt-20 md:mt-32">
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400 pb-2 tracking-tight">
           {profile.name}
         </h1>
-        <h2 className="text-2xl md:text-3xl text-gray-600 mb-4">
+        <h2 className="text-2xl md:text-3xl text-slate-400 mb-6 font-light">
           {profile.title}
         </h2>
-        <div className="flex items-center mb-6 text-gray-600">
+        <div className="flex items-center justify-center mb-8 text-slate-500">
           <MapPin size={18} className="mr-2" />
           <span>{profile.location}</span>
         </div>
-        {/* <p className="text-lg mb-6">{profile.bio}</p> */}
-        <div className="flex flex-wrap">
+        
+        <div className="max-w-2xl mx-auto mb-10">
+          <p 
+            className={`text-lg md:text-xl text-slate-400 leading-relaxed transition-all duration-500 overflow-hidden ${
+              isBioExpanded ? "max-h-[2000px] opacity-100" : "max-h-24 opacity-80"
+            }`}
+          >
+            {profile.bio}
+          </p>
+          <button
+            onClick={() => setIsBioExpanded(!isBioExpanded)}
+            className="mt-4 flex items-center justify-center mx-auto text-indigo-400 hover:text-indigo-300 text-sm font-medium transition-colors"
+          >
+            {isBioExpanded ? (
+              <>Show Less <ChevronUp size={16} className="ml-1" /></>
+            ) : (
+              <>Read More <ChevronDown size={16} className="ml-1" /></>
+            )}
+          </button>
+        </div>
+
+        <div className="flex justify-center">
           <a
             href={profile.resumeUrl}
-            className="bg-indigo-600 text-white px-6 py-2 rounded-full flex items-center hover:bg-indigo-700 transition-colors"
+            className="bg-indigo-600/90 hover:bg-indigo-600 text-white px-8 py-3 rounded-full flex items-center transition-all hover:scale-105 shadow-lg shadow-indigo-500/20"
           >
-            <Download size={18} className="mr-2" />
+            <Download size={20} className="mr-2" />
             Download Resume
           </a>
         </div>
       </div>
-    </section>
+    </SectionWrapper>
   );
 };
