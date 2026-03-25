@@ -61,8 +61,8 @@ export const SnapSection = ({ id, children, dark = false }: SnapSectionProps) =>
         </span>
       </div>
 
-      {/* Content slot */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      {/* Content slot — pb-24 reserves space for FloatingDock on mobile */}
+      <div className="flex-1 flex flex-col overflow-hidden pb-24 md:pb-0">
         {children}
       </div>
     </section>

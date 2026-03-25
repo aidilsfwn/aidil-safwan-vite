@@ -3,7 +3,7 @@ import { profile } from "../../constants";
 export const Contact = () => (
   <div className="flex-1 flex flex-col overflow-hidden">
     {/* Main content */}
-    <div className="flex-1 grid grid-cols-[1.1fr_1fr] gap-3 p-4 overflow-hidden">
+    <div className="flex-1 grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-3 p-4 overflow-y-auto md:overflow-hidden">
       {/* Left — typographic CTA */}
       <div className="flex flex-col justify-between">
         <div className="flex flex-col gap-3">
@@ -11,10 +11,10 @@ export const Contact = () => (
             ↗ Let's talk
           </p>
           <div>
-            <h2 className="font-display text-[40px] font-black text-cream leading-[0.88] tracking-[-2px]">
+            <h2 className="font-display text-[28px] md:text-[40px] font-black text-cream leading-[0.88] tracking-[-2px]">
               Got something
             </h2>
-            <h2 className="font-display text-[40px] font-black text-amber leading-[0.88] tracking-[-2px]">
+            <h2 className="font-display text-[28px] md:text-[40px] font-black text-amber leading-[0.88] tracking-[-2px]">
               in mind?
             </h2>
           </div>
