@@ -16,7 +16,7 @@ export const Education = () => {
   const foundCgpa = foundation.details.replace("CGPA: ", "");
 
   return (
-    <div className="flex-1 flex flex-col gap-3 p-4 overflow-hidden">
+    <div className="flex-1 flex flex-col gap-3 p-4 overflow-y-auto md:overflow-hidden">
       <div className="flex items-baseline justify-between flex-shrink-0 px-0.5">
         <h2 className="font-display text-[26px] font-black text-ink tracking-[-1px]">
           Education.
@@ -27,7 +27,7 @@ export const Education = () => {
       </div>
 
       <motion.div
-        className="flex-1 grid grid-cols-[1.4fr_1fr] grid-rows-[1.3fr_1fr] gap-3"
+        className="flex-1 grid grid-cols-1 md:grid-cols-[1.4fr_1fr] md:grid-rows-[1.3fr_1fr] gap-3"
         variants={stagger}
         initial="hidden"
         whileInView="visible"
@@ -103,7 +103,7 @@ export const Education = () => {
         {/* Pivot story — spans full bottom width */}
         <motion.div
           variants={card}
-          className="col-span-2 bg-amber/[0.07] border border-ink/[0.07] rounded-xl px-5 py-4 flex items-center gap-6"
+          className="md:col-span-2 bg-amber/[0.07] border border-ink/[0.07] rounded-xl px-5 py-4 flex items-center gap-6"
         >
           <div className="flex-1">
             <p className="font-sans text-[9px] font-semibold text-amber/60 tracking-[0.18em] uppercase mb-1.5">

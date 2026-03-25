@@ -12,7 +12,7 @@ const card: Variants = {
 
 export const Hero = () => (
   <motion.div
-    className="flex-1 grid grid-cols-[1.3fr_1fr] grid-rows-2 gap-3 p-4"
+    className="flex-1 grid grid-cols-1 md:grid-cols-[1.3fr_1fr] md:grid-rows-2 gap-3 p-4 overflow-y-auto md:overflow-hidden"
     variants={stagger}
     initial="hidden"
     whileInView="visible"
@@ -21,20 +21,20 @@ export const Hero = () => (
     {/* Name card — spans full height, dark */}
     <motion.div
       variants={card}
-      className="row-span-2 bg-ink rounded-xl p-5 flex flex-col justify-between relative overflow-hidden border border-amber/[0.08]"
+      className="md:row-span-2 bg-ink rounded-xl p-5 flex flex-col justify-between relative overflow-hidden border border-amber/[0.08]"
     >
       <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-amber/[0.06] blur-3xl pointer-events-none" />
       <div>
         <p className="font-sans text-[10px] font-semibold text-amber tracking-[0.2em] uppercase">
           ↗ Senior Software Engineer
         </p>
-        <h1 className="font-display text-[52px] font-black text-cream leading-[0.85] tracking-[-3px] mt-2">
+        <h1 className="font-display text-[40px] md:text-[52px] font-black text-cream leading-[0.85] tracking-[-3px] mt-2">
           {profile.name.split(" ")[0]}
           <br />
           {profile.name.split(" ")[1]}
         </h1>
         <div className="h-px w-[55%] bg-gradient-to-r from-amber to-transparent mt-3" />
-        <p className="font-sans text-[11px] text-cream/50 leading-relaxed mt-3 max-w-[200px]">
+        <p className="font-sans text-[11px] text-cream/50 leading-relaxed mt-3 md:max-w-[200px]">
           {profile.bio}
         </p>
       </div>

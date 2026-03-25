@@ -133,7 +133,7 @@ export const Projects = () => {
       </div>
 
       {/* Content grid */}
-      <div className="flex-1 grid grid-cols-[1.3fr_1fr] gap-3 overflow-hidden">
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-[1.3fr_1fr] gap-3 overflow-y-auto md:overflow-hidden">
         {/* Featured card with AnimatePresence */}
         <AnimatePresence mode="wait">
           {featured && (
@@ -143,7 +143,7 @@ export const Projects = () => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.97 }}
               transition={{ duration: 0.2 }}
-              className="overflow-hidden"
+              className="overflow-hidden min-h-[260px] md:min-h-0"
             >
               <FeaturedCard project={featured} />
             </motion.div>
@@ -151,7 +151,7 @@ export const Projects = () => {
         </AnimatePresence>
 
         {/* Project list */}
-        <div className="flex flex-col gap-2 overflow-y-auto scrollbar-thin">
+        <div className="flex flex-col gap-2 md:overflow-y-auto scrollbar-thin">
           <AnimatePresence mode="popLayout">
             {list.map((project, i) => (
               <motion.button

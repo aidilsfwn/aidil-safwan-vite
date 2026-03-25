@@ -14,7 +14,7 @@ export const Experience = () => {
   const [current, ...previous] = experiences;
 
   return (
-    <div className="flex-1 flex flex-col gap-3 p-4 overflow-hidden">
+    <div className="flex-1 flex flex-col gap-3 p-4 overflow-y-auto md:overflow-hidden">
       <div className="flex items-baseline justify-between flex-shrink-0 px-0.5">
         <h2 className="font-display text-[26px] font-black text-ink tracking-[-1px]">
           Work.
@@ -25,7 +25,7 @@ export const Experience = () => {
       </div>
 
       <motion.div
-        className="flex-1 grid grid-cols-[1.2fr_1fr] gap-3 overflow-hidden"
+        className="flex-1 grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-3 md:overflow-hidden"
         variants={stagger}
         initial="hidden"
         whileInView="visible"
@@ -85,12 +85,12 @@ export const Experience = () => {
         </motion.div>
 
         {/* Previous roles — stacked */}
-        <div className="flex flex-col gap-2.5 overflow-hidden">
+        <div className="flex flex-col gap-2.5">
           {previous.map((exp, i) => (
             <motion.div
               key={exp.company}
               variants={card}
-              className={`flex-1 rounded-xl px-4 py-3 flex flex-col gap-1 relative ${
+              className={`md:flex-1 rounded-xl px-4 py-3 flex flex-col gap-1 relative ${
                 i === 0
                   ? "bg-amber/[0.05] border border-amber/[0.12]"
                   : "bg-ink/[0.03] border border-ink/[0.07]"
