@@ -29,9 +29,9 @@ export const Hero = () => (
           ↗ Senior Software Engineer
         </p>
         <h1 className="font-display text-[52px] font-black text-cream leading-[0.85] tracking-[-3px] mt-2">
-          Aidil
+          {profile.name.split(" ")[0]}
           <br />
-          Safwan
+          {profile.name.split(" ")[1]}
         </h1>
         <div className="h-px w-[55%] bg-gradient-to-r from-amber to-transparent mt-3" />
         <p className="font-sans text-[11px] text-cream/50 leading-relaxed mt-3 max-w-[200px]">
@@ -101,7 +101,7 @@ export const Hero = () => (
           )}
         </div>
       </div>
-      <p className="font-sans text-[11px] text-ink/40">📍 Kuala Lumpur, MY</p>
+      <p className="font-sans text-[11px] text-ink/40">📍 {profile.location}</p>
     </motion.div>
   </motion.div>
 );
