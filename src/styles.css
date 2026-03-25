@@ -15,11 +15,3 @@
 html {
   background-color: #1a1208;
 }
-
-/* On mobile, shorten sections so the FloatingDock doesn't overlap content.
-   96px = dock pill height (~62px) + bottom-8 offset (32px) + 2px buffer. */
-@media (max-width: 767px) {
-  #scroll-container > section {
-    height: calc(100dvh - 96px);
-  }
-}
