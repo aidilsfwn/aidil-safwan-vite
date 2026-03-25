@@ -1,0 +1,164 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; }
+
+  .desktop-shell { border: 2px solid #c9852a; border-radius: 14px; overflow: hidden; height: 460px; display: flex; box-shadow: 0 0 0 6px rgba(201,133,42,0.08), 0 20px 60px rgba(0,0,0,0.4); }
+
+  .sidebar { width: 160px; flex-shrink: 0; background: #1a1208; display: flex; flex-direction: column; justify-content: space-between; padding: 24px 18px; border-right: 1px solid rgba(201,133,42,0.12); }
+  .sb-label { font-family: 'Space Grotesk', sans-serif; font-size: 7px; font-weight: 600; color: #c9852a; letter-spacing: 0.2em; text-transform: uppercase; }
+  .sb-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; color: #f5efe4; letter-spacing: -0.5px; line-height: 1.05; }
+  .sb-divider { height: 1px; background: linear-gradient(to right, rgba(201,133,42,0.4), transparent); margin: 16px 0; }
+  .sb-nav { display: flex; flex-direction: column; gap: 4px; }
+  .sb-item { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border-radius: 6px; }
+  .sb-item.active { background: rgba(201,133,42,0.1); }
+  .sb-dot { width: 4px; height: 4px; border-radius: 50%; background: #4a3a2a; flex-shrink: 0; }
+  .sb-item.active .sb-dot { background: #c9852a; box-shadow: 0 0 5px rgba(201,133,42,0.6); }
+  .sb-item-label { font-family: 'Space Grotesk', sans-serif; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: #6b5a40; }
+  .sb-item.active .sb-item-label { color: #f5efe4; font-weight: 600; }
+  .sb-bottom { display: flex; flex-direction: column; gap: 12px; }
+  .sb-avail { display: flex; align-items: center; gap: 6px; }
+  .sb-avail-dot { width: 6px; height: 6px; border-radius: 50%; background: #c9852a; }
+  .sb-avail-text { font-family: 'Space Grotesk', sans-serif; font-size: 8px; color: #8a7a6a; }
+  .sb-socials { display: flex; gap: 10px; }
+  .sb-social { font-family: 'Space Grotesk', sans-serif; font-size: 7.5px; font-weight: 600; color: #4a3a2a; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .main { flex: 1; background: #f5efe4; display: flex; flex-direction: column; overflow: hidden; }
+  .snap-bar { display: flex; align-items: center; gap: 6px; padding: 10px 18px; border-bottom: 1px solid rgba(26,18,8,0.07); flex-shrink: 0; }
+  .snap-pip { width: 5px; height: 5px; border-radius: 50%; background: rgba(26,18,8,0.1); }
+  .snap-pip.on { background: #c9852a; }
+  .snap-label { font-family: 'Space Grotesk', sans-serif; font-size: 7px; color: #a08060; letter-spacing: 0.14em; text-transform: uppercase; margin-left: 6px; }
+
+  .exp-section { flex: 1; padding: 14px; display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
+  .exp-header { display: flex; align-items: baseline; justify-content: space-between; padding: 0 2px; flex-shrink: 0; }
+  .exp-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; color: #1a1208; letter-spacing: -1px; }
+  .exp-years { font-family: 'Space Grotesk', sans-serif; font-size: 8px; color: #a08060; letter-spacing: 0.12em; text-transform: uppercase; }
+
+  /* 2-col grid: featured left, list right */
+  .exp-grid { flex: 1; display: grid; grid-template-columns: 1.2fr 1fr; gap: 10px; overflow: hidden; }
+
+  /* Featured current role — left column full height */
+  .card-featured { background: #1a1208; border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+  .card-featured::before { content: ''; position: absolute; bottom: -50px; right: -50px; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(201,133,42,0.06), transparent 70%); }
+  .cf-current { font-family: 'Space Grotesk', sans-serif; font-size: 7px; font-weight: 700; color: #c9852a; letter-spacing: 0.2em; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+  .cf-current-dot { width: 5px; height: 5px; border-radius: 50%; background: #c9852a; flex-shrink: 0; }
+  .cf-co { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; color: #f5efe4; letter-spacing: -0.5px; line-height: 1.1; margin: 6px 0 3px; }
+  .cf-title { font-family: 'Space Grotesk', sans-serif; font-size: 9px; color: #a08060; letter-spacing: 0.06em; }
+  .cf-period { font-family: 'Space Grotesk', sans-serif; font-size: 7.5px; font-weight: 600; color: #6b5a40; letter-spacing: 0.08em; margin-top: 2px; }
+  .cf-divider { height: 1px; background: rgba(201,133,42,0.15); margin: 12px 0; }
+  .cf-achievements { display: flex; flex-direction: column; gap: 7px; }
+  .cf-ach { display: flex; gap: 8px; align-items: flex-start; }
+  .cf-ach-dot { width: 3px; height: 3px; border-radius: 50%; background: #c9852a; flex-shrink: 0; margin-top: 4px; }
+  .cf-ach-text { font-family: 'Space Grotesk', sans-serif; font-size: 7.5px; color: #8a7a6a; line-height: 1.5; }
+  .cf-bottom { display: flex; align-items: flex-end; justify-content: space-between; }
+  .cf-stack { display: flex; gap: 4px; flex-wrap: wrap; }
+  .cf-tag { font-family: 'Space Grotesk', sans-serif; font-size: 6.5px; font-weight: 600; color: #c9852a; background: rgba(201,133,42,0.1); padding: 2px 7px; border-radius: 2px; }
+  .cf-year { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; color: rgba(201,133,42,0.12); line-height: 1; }
+
+  /* Right column — stacked previous roles */
+  .exp-list { display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+  .role-card { background: rgba(26,18,8,0.03); border: 1px solid rgba(26,18,8,0.07); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; flex: 1; position: relative; transition: border-color 0.2s; }
+  .role-card:hover { border-color: rgba(201,133,42,0.25); }
+  .role-card.amber-tint { background: rgba(201,133,42,0.05); border-color: rgba(201,133,42,0.12); }
+  .rc-num { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; color: rgba(201,133,42,0.1); line-height: 1; position: absolute; top: 10px; right: 12px; }
+  .rc-co { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; color: #1a1208; line-height: 1.1; }
+  .rc-title { font-family: 'Space Grotesk', sans-serif; font-size: 7.5px; color: #8a6a3a; }
+  .rc-period { font-family: 'Space Grotesk', sans-serif; font-size: 7px; font-weight: 600; color: #a08060; letter-spacing: 0.06em; margin-top: 2px; }
+  .rc-ach { font-family: 'Space Grotesk', sans-serif; font-size: 7px; color: #8a7a6a; line-height: 1.5; margin-top: 4px; border-top: 1px solid rgba(26,18,8,0.06); padding-top: 4px; }
+
+  .annotation { background: rgba(201,133,42,0.06); border-left: 2px solid #c9852a; padding: 8px 12px; border-radius: 0 6px 6px 0; font-size: 10px; color: #64748b; line-height: 1.5; margin-top: 14px; }
+  .annotation strong { color: #c9852a; }
+</style>
+
+<h2>Section 3 of 6 — Work Experience</h2>
+<p class="subtitle">Current role gets the full hero card. Previous 3 stack as scannable cards on the right — each with one distilled highlight, not a bullet wall.</p>
+
+<div class="desktop-shell">
+  <div class="sidebar">
+    <div>
+      <div class="sb-label">Portfolio</div>
+      <div class="sb-name">Aidil<br>Safwan</div>
+      <div class="sb-divider"></div>
+      <div class="sb-nav">
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">About</div></div>
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">Skills</div></div>
+        <div class="sb-item active"><div class="sb-dot"></div><div class="sb-item-label">Work</div></div>
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">Projects</div></div>
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">Contact</div></div>
+      </div>
+    </div>
+    <div class="sb-bottom">
+      <div class="sb-avail"><div class="sb-avail-dot"></div><div class="sb-avail-text">Open to work</div></div>
+      <div class="sb-socials"><span class="sb-social">GH</span><span class="sb-social">LI</span><span class="sb-social">CV</span></div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="snap-bar">
+      <div class="snap-pip"></div><div class="snap-pip"></div><div class="snap-pip on"></div><div class="snap-pip"></div><div class="snap-pip"></div>
+      <span class="snap-label">03 — Work</span>
+    </div>
+    <div class="exp-section">
+      <div class="exp-header">
+        <div class="exp-title">Experience.</div>
+        <div class="exp-years">6 years · 4 companies</div>
+      </div>
+      <div class="exp-grid">
+
+        <!-- Featured current role -->
+        <div class="card-featured">
+          <div>
+            <div class="cf-current"><div class="cf-current-dot"></div>Current</div>
+            <div class="cf-co">The Access<br>Group</div>
+            <div class="cf-title">Senior Software Engineer</div>
+            <div class="cf-period">Mar 2025 – Present</div>
+            <div class="cf-divider"></div>
+            <div class="cf-achievements">
+              <div class="cf-ach"><div class="cf-ach-dot"></div><div class="cf-ach-text">Leading ChangeGPS integration into the Access ecosystem — evolving it into a modular APAC platform</div></div>
+              <div class="cf-ach"><div class="cf-ach-dot"></div><div class="cf-ach-text">Architecting microfrontend + microservices system for independent deployments and faster iteration</div></div>
+              <div class="cf-ach"><div class="cf-ach-dot"></div><div class="cf-ach-text">Migrated CI/CD from Bitbucket to GitHub Actions; serving as Scrum Master and interim tech lead</div></div>
+            </div>
+          </div>
+          <div class="cf-bottom">
+            <div class="cf-stack">
+              <div class="cf-tag">React</div>
+              <div class="cf-tag">Laravel</div>
+              <div class="cf-tag">AWS</div>
+              <div class="cf-tag">Microservices</div>
+            </div>
+            <div class="cf-year">25</div>
+          </div>
+        </div>
+
+        <!-- Stacked previous roles -->
+        <div class="exp-list">
+          <div class="role-card amber-tint">
+            <div class="rc-num">02</div>
+            <div class="rc-co">Aleph-Labs</div>
+            <div class="rc-title">Frontend Developer</div>
+            <div class="rc-period">May 2022 – Feb 2025</div>
+            <div class="rc-ach">Led mobile team on large-scale banking apps; micro frontend migration for payment modules; shipped to Australian digital bank.</div>
+          </div>
+          <div class="role-card">
+            <div class="rc-num">03</div>
+            <div class="rc-co">Public Bank</div>
+            <div class="rc-title">Analyst Programmer</div>
+            <div class="rc-period">Oct 2020 – May 2022</div>
+            <div class="rc-ach">Led full HRMS redesign & refactor; built eKYC + registration modules for MyPB banking app.</div>
+          </div>
+          <div class="role-card">
+            <div class="rc-num">04</div>
+            <div class="rc-co">INVOKE</div>
+            <div class="rc-title">Software Engineer</div>
+            <div class="rc-period">Feb 2020 – Oct 2020</div>
+            <div class="rc-ach">Intern-to-permanent; built company site, state-citizen mobile app, and AI-powered job portal.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="annotation">
+  <strong>Content optimisation:</strong> Each previous role distilled to one punchy line — the most impressive thing, not a full bullet list. Full details live in your resume. Current role shows 3 achievements since it's the most relevant. Education is folded into the nav — does it need its own snap section, or merge it into a small card somewhere?
+</div>

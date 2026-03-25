@@ -1,6 +1,32 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --color-cream: #f5efe4;
+  --color-ink: #1a1208;
+  --color-amber: #c9852a;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #1a1208;
+}
+
+/* Desktop: snap scroll between sections */
+@media (min-width: 768px) {
+  #scroll-container {
+    scroll-snap-type: y mandatory;
+  }
+}
+
+/* Mobile: free vertical scroll, sections fill screen minus bottom nav */
+@media (max-width: 767px) {
+  #scroll-container > section {
+    height: auto !important;
+    min-height: calc(100dvh - 56px);
+  }
 }

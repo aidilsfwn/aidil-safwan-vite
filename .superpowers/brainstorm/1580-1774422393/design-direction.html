@@ -1,0 +1,135 @@
+<style>
+  .directions { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  .dir-card { border: 2px solid #2a2a3a; border-radius: 12px; overflow: hidden; cursor: pointer; transition: border-color 0.2s, transform 0.2s; }
+  .dir-card:hover { border-color: #6366f1; transform: translateY(-2px); }
+  .dir-card.selected { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.3); }
+  .dir-preview { height: 200px; position: relative; overflow: hidden; }
+  .dir-info { padding: 14px 16px; }
+  .dir-info h3 { margin: 0 0 4px; font-size: 15px; color: #e2e8f0; }
+  .dir-info p { margin: 0; font-size: 12px; color: #94a3b8; line-height: 1.5; }
+  .dir-tag { display: inline-block; margin-top: 8px; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; }
+
+  /* Direction A - Editorial */
+  .preview-editorial { background: #f8f5f0; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; }
+  .preview-editorial .big-name { font-size: 42px; font-weight: 900; color: #0a0a0a; line-height: 0.9; letter-spacing: -2px; }
+  .preview-editorial .role-pill { display: inline-block; background: #0a0a0a; color: #f8f5f0; font-size: 10px; letter-spacing: 0.12em; padding: 4px 10px; border-radius: 999px; margin-bottom: 8px; }
+  .preview-editorial .stripe { position: absolute; top: 0; right: 0; width: 40%; height: 100%; background: #e63946; }
+  .preview-editorial .accent-dot { width: 8px; height: 8px; border-radius: 50%; background: #e63946; display: inline-block; margin-right: 6px; }
+
+  /* Direction B - Interactive/Experimental */
+  .preview-experimental { background: #050510; display: flex; align-items: center; justify-content: center; }
+  .exp-grid { width: 100%; height: 100%; position: relative; background-image: linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.08) 1px, transparent 1px); background-size: 30px 30px; }
+  .exp-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .exp-glow { font-size: 36px; font-weight: 800; background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1px; }
+  .exp-ring { width: 120px; height: 120px; border-radius: 50%; border: 1px solid rgba(99,102,241,0.3); position: absolute; animation: pulse-ring 2s ease-in-out infinite; }
+  .exp-ring2 { width: 160px; height: 160px; border-radius: 50%; border: 1px solid rgba(99,102,241,0.15); position: absolute; animation: pulse-ring 2s ease-in-out infinite 0.5s; }
+  @keyframes pulse-ring { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.5; } }
+  .exp-cursor { position: absolute; top: 30px; right: 40px; font-size: 10px; color: rgba(99,102,241,0.6); font-family: monospace; }
+
+  /* Direction C - Brutalist Bold */
+  .preview-brutalist { background: #0a0a0a; display: flex; flex-direction: column; padding: 16px; gap: 8px; border-left: 6px solid #facc15; }
+  .brut-line { height: 3px; background: #facc15; }
+  .brut-name { font-size: 38px; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -1px; }
+  .brut-tag { font-size: 11px; font-weight: 700; color: #facc15; letter-spacing: 0.15em; text-transform: uppercase; }
+  .brut-blocks { display: flex; gap: 6px; margin-top: 4px; }
+  .brut-block { padding: 4px 10px; background: #fff; color: #0a0a0a; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; }
+  .brut-block.inv { background: transparent; color: #fff; border: 2px solid #fff; }
+
+  /* Direction D - Refined Studio */
+  .preview-studio { background: #0c0c14; display: flex; padding: 20px; gap: 16px; }
+  .studio-left { width: 40%; display: flex; flex-direction: column; justify-content: space-between; }
+  .studio-right { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .studio-name { font-size: 26px; font-weight: 300; color: #e2e8f0; letter-spacing: -0.5px; line-height: 1.1; }
+  .studio-name strong { font-weight: 700; display: block; }
+  .studio-line { height: 1px; background: linear-gradient(to right, #6366f1, transparent); margin: 8px 0; }
+  .studio-nav { font-size: 9px; color: #4a5568; letter-spacing: 0.12em; text-transform: uppercase; }
+  .studio-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px 12px; }
+  .studio-card h4 { font-size: 11px; font-weight: 600; color: #a5b4fc; margin: 0 0 2px; }
+  .studio-card p { font-size: 9px; color: #64748b; margin: 0; }
+  .studio-dot { width: 6px; height: 6px; border-radius: 50%; background: #6366f1; }
+</style>
+
+<h2>What design direction speaks to you?</h2>
+<p class="subtitle">These are mood directions, not final designs — choose the one that feels most <em>you</em>.</p>
+
+<div class="directions">
+  <div class="dir-card" data-choice="editorial" onclick="toggleSelect(this)">
+    <div class="dir-preview">
+      <div class="preview-editorial">
+        <div class="stripe"></div>
+        <span class="role-pill">↗ FRONTEND ENGINEER</span>
+        <div class="big-name"><span class="accent-dot"></span>AIDIL<br>SAFWAN</div>
+      </div>
+    </div>
+    <div class="dir-info">
+      <h3>A — Editorial / Magazine</h3>
+      <p>Bold typography as the hero. Unconventional layout. High contrast. Like a design magazine built by a developer who actually cares about craft.</p>
+      <span class="dir-tag" style="background: rgba(230,57,70,0.15); color: #e63946;">Bold · Typographic · Distinctive</span>
+    </div>
+  </div>
+
+  <div class="dir-card" data-choice="experimental" onclick="toggleSelect(this)">
+    <div class="dir-preview">
+      <div class="preview-experimental">
+        <div class="exp-grid">
+          <div class="exp-center">
+            <div class="exp-ring"></div>
+            <div class="exp-ring2"></div>
+            <div class="exp-glow">AIDIL</div>
+            <div class="exp-cursor">▸ hover to interact</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dir-info">
+      <h3>B — Interactive / Experimental</h3>
+      <p>The portfolio IS the showcase. Custom cursor, scroll-driven animations, WebGL or canvas effects. Screams "I live and breathe frontend."</p>
+      <span class="dir-tag" style="background: rgba(99,102,241,0.15); color: #a5b4fc;">Motion · Immersive · Impressive</span>
+    </div>
+  </div>
+
+  <div class="dir-card" data-choice="brutalist" onclick="toggleSelect(this)">
+    <div class="dir-preview">
+      <div class="preview-brutalist">
+        <div class="brut-tag">Full-stack · Frontend-first</div>
+        <div class="brut-name">AIDIL<br>SAFWAN</div>
+        <div class="brut-line"></div>
+        <div class="brut-blocks">
+          <div class="brut-block">React</div>
+          <div class="brut-block">TypeScript</div>
+          <div class="brut-block inv">+ more</div>
+        </div>
+      </div>
+    </div>
+    <div class="dir-info">
+      <h3>C — Brutalist / Bold Personality</h3>
+      <p>Raw confidence. Strong grid, visible structure, no apologies. Not trying to look like everyone else. Unforgettable at a glance.</p>
+      <span class="dir-tag" style="background: rgba(250,204,21,0.1); color: #facc15;">Raw · Confident · Memorable</span>
+    </div>
+  </div>
+
+  <div class="dir-card" data-choice="studio" onclick="toggleSelect(this)">
+    <div class="dir-preview">
+      <div class="preview-studio">
+        <div class="studio-left">
+          <div>
+            <div class="studio-name"><strong>Aidil</strong>Safwan</div>
+            <div class="studio-line"></div>
+            <div class="studio-nav">Senior Engineer · KL</div>
+          </div>
+          <div class="studio-dot"></div>
+        </div>
+        <div class="studio-right">
+          <div class="studio-card"><h4>The Access Group</h4><p>Senior Software Engineer · 2025–now</p></div>
+          <div class="studio-card"><h4>Aleph-Labs</h4><p>Frontend Developer · 2023–2025</p></div>
+          <div class="studio-card"><h4>Public Bank</h4><p>Analyst Programmer · 2020–2023</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="dir-info">
+      <h3>D — Refined / Studio-quality</h3>
+      <p>Premium. Feels like a design agency portfolio but built by an engineer. Tight grid, micro-interactions, restrained palette, sophisticated typography.</p>
+      <span class="dir-tag" style="background: rgba(99,102,241,0.1); color: #818cf8;">Clean · Premium · Polished</span>
+    </div>
+  </div>
+</div>

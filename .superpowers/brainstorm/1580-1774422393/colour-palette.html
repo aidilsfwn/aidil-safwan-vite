@@ -1,0 +1,202 @@
+<style>
+  .palettes { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
+  .pal-card { border: 2px solid #1e1e2e; border-radius: 12px; overflow: hidden; cursor: pointer; transition: border-color 0.2s, transform 0.15s; display: flex; }
+  .pal-card:hover { border-color: #555; transform: translateY(-1px); }
+  .pal-card.selected { border-color: #fff; box-shadow: 0 0 0 3px rgba(255,255,255,0.15); }
+  .pal-preview { width: 340px; flex-shrink: 0; height: 140px; position: relative; overflow: hidden; }
+  .pal-info { padding: 16px 20px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+  .pal-info h3 { margin: 0; font-size: 14px; color: #e2e8f0; }
+  .pal-info p { margin: 0; font-size: 12px; color: #64748b; line-height: 1.5; }
+  .pal-swatches { display: flex; gap: 6px; margin-top: 8px; }
+  .swatch { width: 20px; height: 20px; border-radius: 50%; }
+  .pal-vibe { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; margin-top: 4px; }
+
+  /* Palette A: Warm Cream + Charcoal + Amber */
+  .p-warm { background: #f5efe4; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; }
+  .p-warm-name { font-size: 28px; font-weight: 900; color: #1a1208; letter-spacing: -1px; line-height: 1; }
+  .p-warm-rule { height: 2px; background: #c9852a; margin: 8px 0; width: 60%; }
+  .p-warm-tag { font-size: 9px; font-weight: 700; color: #c9852a; letter-spacing: 0.15em; text-transform: uppercase; }
+  .p-warm-sub { font-size: 10px; color: #6b5a40; }
+  .p-warm-btn { display: inline-block; background: #1a1208; color: #f5efe4; font-size: 9px; font-weight: 700; padding: 5px 12px; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; align-self: flex-start; }
+
+  /* Palette B: Electric Lime + Near-Black */
+  .p-lime { background: #0b0b0b; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; }
+  .p-lime-tag { font-size: 9px; font-weight: 700; color: #c6f135; letter-spacing: 0.15em; text-transform: uppercase; }
+  .p-lime-name { font-size: 28px; font-weight: 900; color: #f0f0f0; letter-spacing: -1px; line-height: 1; }
+  .p-lime-name em { color: #c6f135; font-style: normal; }
+  .p-lime-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .p-lime-pill { font-size: 9px; font-weight: 600; border: 1px solid #c6f135; color: #c6f135; padding: 2px 8px; border-radius: 2px; }
+  .p-lime-pill.filled { background: #c6f135; color: #0b0b0b; }
+  .p-lime-dot { width: 6px; height: 6px; border-radius: 50%; background: #c6f135; display: inline-block; margin-right: 4px; }
+
+  /* Palette C: Rust + Deep Blue */
+  .p-rust { background: #090c18; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; }
+  .p-rust-name { font-size: 28px; font-weight: 300; color: #eef1f7; letter-spacing: -0.5px; line-height: 1.1; }
+  .p-rust-name strong { font-weight: 800; color: #e85d2a; }
+  .p-rust-role { font-size: 9px; color: #8899b5; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px; }
+  .p-rust-cards { display: flex; gap: 6px; }
+  .p-rust-card { flex: 1; background: rgba(232,93,42,0.08); border: 1px solid rgba(232,93,42,0.2); border-radius: 6px; padding: 6px 8px; }
+  .p-rust-card h5 { font-size: 9px; font-weight: 700; color: #e85d2a; margin: 0 0 1px; }
+  .p-rust-card p { font-size: 8px; color: #8899b5; margin: 0; }
+
+  /* Palette D: Monochrome + Fluorescent Green */
+  .p-mono { background: #f2f2f2; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; }
+  .p-mono-header { display: flex; justify-content: space-between; align-items: flex-start; }
+  .p-mono-name { font-size: 28px; font-weight: 900; color: #0a0a0a; letter-spacing: -1px; line-height: 1; }
+  .p-mono-accent { font-size: 9px; font-weight: 700; background: #0a0a0a; color: #f2f2f2; padding: 3px 8px; letter-spacing: 0.1em; align-self: flex-start; }
+  .p-mono-rule { height: 2px; background: #0a0a0a; }
+  .p-mono-row { display: flex; gap: 8px; align-items: center; }
+  .p-mono-tag { font-size: 9px; font-weight: 700; background: #00e676; color: #0a0a0a; padding: 3px 8px; }
+  .p-mono-sub { font-size: 9px; color: #555; }
+
+  /* Palette E: Copper/Bronze + Deep Charcoal */
+  .p-copper { background: #111010; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; }
+  .p-copper-top { display: flex; align-items: baseline; gap: 10px; }
+  .p-copper-name { font-size: 28px; font-weight: 200; color: #ede8e0; letter-spacing: 0.05em; }
+  .p-copper-dot { width: 8px; height: 8px; background: #b87333; border-radius: 50%; flex-shrink: 0; margin-bottom: 4px; }
+  .p-copper-role { font-size: 9px; color: #b87333; letter-spacing: 0.2em; text-transform: uppercase; }
+  .p-copper-line { height: 1px; background: linear-gradient(to right, #b87333, transparent); }
+  .p-copper-items { display: flex; gap: 12px; }
+  .p-copper-item { font-size: 9px; color: #7a6a58; }
+  .p-copper-item span { display: block; color: #ede8e0; font-weight: 600; font-size: 10px; }
+</style>
+
+<h2>Which colour direction feels right?</h2>
+<p class="subtitle">All non-purple, non-indigo — actually creative palettes for someone who gives a damn about design.</p>
+
+<div class="palettes">
+
+  <div class="pal-card" data-choice="warm-cream" onclick="toggleSelect(this)">
+    <div class="pal-preview">
+      <div class="p-warm">
+        <div>
+          <div class="p-warm-tag">↗ Senior Software Engineer</div>
+          <div class="p-warm-name">Aidil<br>Safwan</div>
+          <div class="p-warm-rule"></div>
+          <div class="p-warm-sub">Full-stack · Frontend-first · KL</div>
+        </div>
+        <div class="p-warm-btn">View work ↗</div>
+      </div>
+    </div>
+    <div class="pal-info">
+      <h3>A — Warm Cream + Amber</h3>
+      <p>Light mode editorial. Cream/off-white bg, near-black type, amber/gold accent. Rare in dev portfolios — warm and human. Feels like a design studio that codes.</p>
+      <div class="pal-swatches">
+        <div class="swatch" style="background: #f5efe4; border: 1px solid #ddd;"></div>
+        <div class="swatch" style="background: #1a1208;"></div>
+        <div class="swatch" style="background: #c9852a;"></div>
+        <div class="swatch" style="background: #8a6a3a;"></div>
+      </div>
+      <div class="pal-vibe" style="color: #c9852a;">Warm · Editorial · Human · Rare</div>
+    </div>
+  </div>
+
+  <div class="pal-card" data-choice="electric-lime" onclick="toggleSelect(this)">
+    <div class="pal-preview">
+      <div class="p-lime">
+        <div class="p-lime-tag"><span class="p-lime-dot"></span>Full-stack Engineer</div>
+        <div class="p-lime-name">Aidil<br><em>Safwan</em></div>
+        <div class="p-lime-pills">
+          <div class="p-lime-pill filled">React</div>
+          <div class="p-lime-pill">TypeScript</div>
+          <div class="p-lime-pill">React Native</div>
+        </div>
+      </div>
+    </div>
+    <div class="pal-info">
+      <h3>B — Near-Black + Electric Lime</h3>
+      <p>Dark, sharp, and modern. The lime/chartreuse accent is bold without being neon-tryhard. Very 2025 creative dev energy — used by the best portfolio sites right now.</p>
+      <div class="pal-swatches">
+        <div class="swatch" style="background: #0b0b0b;"></div>
+        <div class="swatch" style="background: #f0f0f0;"></div>
+        <div class="swatch" style="background: #c6f135;"></div>
+        <div class="swatch" style="background: #1a1a1a;"></div>
+      </div>
+      <div class="pal-vibe" style="color: #c6f135;">Sharp · Modern · High-energy · Current</div>
+    </div>
+  </div>
+
+  <div class="pal-card" data-choice="rust-navy" onclick="toggleSelect(this)">
+    <div class="pal-preview">
+      <div class="p-rust">
+        <div>
+          <div class="p-rust-name"><strong>Aidil</strong> Safwan</div>
+          <div class="p-rust-role">Senior Software Engineer · KL, MY</div>
+        </div>
+        <div class="p-rust-cards">
+          <div class="p-rust-card"><h5>React</h5><p>Frontend</p></div>
+          <div class="p-rust-card"><h5>RN</h5><p>Mobile</p></div>
+          <div class="p-rust-card"><h5>Laravel</h5><p>Backend</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="pal-info">
+      <h3>C — Deep Navy + Rust/Copper</h3>
+      <p>Deep midnight blue background with a burnt-orange/rust accent. Warm meets cold. Sophisticated without trying too hard. Stands out from the dark-with-cyan crowd.</p>
+      <div class="pal-swatches">
+        <div class="swatch" style="background: #090c18;"></div>
+        <div class="swatch" style="background: #eef1f7;"></div>
+        <div class="swatch" style="background: #e85d2a;"></div>
+        <div class="swatch" style="background: #8899b5;"></div>
+      </div>
+      <div class="pal-vibe" style="color: #e85d2a;">Warm-meets-cold · Distinctive · Refined</div>
+    </div>
+  </div>
+
+  <div class="pal-card" data-choice="mono-flash" onclick="toggleSelect(this)">
+    <div class="pal-preview">
+      <div class="p-mono">
+        <div class="p-mono-header">
+          <div class="p-mono-name">Aidil<br>Safwan</div>
+          <div class="p-mono-accent">↗ KL</div>
+        </div>
+        <div class="p-mono-rule"></div>
+        <div class="p-mono-row">
+          <div class="p-mono-tag">Available for opportunities</div>
+          <div class="p-mono-sub">React · TypeScript · RN</div>
+        </div>
+      </div>
+    </div>
+    <div class="pal-info">
+      <h3>D — Monochrome + Flash Green</h3>
+      <p>Light-mode, pure black/white with a single fluorescent green accent used sparingly. Maximum contrast, zero noise. Like a newspaper layout that suddenly blinks at you.</p>
+      <div class="pal-swatches">
+        <div class="swatch" style="background: #f2f2f2; border: 1px solid #ddd;"></div>
+        <div class="swatch" style="background: #0a0a0a;"></div>
+        <div class="swatch" style="background: #00e676;"></div>
+        <div class="swatch" style="background: #555;"></div>
+      </div>
+      <div class="pal-vibe" style="color: #00b050;">Bold · High-contrast · Typographic · Striking</div>
+    </div>
+  </div>
+
+  <div class="pal-card" data-choice="copper-dark" onclick="toggleSelect(this)">
+    <div class="pal-preview">
+      <div class="p-copper">
+        <div class="p-copper-top">
+          <div class="p-copper-name">AIDIL SAFWAN</div>
+          <div class="p-copper-dot"></div>
+        </div>
+        <div class="p-copper-role">Senior Software Engineer</div>
+        <div class="p-copper-line"></div>
+        <div class="p-copper-items">
+          <div class="p-copper-item"><span>2025</span>The Access Group</div>
+          <div class="p-copper-item"><span>2023</span>Aleph-Labs</div>
+          <div class="p-copper-item"><span>2020</span>Public Bank</div>
+        </div>
+      </div>
+    </div>
+    <div class="pal-info">
+      <h3>E — Dark + Copper/Bronze</h3>
+      <p>Near-black bg with a warm copper/bronze accent and off-white type. Luxurious and timeless — feels like premium hardware or a high-end watch brand. Very uncommon in dev portfolios.</p>
+      <div class="pal-swatches">
+        <div class="swatch" style="background: #111010;"></div>
+        <div class="swatch" style="background: #ede8e0;"></div>
+        <div class="swatch" style="background: #b87333;"></div>
+        <div class="swatch" style="background: #7a6a58;"></div>
+      </div>
+      <div class="pal-vibe" style="color: #b87333;">Luxurious · Timeless · Premium · Rare</div>
+    </div>
+  </div>
+
+</div>
