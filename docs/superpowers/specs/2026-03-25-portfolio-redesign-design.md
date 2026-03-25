@@ -212,7 +212,7 @@ grid-template-rows: 1fr 1fr
 **Resume button:** Amber-bordered text button (`border border-amber text-amber text-xs font-semibold px-3 py-1.5 rounded`) links to `/AidilSafwanResume.pdf`.
 
 **Bio (optimised):**
-> "Full-stack engineer who actually gives a damn about the frontend. Building digital products across web and mobile."
+> "Six years building things people actually use. Senior engineer who happens to care about pixels — frontend by instinct, full-stack by necessity. Based in KL, across web and mobile."
 
 **Core Stack pills:** React, TypeScript, JavaScript, Redux, Next.js
 
@@ -264,10 +264,13 @@ grid-template-rows: 1fr 1fr 1fr   (right column only)
 ────────────────────────────────
 ```
 
-**Current role featured achievements (3 of 10 — most impactful):**
-1. Leading ChangeGPS integration into the Access ecosystem — evolving into a modular APAC platform
-2. Architecting microfrontend + microservices system enabling independent deployments
-3. Migrated CI/CD from Bitbucket to GitHub Actions; serving as Scrum Master and interim tech lead
+**Current role featured achievements (3 — most impactful):**
+1. Inherited a vendor-built Laravel + React polyrepo mess; kept delivery running solo through a leadership gap (lead failed probation, one team member on 6-month maternity leave) until new lead onboarded
+2. Singlehandedly migrated all CI/CD pipelines from Bitbucket to GitHub Actions — The Access Group had GitHub enterprise, not Bitbucket
+3. Now rebuilding ChangeGPS from scratch in React + .NET on Azure, integrated into Access Evo (The Access Group's unified SSO platform), monorepo architecture
+
+**Context note for hero card description:**
+ChangeGPS is a practice management and compliance platform for accountants, originally running on vanilla PHP + JS. The revamp (Laravel + React polyrepo) was taken over from Philippine vendors post-acquisition and was ultimately scrapped after a new lead joined. The current greenfield rebuild uses React + .NET + Azure within the Access Evo ecosystem.
 
 **Previous roles (one-line highlights):**
 
@@ -367,7 +370,7 @@ export interface Project {
 | Elak Hujan | Rain avoidance PWA for Malaysian scooter commuters — ranks best office days and departure times based on MET Malaysia forecasts. | React 19, TypeScript, TanStack Query v5, Zustand, Deno Edge Functions | demoUrl, repoUrl | — |
 | Dah Qada | Islamic missed prayer (qada) tracker. All data stored locally via IndexedDB — fully private, no server. | React, TypeScript, Dexie.js, JAKIM API | repoUrl | — |
 | 9mo | Pregnancy tracker PWA — kicks, weight, contraction timing, live dashboard. | React 19, TypeScript, Firebase Firestore, Recharts, shadcn/ui | repoUrl | — |
-| af-1-anniversary | Personal anniversary web app. | React 19, TypeScript, Tailwind CSS | repoUrl | — |
+| af-1-anniversary | A mobile-optimised digital anniversary card — background music, animated layout, and PDF export. Built for a person, not a portfolio. | React 19, TypeScript, Tailwind CSS | repoUrl | — |
 | COVID-19 Malaysia Dashboard | Real-time pandemic statistics dashboard for Malaysia — automated data entry via Google Sheets with live visualisations. | Google Data Studio, Google Sheets | — | `isArchived: true`, `archivedNote: "Referenced by a government official during the pandemic. Taken down post-pandemic."` |
 | This Portfolio | The site you're looking at. Built to showcase frontend craft, not just list it. | React 19, Vite, Tailwind CSS v4, Framer Motion | repoUrl | — |
 
