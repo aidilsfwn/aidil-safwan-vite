@@ -72,7 +72,7 @@ const FeaturedCard = ({ project }: { project: Project }) => (
         <p className="font-sans text-[11px] text-cream/50 leading-relaxed mt-1.5">
           {project.description}
         </p>
-        {project.isArchived && (
+        {project.isArchived && project.archivedNote && (
           <p className="font-sans text-[10px] text-amber/60 mt-1 italic">
             {project.archivedNote}
           </p>
@@ -119,6 +119,7 @@ export const Projects = () => {
             <button
               key={t}
               onClick={() => handleTabChange(t)}
+              aria-pressed={tab === t}
               className={`font-sans text-[9px] font-semibold tracking-[0.08em] px-3 py-1.5 rounded-[4px] transition-all capitalize ${
                 tab === t
                   ? "bg-ink text-cream"
@@ -192,7 +193,7 @@ export const Projects = () => {
                     ))}
                   </div>
                 </div>
-                <span className="text-amber opacity-0 group-hover:opacity-100 transition-opacity text-sm flex-shrink-0">
+                <span aria-hidden="true" className="text-amber opacity-0 group-hover:opacity-100 transition-opacity text-sm flex-shrink-0">
                   ↗
                 </span>
               </motion.button>
