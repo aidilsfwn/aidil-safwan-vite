@@ -7,29 +7,40 @@ type Tab = "professional" | "personal";
 const FeaturedCard = ({ project }: { project: Project }) => (
   <div className="bg-ink rounded-xl overflow-hidden flex flex-col h-full">
     {/* Image area */}
-    <div className="h-[110px] bg-amber/[0.08] flex items-center justify-center relative flex-shrink-0 overflow-hidden">
+    <div className="h-[110px] bg-ink flex items-center justify-center relative flex-shrink-0 overflow-hidden">
       {project.image ? (
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).style.display = "none";
-          }}
-        />
+        <>
+          {/* Blurred backdrop — same image, scaled up, blurred, dimmed */}
+          <img
+            src={project.image}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover scale-150 blur-2xl opacity-30"
+          />
+          {/* Foreground image — contained, natural proportions */}
+          <img
+            src={project.image}
+            alt={project.title}
+            className="relative z-10 h-[72px] w-[72px] object-cover rounded-[22%] drop-shadow-xl"
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).closest(".image-area")
+                ?.classList.add("no-image");
+            }}
+          />
+        </>
       ) : (
         <span className="text-5xl opacity-20">📁</span>
       )}
 
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink pointer-events-none z-20" />
 
       {/* Category badge */}
-      <span className="absolute top-2.5 left-2.5 font-sans text-[9px] font-bold text-ink bg-amber px-2 py-0.5 rounded-[3px] tracking-[0.08em] uppercase">
+      <span className="absolute top-2.5 left-2.5 z-30 font-sans text-[9px] font-bold text-ink bg-amber px-2 py-0.5 rounded-[3px] tracking-[0.08em] uppercase">
         {project.tech[0]}
       </span>
 
       {/* Links */}
-      <div className="absolute top-2.5 right-2.5 flex gap-1.5">
+      <div className="absolute top-2.5 right-2.5 z-30 flex gap-1.5">
         {project.demoUrl && (
           <a
             href={project.demoUrl}

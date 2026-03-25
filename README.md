@@ -1,55 +1,43 @@
-# aidil-safwan-vite
+# aidilsfwn.dev
 
-A simple, responsive single-page portfolio website built with React, Vite, and TailwindCSS.
+Personal portfolio of Aidil Safwan — Senior Software Engineer. Built with a bento-grid layout, dark/cream theme, and smooth snap-scroll navigation.
 
-## 🛠️ Technologies
+Live at **[aidilsfwn.dev](https://aidilsfwn.dev)**
 
-- **React 19** - UI library
-- **Vite** - Build tool and development server
-- **TailwindCSS** - Utility-first CSS framework
-- **Lucide Icons** - Icon library
+## Tech Stack
 
-## 📦 Installation
+- **React 19** + **TypeScript**
+- **Vite** — build tool and dev server
+- **Tailwind CSS v4** — utility-first styling with `@theme` design tokens
+- **Framer Motion** — animations and transitions
+- **Lucide Icons** — icon library
 
-1. Clone the repository:
+## Features
+
+- Bento-grid section layouts (Hero, Skills, Experience, Education, Projects, Contact)
+- Snap-scroll navigation on desktop; free-scroll with bottom tab bar on mobile
+- Professional / Personal project tabs with animated featured card
+- Dark `ink` / warm `cream` / `amber` accent colour system
+
+## Getting Started
 
 ```bash
 git clone https://github.com/aidilsfwn/aidil-safwan-vite.git
 cd aidil-safwan-vite
-```
-
-2. Install dependencies:
-
-```bash
 yarn install
-```
-
-3. Start the development server:
-
-```bash
 yarn dev
 ```
 
-4. Open your browser and visit `http://localhost:5173` to see your portfolio.
+Open `http://localhost:5173`.
 
-## 🚀 Building for Production
+## Build
 
 ```bash
 yarn build
 ```
 
-The production build will be available in the `dist` directory.
+Output goes to `dist/`.
 
-## 📝 License
+## Author
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👤 Author
-
-Aidil Safwan - [GitHub](https://github.com/aidilsfwn) - [LinkedIn](https://linkedin.com/in/aidilsafwan)
-
-## 🙏 Acknowledgments
-
-- [React Documentation](https://react.dev)
-- [Vite Documentation](https://vitejs.dev/guide/)
-- [TailwindCSS Documentation](https://tailwindcss.com/docs)
+Aidil Safwan — [aidilsfwn.dev](https://aidilsfwn.dev) · [GitHub](https://github.com/aidilsfwn) · [LinkedIn](https://linkedin.com/in/aidilsafwan)

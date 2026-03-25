@@ -15,3 +15,18 @@
 html {
   background-color: #1a1208;
 }
+
+/* Desktop: snap scroll between sections */
+@media (min-width: 768px) {
+  #scroll-container {
+    scroll-snap-type: y mandatory;
+  }
+}
+
+/* Mobile: free vertical scroll, sections fill screen minus bottom nav */
+@media (max-width: 767px) {
+  #scroll-container > section {
+    height: auto !important;
+    min-height: calc(100dvh - 56px);
+  }
+}
