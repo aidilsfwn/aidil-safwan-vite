@@ -31,6 +31,8 @@ export const FloatingDock = ({ className = "" }: FloatingDockProps) => {
           return (
             <button
               key={item.id}
+              aria-label={item.label}
+              aria-current={isActive ? "page" : undefined}
               onClick={() => scrollToSection(item.id)}
               className={`relative p-2.5 rounded-full transition-all duration-300 group ${
                 isActive

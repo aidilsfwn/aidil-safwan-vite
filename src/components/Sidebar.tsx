@@ -45,6 +45,8 @@ export const Sidebar = ({ className = "" }: SidebarProps) => {
             return (
               <button
                 key={id}
+                aria-label={label}
+                aria-current={isActive ? "page" : undefined}
                 onClick={() => scrollToSection(id)}
                 className={`flex items-center gap-2.5 px-2 py-[7px] rounded-md text-left transition-colors ${
                   isActive ? "bg-amber/10" : "hover:bg-amber/5"
