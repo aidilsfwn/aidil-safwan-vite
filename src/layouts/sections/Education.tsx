@@ -44,15 +44,13 @@ export const Education = () => {
               ↗ Bachelor's Degree
             </p>
             <h3 className="font-display text-[18px] font-black text-cream leading-[1.15] tracking-[-0.3px] mt-1.5">
-              Computer Science
-              <br />
-              (Hons.)
+              {degree.degree}
             </h3>
             <p className="font-sans text-[11px] text-cream/50 mt-1">
-              Universiti Teknologi MARA
+              {degree.institution}
             </p>
             <p className="font-sans text-[10px] font-semibold text-cream/25 tracking-[0.06em] mt-0.5">
-              2017 – 2020
+              {degree.period}
             </p>
             <div className="h-px bg-amber/[0.12] my-3" />
             <p className="font-sans text-[9px] font-semibold text-cream/30 tracking-[0.12em] uppercase mb-1">
@@ -83,15 +81,13 @@ export const Education = () => {
               Foundation
             </p>
             <h3 className="font-display text-[15px] font-bold text-ink leading-[1.2] mt-1">
-              Foundation in
-              <br />
-              Engineering
+              {foundation.degree}
             </h3>
             <p className="font-sans text-[11px] text-ink/50 mt-1">
-              Universiti Teknologi MARA
+              {foundation.institution}
             </p>
             <p className="font-sans text-[10px] font-semibold text-amber/50 mt-0.5">
-              2014 – 2015
+              {foundation.period}
             </p>
           </div>
           <div>
