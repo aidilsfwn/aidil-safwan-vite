@@ -1,0 +1,219 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; }
+
+  .desktop-shell { border: 2px solid #c9852a; border-radius: 14px; overflow: hidden; height: 460px; display: flex; box-shadow: 0 0 0 6px rgba(201,133,42,0.08), 0 20px 60px rgba(0,0,0,0.4); }
+
+  .sidebar { width: 160px; flex-shrink: 0; background: #1a1208; display: flex; flex-direction: column; justify-content: space-between; padding: 24px 18px; border-right: 1px solid rgba(201,133,42,0.12); }
+  .sb-label { font-family: 'Space Grotesk', sans-serif; font-size: 7px; font-weight: 600; color: #c9852a; letter-spacing: 0.2em; text-transform: uppercase; }
+  .sb-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; color: #f5efe4; letter-spacing: -0.5px; line-height: 1.05; }
+  .sb-divider { height: 1px; background: linear-gradient(to right, rgba(201,133,42,0.4), transparent); margin: 16px 0; }
+  .sb-nav { display: flex; flex-direction: column; gap: 4px; }
+  .sb-item { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border-radius: 6px; }
+  .sb-item.active { background: rgba(201,133,42,0.1); }
+  .sb-dot { width: 4px; height: 4px; border-radius: 50%; background: #4a3a2a; flex-shrink: 0; }
+  .sb-item.active .sb-dot { background: #c9852a; box-shadow: 0 0 5px rgba(201,133,42,0.6); }
+  .sb-item-label { font-family: 'Space Grotesk', sans-serif; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: #6b5a40; }
+  .sb-item.active .sb-item-label { color: #f5efe4; font-weight: 600; }
+  .sb-bottom { display: flex; flex-direction: column; gap: 12px; }
+  .sb-avail { display: flex; align-items: center; gap: 6px; }
+  .sb-avail-dot { width: 6px; height: 6px; border-radius: 50%; background: #c9852a; }
+  .sb-avail-text { font-family: 'Space Grotesk', sans-serif; font-size: 8px; color: #8a7a6a; }
+  .sb-socials { display: flex; gap: 10px; }
+  .sb-social { font-family: 'Space Grotesk', sans-serif; font-size: 7.5px; font-weight: 600; color: #4a3a2a; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .main { flex: 1; background: #f5efe4; display: flex; flex-direction: column; overflow: hidden; }
+  .snap-bar { display: flex; align-items: center; gap: 6px; padding: 10px 18px; border-bottom: 1px solid rgba(26,18,8,0.07); flex-shrink: 0; }
+  .snap-pip { width: 5px; height: 5px; border-radius: 50%; background: rgba(26,18,8,0.1); }
+  .snap-pip.on { background: #c9852a; }
+  .snap-label { font-family: 'Space Grotesk', sans-serif; font-size: 7px; color: #a08060; letter-spacing: 0.14em; text-transform: uppercase; margin-left: 6px; }
+
+  .proj-section { flex: 1; padding: 14px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+
+  /* Header with toggle */
+  .proj-header { display: flex; align-items: center; justify-content: space-between; padding: 0 2px; flex-shrink: 0; }
+  .proj-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; color: #1a1208; letter-spacing: -1px; }
+  .proj-toggle { display: flex; background: rgba(26,18,8,0.06); border: 1px solid rgba(26,18,8,0.08); border-radius: 6px; padding: 3px; gap: 2px; }
+  .toggle-btn { font-family: 'Space Grotesk', sans-serif; font-size: 8px; font-weight: 600; letter-spacing: 0.08em; padding: 5px 12px; border-radius: 4px; cursor: pointer; color: #8a6a3a; transition: all 0.2s; }
+  .toggle-btn.active { background: #1a1208; color: #f5efe4; }
+
+  /* Content grid */
+  .proj-grid { flex: 1; display: grid; grid-template-columns: 1.3fr 1fr; gap: 10px; overflow: hidden; }
+
+  /* Featured card */
+  .card-featured { background: #1a1208; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+  .feat-img { height: 120px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .feat-img-bg { font-size: 48px; opacity: 0.25; }
+  .feat-img-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 30%, #1a1208 100%); }
+  .feat-type-badge { position: absolute; top: 10px; left: 10px; font-family: 'Space Grotesk', sans-serif; font-size: 6.5px; font-weight: 700; color: #1a1208; background: #c9852a; padding: 2px 8px; border-radius: 2px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .feat-links { position: absolute; top: 10px; right: 10px; display: flex; gap: 5px; }
+  .feat-link { font-family: 'Space Grotesk', sans-serif; font-size: 6.5px; font-weight: 700; color: #f5efe4; background: rgba(26,18,8,0.6); backdrop-filter: blur(4px); padding: 3px 7px; border-radius: 2px; border: 1px solid rgba(245,239,228,0.1); }
+  .feat-body { padding: 12px 16px; display: flex; flex-direction: column; gap: 5px; flex: 1; justify-content: space-between; }
+  .feat-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 900; color: #f5efe4; letter-spacing: -0.3px; }
+  .feat-desc { font-family: 'Space Grotesk', sans-serif; font-size: 7.5px; color: #8a7a6a; line-height: 1.55; }
+  .feat-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .feat-tag { font-family: 'Space Grotesk', sans-serif; font-size: 6.5px; font-weight: 600; color: #c9852a; background: rgba(201,133,42,0.1); padding: 2px 7px; border-radius: 2px; }
+  .feat-tag.muted { color: #6b5a40; background: rgba(245,239,228,0.06); }
+
+  /* Personal featured — cream bg variant */
+  .card-featured.personal { background: #2a1a0a; }
+
+  /* List */
+  .proj-list { display: flex; flex-direction: column; gap: 6px; overflow-y: auto; }
+  .proj-list::-webkit-scrollbar { width: 3px; }
+  .proj-list::-webkit-scrollbar-thumb { background: rgba(201,133,42,0.2); border-radius: 2px; }
+  .proj-row { background: rgba(26,18,8,0.03); border: 1px solid rgba(26,18,8,0.07); border-radius: 10px; padding: 9px 12px; display: flex; gap: 10px; align-items: center; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
+  .proj-row:hover, .proj-row.active { border-color: rgba(201,133,42,0.3); background: rgba(201,133,42,0.06); }
+  .proj-row-thumb { width: 34px; height: 34px; border-radius: 7px; background: #1a1208; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+  .proj-row-thumb.warm { background: rgba(201,133,42,0.12); }
+  .proj-row-info { flex: 1; min-width: 0; }
+  .proj-row-name { font-family: 'Playfair Display', serif; font-size: 12px; font-weight: 700; color: #1a1208; }
+  .proj-row-type { font-family: 'Space Grotesk', sans-serif; font-size: 7px; color: #a08060; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 1px; }
+  .proj-row-tags { display: flex; gap: 3px; margin-top: 3px; }
+  .proj-row-tag { font-family: 'Space Grotesk', sans-serif; font-size: 6.5px; font-weight: 600; color: #8a6a3a; background: rgba(26,18,8,0.05); padding: 1px 5px; border-radius: 2px; }
+  .proj-row-arrow { font-size: 11px; color: rgba(201,133,42,0); transition: color 0.2s; }
+  .proj-row:hover .proj-row-arrow, .proj-row.active .proj-row-arrow { color: #c9852a; }
+
+  /* Two shells side by side for comparison */
+  .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .comp-label { font-family: 'Space Grotesk', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #c9852a; text-align: center; margin-bottom: 8px; }
+
+  .annotation { background: rgba(201,133,42,0.06); border-left: 2px solid #c9852a; padding: 8px 12px; border-radius: 0 6px 6px 0; font-size: 10px; color: #64748b; line-height: 1.5; margin-top: 14px; }
+  .annotation strong { color: #c9852a; }
+</style>
+
+<h2>Section 5 of 6 — Projects (two-part)</h2>
+<p class="subtitle">Toggle between Professional and Personal within the same snap section. Same featured + list layout, same interaction model.</p>
+
+<div class="comp-label">↓ Professional Work tab active</div>
+<div class="desktop-shell">
+  <div class="sidebar">
+    <div>
+      <div class="sb-label">Portfolio</div>
+      <div class="sb-name">Aidil<br>Safwan</div>
+      <div class="sb-divider"></div>
+      <div class="sb-nav">
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">About</div></div>
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">Skills</div></div>
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">Work</div></div>
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">Education</div></div>
+        <div class="sb-item active"><div class="sb-dot"></div><div class="sb-item-label">Projects</div></div>
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">Contact</div></div>
+      </div>
+    </div>
+    <div class="sb-bottom">
+      <div class="sb-avail"><div class="sb-avail-dot"></div><div class="sb-avail-text">Open to work</div></div>
+      <div class="sb-socials"><span class="sb-social">GH</span><span class="sb-social">LI</span><span class="sb-social">CV</span></div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="snap-bar">
+      <div class="snap-pip"></div><div class="snap-pip"></div><div class="snap-pip"></div><div class="snap-pip"></div><div class="snap-pip on"></div><div class="snap-pip"></div>
+      <span class="snap-label">05 — Projects</span>
+    </div>
+    <div class="proj-section">
+      <div class="proj-header">
+        <div class="proj-title">Projects.</div>
+        <div class="proj-toggle">
+          <div class="toggle-btn active">Professional</div>
+          <div class="toggle-btn">Personal</div>
+        </div>
+      </div>
+      <div class="proj-grid">
+        <div class="card-featured">
+          <div class="feat-img" style="background:#1e1408;">
+            <div class="feat-img-bg">🏦</div>
+            <div class="feat-img-overlay"></div>
+            <div class="feat-type-badge">Web App</div>
+            <div class="feat-links"><div class="feat-link">↗ Live</div></div>
+          </div>
+          <div class="feat-body">
+            <div>
+              <div class="feat-name">ChangeGPS</div>
+              <div class="feat-desc">Modern accounting platform — practice management and compliance tools for firms of all sizes. Now integrating into The Access Group ecosystem as a modular APAC platform.</div>
+            </div>
+            <div class="feat-tags">
+              <div class="feat-tag">React</div><div class="feat-tag">Laravel</div><div class="feat-tag muted">Microservices</div><div class="feat-tag muted">AWS</div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-list">
+          <div class="proj-row active"><div class="proj-row-thumb">🏦</div><div class="proj-row-info"><div class="proj-row-name">ChangeGPS</div><div class="proj-row-type">Web · Accounting</div><div class="proj-row-tags"><div class="proj-row-tag">React</div><div class="proj-row-tag">Laravel</div></div></div><div class="proj-row-arrow">→</div></div>
+          <div class="proj-row"><div class="proj-row-thumb">💳</div><div class="proj-row-info"><div class="proj-row-name">in1bank</div><div class="proj-row-type">Mobile · Banking</div><div class="proj-row-tags"><div class="proj-row-tag">React Native</div><div class="proj-row-tag">Redux</div></div></div><div class="proj-row-arrow">→</div></div>
+          <div class="proj-row"><div class="proj-row-thumb">🏛️</div><div class="proj-row-info"><div class="proj-row-name">KWSP i-Akaun</div><div class="proj-row-type">Mobile · Retirement</div><div class="proj-row-tags"><div class="proj-row-tag">React Native</div></div></div><div class="proj-row-arrow">→</div></div>
+          <div class="proj-row"><div class="proj-row-thumb">📱</div><div class="proj-row-info"><div class="proj-row-name">MyPB</div><div class="proj-row-type">Mobile · Banking</div><div class="proj-row-tags"><div class="proj-row-tag">React Native</div></div></div><div class="proj-row-arrow">→</div></div>
+          <div class="proj-row"><div class="proj-row-thumb">🗺️</div><div class="proj-row-info"><div class="proj-row-name">n9.digital</div><div class="proj-row-type">Mobile · Gov</div><div class="proj-row-tags"><div class="proj-row-tag">React Native</div><div class="proj-row-tag">Expo</div></div></div><div class="proj-row-arrow">→</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="height: 20px;"></div>
+<div class="comp-label">↓ Personal tab active</div>
+
+<div class="desktop-shell">
+  <div class="sidebar">
+    <div>
+      <div class="sb-label">Portfolio</div>
+      <div class="sb-name">Aidil<br>Safwan</div>
+      <div class="sb-divider"></div>
+      <div class="sb-nav">
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">About</div></div>
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">Skills</div></div>
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">Work</div></div>
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">Education</div></div>
+        <div class="sb-item active"><div class="sb-dot"></div><div class="sb-item-label">Projects</div></div>
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">Contact</div></div>
+      </div>
+    </div>
+    <div class="sb-bottom">
+      <div class="sb-avail"><div class="sb-avail-dot"></div><div class="sb-avail-text">Open to work</div></div>
+      <div class="sb-socials"><span class="sb-social">GH</span><span class="sb-social">LI</span><span class="sb-social">CV</span></div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="snap-bar">
+      <div class="snap-pip"></div><div class="snap-pip"></div><div class="snap-pip"></div><div class="snap-pip"></div><div class="snap-pip on"></div><div class="snap-pip"></div>
+      <span class="snap-label">05 — Projects</span>
+    </div>
+    <div class="proj-section">
+      <div class="proj-header">
+        <div class="proj-title">Projects.</div>
+        <div class="proj-toggle">
+          <div class="toggle-btn">Professional</div>
+          <div class="toggle-btn active">Personal</div>
+        </div>
+      </div>
+      <div class="proj-grid">
+        <div class="card-featured personal">
+          <div class="feat-img" style="background:#1e1206;">
+            <div class="feat-img-bg">🌧️</div>
+            <div class="feat-img-overlay"></div>
+            <div class="feat-type-badge">PWA</div>
+            <div class="feat-links"><div class="feat-link">↗ Live</div><div class="feat-link">GH</div></div>
+          </div>
+          <div class="feat-body">
+            <div>
+              <div class="feat-name">Elak Hujan</div>
+              <div class="feat-desc">Rain avoidance app for Malaysian scooter commuters. Ranks the best office days and departure times based on MET Malaysia forecasts and open weather APIs.</div>
+            </div>
+            <div class="feat-tags">
+              <div class="feat-tag">React 19</div><div class="feat-tag">TanStack Query</div><div class="feat-tag muted">Deno Edge</div><div class="feat-tag muted">MET API</div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-list">
+          <div class="proj-row active"><div class="proj-row-thumb warm">🌧️</div><div class="proj-row-info"><div class="proj-row-name">Elak Hujan</div><div class="proj-row-type">PWA · Weather / Commute</div><div class="proj-row-tags"><div class="proj-row-tag">React</div><div class="proj-row-tag">Zustand</div></div></div><div class="proj-row-arrow">→</div></div>
+          <div class="proj-row"><div class="proj-row-thumb warm">🤲</div><div class="proj-row-info"><div class="proj-row-name">Dah Qada</div><div class="proj-row-type">PWA · Prayer Tracker</div><div class="proj-row-tags"><div class="proj-row-tag">React</div><div class="proj-row-tag">IndexedDB</div></div></div><div class="proj-row-arrow">→</div></div>
+          <div class="proj-row"><div class="proj-row-thumb warm">🤰</div><div class="proj-row-info"><div class="proj-row-name">9mo</div><div class="proj-row-type">PWA · Pregnancy Tracker</div><div class="proj-row-tags"><div class="proj-row-tag">Firebase</div><div class="proj-row-tag">Recharts</div></div></div><div class="proj-row-arrow">→</div></div>
+          <div class="proj-row"><div class="proj-row-thumb warm">💻</div><div class="proj-row-info"><div class="proj-row-name">This Portfolio</div><div class="proj-row-type">Web · Personal site</div><div class="proj-row-tags"><div class="proj-row-tag">React</div><div class="proj-row-tag">Framer Motion</div></div></div><div class="proj-row-arrow">→</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="annotation">
+  <strong>Toggle interaction:</strong> Framer Motion AnimatePresence fades the featured card and list between tabs. No page reload, instant switch. Personal tab shows 4 projects: Elak Hujan, Dah Qada, 9mo, and this portfolio itself. Left af-1-anniversary out — let me know if you want it included. The portfolio listing itself is a nice meta touch.
+</div>

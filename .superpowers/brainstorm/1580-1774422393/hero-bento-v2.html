@@ -1,0 +1,215 @@
+<style>
+  * { box-sizing: border-box; }
+  .variants { display: flex; flex-direction: column; gap: 20px; margin-top: 12px; }
+  .var-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #c9852a; margin-bottom: 8px; }
+
+  /* Shared shell */
+  .mockup-shell { border: 2px solid #2a2a3a; border-radius: 12px; overflow: hidden; height: 300px; display: flex; cursor: pointer; transition: border-color 0.2s; }
+  .mockup-shell:hover { border-color: #c9852a; }
+  .mockup-shell.selected { border-color: #c9852a; box-shadow: 0 0 0 4px rgba(201,133,42,0.2); }
+
+  /* Sidebar (same across all) */
+  .sidebar { width: 110px; flex-shrink: 0; background: #1a1208; display: flex; flex-direction: column; justify-content: space-between; padding: 16px 12px; border-right: 1px solid rgba(201,133,42,0.12); }
+  .sb-monogram { font-size: 20px; font-weight: 900; color: #f5efe4; letter-spacing: -1px; line-height: 1; }
+  .sb-monogram span { display: block; font-size: 6.5px; font-weight: 600; color: #c9852a; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 2px; }
+  .sb-nav { display: flex; flex-direction: column; gap: 9px; margin-top: 18px; }
+  .sb-nav-item { display: flex; align-items: center; gap: 7px; font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; color: #7a6a58; }
+  .sb-nav-item.active { color: #f5efe4; }
+  .sb-nav-item .dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+  .sb-nav-item.active .dot { background: #c9852a; }
+  .sb-bottom { font-size: 6.5px; color: #4a3a2a; letter-spacing: 0.08em; }
+
+  /* Main content */
+  .main-content { flex: 1; background: #f5efe4; overflow: hidden; display: flex; flex-direction: column; }
+  .sec-bar { display: flex; align-items: center; gap: 5px; padding: 8px 14px; border-bottom: 1px solid rgba(26,18,8,0.07); flex-shrink: 0; }
+  .sec-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(26,18,8,0.1); }
+  .sec-dot.active { background: #c9852a; }
+  .sec-label { font-size: 6.5px; color: #8a6a3a; letter-spacing: 0.12em; text-transform: uppercase; margin-left: 4px; }
+  .bento { flex: 1; display: grid; gap: 8px; padding: 12px; }
+
+  /* ---- VARIANT 1: Name large, photo small circle top-right ---- */
+  .v1 { grid-template-columns: 1.4fr 1fr; grid-template-rows: 1fr 1fr; }
+  .v1-name { grid-column: 1/2; grid-row: 1/3; background: #1a1208; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+  .v1-name-text { font-size: 30px; font-weight: 900; color: #f5efe4; letter-spacing: -1.5px; line-height: 0.88; }
+  .v1-name-sub { font-size: 7px; font-weight: 700; color: #c9852a; letter-spacing: 0.16em; text-transform: uppercase; }
+  .v1-name-bio { font-size: 8px; color: #7a6a58; line-height: 1.4; margin-top: 4px; }
+  .v1-photo { grid-column: 2/3; grid-row: 1/2; background: #c9852a; border-radius: 10px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .v1-photo-emoji { font-size: 36px; opacity: 0.55; }
+  .v1-photo-loc { position: absolute; bottom: 7px; left: 9px; font-size: 6.5px; font-weight: 700; color: #1a1208; letter-spacing: 0.08em; text-transform: uppercase; }
+  .v1-role { grid-column: 2/3; grid-row: 2/3; background: rgba(201,133,42,0.1); border: 1px solid rgba(201,133,42,0.2); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; justify-content: space-between; }
+  .v1-role-co { font-size: 9.5px; font-weight: 800; color: #1a1208; }
+  .v1-role-title { font-size: 7.5px; color: #8a6a3a; margin-top: 2px; }
+  .v1-role-arrow { font-size: 14px; color: #c9852a; font-weight: 900; align-self: flex-end; }
+
+  /* ---- VARIANT 2: 3-col grid, photo is just 1 cell ---- */
+  .v2 { grid-template-columns: 1fr 0.7fr 1fr; grid-template-rows: 1fr 1fr; }
+  .v2-name { grid-column: 1/2; grid-row: 1/3; background: #1a1208; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .v2-name-text { font-size: 26px; font-weight: 900; color: #f5efe4; letter-spacing: -1.2px; line-height: 0.9; }
+  .v2-name-tag { font-size: 6.5px; font-weight: 700; color: #c9852a; letter-spacing: 0.16em; text-transform: uppercase; margin-top: 6px; }
+  .v2-photo { grid-column: 2/3; grid-row: 1/2; background: #c9852a; border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .v2-photo-emoji { font-size: 28px; opacity: 0.5; }
+  .v2-loc { grid-column: 2/3; grid-row: 2/3; background: rgba(26,18,8,0.05); border: 1px solid rgba(26,18,8,0.08); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+  .v2-loc-pin { font-size: 12px; }
+  .v2-loc-text { font-size: 7px; color: #8a6a3a; font-weight: 600; letter-spacing: 0.06em; }
+  .v2-role { grid-column: 3/4; grid-row: 1/2; background: rgba(201,133,42,0.1); border: 1px solid rgba(201,133,42,0.2); border-radius: 10px; padding: 10px 11px; }
+  .v2-role-co { font-size: 9px; font-weight: 800; color: #1a1208; }
+  .v2-role-title { font-size: 7px; color: #8a6a3a; margin-top: 2px; }
+  .v2-skills { grid-column: 3/4; grid-row: 2/3; background: #1a1208; border-radius: 10px; padding: 8px 10px; display: flex; flex-wrap: wrap; gap: 4px; align-content: center; }
+  .v2-skill-pill { font-size: 6.5px; font-weight: 700; color: #c9852a; border: 1px solid rgba(201,133,42,0.35); padding: 2px 7px; border-radius: 99px; }
+
+  /* ---- VARIANT 3: No standalone photo card — avatar embedded in name card ---- */
+  .v3 { grid-template-columns: 1fr 1fr; grid-template-rows: 1.2fr 1fr; }
+  .v3-name { grid-column: 1/3; grid-row: 1/2; background: #1a1208; border-radius: 10px; padding: 16px; display: flex; align-items: flex-end; justify-content: space-between; }
+  .v3-name-left { display: flex; flex-direction: column; justify-content: flex-end; }
+  .v3-name-text { font-size: 32px; font-weight: 900; color: #f5efe4; letter-spacing: -1.5px; line-height: 0.88; }
+  .v3-name-tag { font-size: 7px; font-weight: 700; color: #c9852a; letter-spacing: 0.16em; text-transform: uppercase; margin-top: 6px; }
+  .v3-avatar { width: 58px; height: 58px; border-radius: 50%; background: #c9852a; display: flex; align-items: center; justify-content: center; font-size: 28px; opacity: 0.75; flex-shrink: 0; border: 2px solid rgba(201,133,42,0.4); }
+  .v3-role { grid-column: 1/2; grid-row: 2/3; background: rgba(201,133,42,0.1); border: 1px solid rgba(201,133,42,0.2); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; justify-content: space-between; }
+  .v3-role-co { font-size: 9.5px; font-weight: 800; color: #1a1208; }
+  .v3-role-title { font-size: 7.5px; color: #8a6a3a; }
+  .v3-role-year { font-size: 18px; font-weight: 900; color: rgba(201,133,42,0.2); line-height: 1; }
+  .v3-skills { grid-column: 2/3; grid-row: 2/3; background: rgba(26,18,8,0.04); border: 1px solid rgba(26,18,8,0.07); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
+  .v3-skill-row { display: flex; gap: 5px; }
+  .v3-skill-chip { font-size: 7px; font-weight: 600; color: #6b5a40; background: rgba(201,133,42,0.1); padding: 2px 8px; border-radius: 3px; }
+
+  .var-desc { font-size: 11px; color: #64748b; line-height: 1.5; margin-top: 8px; }
+</style>
+
+<h2>Hero bento — 3 re-proportioned versions</h2>
+<p class="subtitle">Same sidebar + snap structure. Just rethinking the hero grid so the photo isn't the focal point.</p>
+
+<div class="variants">
+
+  <div>
+    <div class="var-label">Option 1 — Name dominates, photo is supporting</div>
+    <div class="mockup-shell" data-choice="v1" onclick="toggleSelect(this)">
+      <div class="sidebar">
+        <div>
+          <div class="sb-monogram"><span>Portfolio</span>AS</div>
+          <div class="sb-nav">
+            <div class="sb-nav-item active"><div class="dot"></div>About</div>
+            <div class="sb-nav-item"><div class="dot"></div>Work</div>
+            <div class="sb-nav-item"><div class="dot"></div>Projects</div>
+            <div class="sb-nav-item"><div class="dot"></div>Contact</div>
+          </div>
+        </div>
+        <div class="sb-bottom">GH · LI · CV</div>
+      </div>
+      <div class="main-content">
+        <div class="sec-bar"><div class="sec-dot active"></div><div class="sec-dot"></div><div class="sec-dot"></div><div class="sec-dot"></div><span class="sec-label">01 — About</span></div>
+        <div class="bento v1">
+          <div class="v1-name">
+            <div>
+              <div class="v1-name-sub">↗ Senior Software Engineer</div>
+              <div class="v1-name-text">Aidil<br>Safwan</div>
+            </div>
+            <div class="v1-name-bio">Full-stack engineer who actually gives a damn about the frontend.</div>
+          </div>
+          <div class="v1-photo">
+            <div class="v1-photo-emoji">👤</div>
+            <div class="v1-photo-loc">📍 KL, MY</div>
+          </div>
+          <div class="v1-role">
+            <div>
+              <div class="v1-role-co">The Access Group</div>
+              <div class="v1-role-title">Senior Software Engineer</div>
+            </div>
+            <div class="v1-role-arrow">↗</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="var-desc">Name card spans full height on the left. Photo is top-right (same size as the role card below it — not dominant). Strong typographic focus.</div>
+  </div>
+
+  <div>
+    <div class="var-label">Option 2 — 3-column, photo is just one equal cell</div>
+    <div class="mockup-shell" data-choice="v2" onclick="toggleSelect(this)">
+      <div class="sidebar">
+        <div>
+          <div class="sb-monogram"><span>Portfolio</span>AS</div>
+          <div class="sb-nav">
+            <div class="sb-nav-item active"><div class="dot"></div>About</div>
+            <div class="sb-nav-item"><div class="dot"></div>Work</div>
+            <div class="sb-nav-item"><div class="dot"></div>Projects</div>
+            <div class="sb-nav-item"><div class="dot"></div>Contact</div>
+          </div>
+        </div>
+        <div class="sb-bottom">GH · LI · CV</div>
+      </div>
+      <div class="main-content">
+        <div class="sec-bar"><div class="sec-dot active"></div><div class="sec-dot"></div><div class="sec-dot"></div><div class="sec-dot"></div><span class="sec-label">01 — About</span></div>
+        <div class="bento v2">
+          <div class="v2-name">
+            <div class="v2-name-text">Aidil<br>Safwan</div>
+            <div class="v2-name-tag">↗ Senior Engineer · KL</div>
+          </div>
+          <div class="v2-photo"><div class="v2-photo-emoji">👤</div></div>
+          <div class="v2-loc"><div class="v2-loc-pin">📍</div><div class="v2-loc-text">KL, Malaysia</div></div>
+          <div class="v2-role">
+            <div class="v2-role-co">The Access Group</div>
+            <div class="v2-role-title">Senior Software Engineer</div>
+          </div>
+          <div class="v2-skills">
+            <div class="v2-skill-pill">React</div>
+            <div class="v2-skill-pill">TypeScript</div>
+            <div class="v2-skill-pill">RN</div>
+            <div class="v2-skill-pill">Laravel</div>
+            <div class="v2-skill-pill">Next.js</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="var-desc">3 equal columns. Photo is just one cell in the middle — same size as the location and role cards. No single element dominates.</div>
+  </div>
+
+  <div>
+    <div class="var-label">Option 3 — No photo card, avatar embedded in name card</div>
+    <div class="mockup-shell" data-choice="v3" onclick="toggleSelect(this)">
+      <div class="sidebar">
+        <div>
+          <div class="sb-monogram"><span>Portfolio</span>AS</div>
+          <div class="sb-nav">
+            <div class="sb-nav-item active"><div class="dot"></div>About</div>
+            <div class="sb-nav-item"><div class="dot"></div>Work</div>
+            <div class="sb-nav-item"><div class="dot"></div>Projects</div>
+            <div class="sb-nav-item"><div class="dot"></div>Contact</div>
+          </div>
+        </div>
+        <div class="sb-bottom">GH · LI · CV</div>
+      </div>
+      <div class="main-content">
+        <div class="sec-bar"><div class="sec-dot active"></div><div class="sec-dot"></div><div class="sec-dot"></div><div class="sec-dot"></div><span class="sec-label">01 — About</span></div>
+        <div class="bento v3">
+          <div class="v3-name">
+            <div class="v3-name-left">
+              <div class="v3-name-text">Aidil<br>Safwan</div>
+              <div class="v3-name-tag">↗ Senior Software Engineer · KL, MY</div>
+            </div>
+            <div class="v3-avatar">👤</div>
+          </div>
+          <div class="v3-role">
+            <div>
+              <div class="v3-role-co">The Access Group</div>
+              <div class="v3-role-title">Senior Software Engineer</div>
+            </div>
+            <div class="v3-role-year">25</div>
+          </div>
+          <div class="v3-skills">
+            <div class="v3-skill-row">
+              <div class="v3-skill-chip">React</div>
+              <div class="v3-skill-chip">TypeScript</div>
+              <div class="v3-skill-chip">Next.js</div>
+            </div>
+            <div class="v3-skill-row">
+              <div class="v3-skill-chip">React Native</div>
+              <div class="v3-skill-chip">Laravel</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="var-desc">No photo card at all. Small circular avatar sits inside the name card (top-right corner). The name is the full-width hero. Role and skills fill the bottom row.</div>
+  </div>
+
+</div>

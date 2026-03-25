@@ -1,0 +1,200 @@
+<style>
+  * { box-sizing: border-box; }
+  .layouts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  .lay-card { border: 2px solid #2a2a3a; border-radius: 12px; overflow: hidden; cursor: pointer; transition: border-color 0.2s, transform 0.15s; }
+  .lay-card:hover { border-color: #c9852a; transform: translateY(-2px); }
+  .lay-card.selected { border-color: #c9852a; box-shadow: 0 0 0 3px rgba(201,133,42,0.25); }
+  .lay-preview { height: 220px; position: relative; overflow: hidden; }
+  .lay-info { padding: 14px 16px; background: #13121f; }
+  .lay-info h3 { margin: 0 0 4px; font-size: 13px; color: #e2e8f0; }
+  .lay-info p { margin: 0; font-size: 11px; color: #64748b; line-height: 1.5; }
+  .lay-tag { display: inline-block; margin-top: 8px; padding: 2px 8px; border-radius: 2px; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; background: rgba(201,133,42,0.15); color: #c9852a; }
+
+  /* Layout A: Fixed Left Column + Scrolling Right */
+  .lay-a { display: flex; height: 100%; background: #f5efe4; }
+  .lay-a-left { width: 38%; background: #1a1208; padding: 14px 12px; display: flex; flex-direction: column; justify-content: space-between; flex-shrink: 0; }
+  .lay-a-logo { font-size: 13px; font-weight: 900; color: #f5efe4; letter-spacing: -0.5px; line-height: 1.1; }
+  .lay-a-logo span { color: #c9852a; display: block; font-size: 8px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 2px; }
+  .lay-a-nav { display: flex; flex-direction: column; gap: 8px; }
+  .lay-a-nav-item { font-size: 9px; color: #7a6a58; letter-spacing: 0.1em; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+  .lay-a-nav-item.active { color: #c9852a; }
+  .lay-a-nav-item::before { content: ''; width: 16px; height: 1px; background: currentColor; }
+  .lay-a-right { flex: 1; padding: 14px 12px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+  .lay-a-hero { font-size: 30px; font-weight: 900; color: #1a1208; letter-spacing: -1.5px; line-height: 0.9; }
+  .lay-a-rule { height: 2px; background: #c9852a; width: 50%; }
+  .lay-a-role { font-size: 8px; font-weight: 700; color: #c9852a; letter-spacing: 0.15em; text-transform: uppercase; }
+  .lay-a-card { background: rgba(201,133,42,0.08); border-left: 3px solid #c9852a; padding: 6px 8px; }
+  .lay-a-card h5 { margin: 0 0 2px; font-size: 9px; font-weight: 700; color: #1a1208; }
+  .lay-a-card p { margin: 0; font-size: 8px; color: #8a6a3a; }
+
+  /* Layout B: Full-screen sections snap scroll */
+  .lay-b { background: #f5efe4; display: flex; flex-direction: column; height: 100%; }
+  .lay-b-section { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; border-bottom: 1px solid rgba(26,18,8,0.08); }
+  .lay-b-section:first-child { background: #1a1208; flex: 1.5; }
+  .lay-b-hero-content { text-align: center; }
+  .lay-b-hero-name { font-size: 36px; font-weight: 900; color: #f5efe4; letter-spacing: -2px; line-height: 0.9; }
+  .lay-b-hero-sub { font-size: 8px; color: #c9852a; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 8px; }
+  .lay-b-scroll { font-size: 8px; color: #7a6a58; position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); letter-spacing: 0.1em; }
+  .lay-b-mini { display: flex; gap: 8px; padding: 0 20px; }
+  .lay-b-mini-card { flex: 1; background: rgba(26,18,8,0.04); border: 1px solid rgba(26,18,8,0.1); border-radius: 6px; padding: 6px 8px; }
+  .lay-b-mini-card h5 { font-size: 9px; font-weight: 700; color: #1a1208; margin: 0 0 2px; }
+  .lay-b-mini-card p { font-size: 8px; color: #8a6a3a; margin: 0; }
+  .lay-b-num { font-size: 40px; font-weight: 900; color: rgba(201,133,42,0.12); position: absolute; top: 8px; right: 12px; line-height: 1; font-variant-numeric: tabular-nums; }
+
+  /* Layout C: Asymmetric editorial grid */
+  .lay-c { background: #f5efe4; padding: 14px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto; gap: 8px; height: 100%; }
+  .lay-c-hero { grid-column: 1 / 2; grid-row: 1 / 2; background: #1a1208; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .lay-c-hero-name { font-size: 22px; font-weight: 900; color: #f5efe4; letter-spacing: -1px; line-height: 1; }
+  .lay-c-hero-tag { font-size: 8px; color: #c9852a; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 4px; }
+  .lay-c-img { grid-column: 2 / 3; grid-row: 1 / 3; background: #c9852a; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+  .lay-c-img-inner { font-size: 40px; opacity: 0.4; }
+  .lay-c-role { grid-column: 1 / 2; grid-row: 2 / 3; background: rgba(201,133,42,0.12); border: 1px solid rgba(201,133,42,0.3); border-radius: 8px; padding: 10px 12px; }
+  .lay-c-role h5 { font-size: 9px; font-weight: 700; color: #c9852a; text-transform: uppercase; letter-spacing: 0.12em; margin: 0 0 3px; }
+  .lay-c-role p { font-size: 9px; color: #6b5a40; margin: 0; }
+  .lay-c-skills { grid-column: 1 / 3; grid-row: 3 / 4; display: flex; gap: 6px; }
+  .lay-c-skill { flex: 1; background: rgba(26,18,8,0.05); border-radius: 6px; padding: 6px 8px; font-size: 8px; color: #6b5a40; text-align: center; font-weight: 600; }
+
+  /* Layout D: Horizontal scroll with vertical fixed header */
+  .lay-d { background: #f5efe4; display: flex; height: 100%; flex-direction: column; }
+  .lay-d-top { background: #1a1208; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+  .lay-d-logo { font-size: 12px; font-weight: 900; color: #f5efe4; letter-spacing: -0.5px; }
+  .lay-d-nav { display: flex; gap: 16px; }
+  .lay-d-nav span { font-size: 8px; color: #7a6a58; letter-spacing: 0.1em; text-transform: uppercase; }
+  .lay-d-nav span.active { color: #c9852a; }
+  .lay-d-content { flex: 1; display: flex; overflow: hidden; }
+  .lay-d-panel { flex-shrink: 0; width: 50%; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 16px; border-right: 1px solid rgba(26,18,8,0.08); }
+  .lay-d-panel-name { font-size: 32px; font-weight: 900; color: #1a1208; letter-spacing: -1.5px; line-height: 0.9; }
+  .lay-d-panel-rule { height: 2px; background: #c9852a; width: 40%; margin: 8px 0; }
+  .lay-d-panel-sub { font-size: 8px; color: #8a6a3a; line-height: 1.5; }
+  .lay-d-panel2 { flex: 1; height: 100%; padding: 12px; display: flex; flex-direction: column; gap: 6px; overflow: hidden; }
+  .lay-d-work-item { border-bottom: 1px solid rgba(26,18,8,0.08); padding-bottom: 6px; display: flex; justify-content: space-between; align-items: baseline; }
+  .lay-d-work-item h5 { font-size: 10px; font-weight: 700; color: #1a1208; margin: 0; }
+  .lay-d-work-item p { font-size: 8px; color: #8a6a3a; margin: 0; }
+  .lay-d-scroll-hint { font-size: 8px; color: #c9852a; margin-top: auto; letter-spacing: 0.1em; }
+</style>
+
+<h2>How should the page be laid out?</h2>
+<p class="subtitle">All shown in the Warm Cream + Amber palette. These are structural choices — the interactions layer on top.</p>
+
+<div class="layouts">
+
+  <div class="lay-card" data-choice="fixed-sidebar" onclick="toggleSelect(this)">
+    <div class="lay-preview">
+      <div class="lay-a">
+        <div class="lay-a-left">
+          <div>
+            <div class="lay-a-logo"><span>Portfolio</span>Aidil<br>Safwan</div>
+          </div>
+          <div class="lay-a-nav">
+            <div class="lay-a-nav-item active">About</div>
+            <div class="lay-a-nav-item">Work</div>
+            <div class="lay-a-nav-item">Projects</div>
+            <div class="lay-a-nav-item">Contact</div>
+          </div>
+        </div>
+        <div class="lay-a-right">
+          <div class="lay-a-role">Senior Software Engineer</div>
+          <div class="lay-a-hero">Full-<br>stack.</div>
+          <div class="lay-a-rule"></div>
+          <div class="lay-a-card"><h5>The Access Group</h5><p>Mar 2025 – Present</p></div>
+          <div class="lay-a-card"><h5>Aleph-Labs</h5><p>2023 – 2025</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="lay-info">
+      <h3>A — Fixed Dark Sidebar + Scrolling Content</h3>
+      <p>Left sidebar stays fixed (identity + nav), right side scrolls with all content. Studio-quality feel. Very popular in high-end portfolios.</p>
+      <span class="lay-tag">Refined · Studio · Classic</span>
+    </div>
+  </div>
+
+  <div class="lay-card" data-choice="fullpage-snap" onclick="toggleSelect(this)">
+    <div class="lay-preview">
+      <div class="lay-b">
+        <div class="lay-b-section">
+          <div class="lay-b-hero-content">
+            <div class="lay-b-hero-name">AIDIL<br>SAFWAN</div>
+            <div class="lay-b-hero-sub">Senior Software Engineer</div>
+          </div>
+          <div class="lay-b-scroll">↓ scroll</div>
+        </div>
+        <div class="lay-b-section" style="background: #f5efe4;">
+          <div class="lay-b-num">02</div>
+          <div class="lay-b-mini">
+            <div class="lay-b-mini-card"><h5>Experience</h5><p>4 companies</p></div>
+            <div class="lay-b-mini-card"><h5>Projects</h5><p>7 built</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="lay-info">
+      <h3>B — Full-screen Snap Sections</h3>
+      <p>Each section takes the full viewport. Bold numbered sections, scroll-snap between them. Very immersive — each scroll is an event, not just movement.</p>
+      <span class="lay-tag">Immersive · Dramatic · Interactive</span>
+    </div>
+  </div>
+
+  <div class="lay-card" data-choice="asymmetric-grid" onclick="toggleSelect(this)">
+    <div class="lay-preview">
+      <div class="lay-c">
+        <div class="lay-c-hero">
+          <div class="lay-c-hero-name">Aidil<br>Safwan</div>
+          <div class="lay-c-hero-tag">↗ Senior Engineer · KL</div>
+        </div>
+        <div class="lay-c-img">
+          <div class="lay-c-img-inner">👤</div>
+        </div>
+        <div class="lay-c-role">
+          <h5>Currently at</h5>
+          <p>The Access Group · Mar 2025</p>
+        </div>
+        <div class="lay-c-skills">
+          <div class="lay-c-skill">React</div>
+          <div class="lay-c-skill">TypeScript</div>
+          <div class="lay-c-skill">React Native</div>
+          <div class="lay-c-skill">Laravel</div>
+        </div>
+      </div>
+    </div>
+    <div class="lay-info">
+      <h3>C — Asymmetric Editorial Grid</h3>
+      <p>Bento/magazine-style grid layout. Different-sized blocks on the homepage, each a card for a content area. Editorial energy, very Pinterest/Awwwards-adjacent.</p>
+      <span class="lay-tag">Editorial · Bento · Unexpected</span>
+    </div>
+  </div>
+
+  <div class="lay-card" data-choice="top-nav-split" onclick="toggleSelect(this)">
+    <div class="lay-preview">
+      <div class="lay-d">
+        <div class="lay-d-top">
+          <div class="lay-d-logo">AS ↗</div>
+          <div class="lay-d-nav">
+            <span class="active">Work</span>
+            <span>About</span>
+            <span>Contact</span>
+          </div>
+        </div>
+        <div class="lay-d-content">
+          <div class="lay-d-panel">
+            <div class="lay-d-panel-name">Front-<br>end<br>first.</div>
+            <div class="lay-d-panel-rule"></div>
+            <div class="lay-d-panel-sub">Full-stack engineer who actually cares about the pixels.</div>
+          </div>
+          <div class="lay-d-panel2">
+            <div class="lay-d-work-item"><h5>The Access Group</h5><p>2025 →</p></div>
+            <div class="lay-d-work-item"><h5>Aleph-Labs</h5><p>2023–25</p></div>
+            <div class="lay-d-work-item"><h5>Public Bank</h5><p>2020–23</p></div>
+            <div class="lay-d-work-item"><h5>INVOKE</h5><p>2019–20</p></div>
+            <div class="lay-d-scroll-hint">→ scroll for projects</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="lay-info">
+      <h3>D — Top Nav + Vertical Split</h3>
+      <p>Sticky top nav, content splits into left (identity/bio) and right (experience/projects list). Clean, information-dense, feels like a SaaS product — but personal.</p>
+      <span class="lay-tag">Clean · Dense · Product-like</span>
+    </div>
+  </div>
+
+</div>

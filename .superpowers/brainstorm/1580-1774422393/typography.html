@@ -1,0 +1,105 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Grotesk:wght@300;400;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300&family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;700;800&family=Cabinet+Grotesk:wght@400;700;800;900&display=swap');
+
+  * { box-sizing: border-box; }
+  .options { display: flex; flex-direction: column; gap: 14px; margin-top: 14px; }
+  .opt { border: 2px solid #2a2a3a; border-radius: 10px; overflow: hidden; cursor: pointer; transition: border-color 0.2s; display: flex; }
+  .opt:hover { border-color: #c9852a; }
+  .opt.selected { border-color: #c9852a; box-shadow: 0 0 0 3px rgba(201,133,42,0.2); }
+
+  .preview { width: 320px; flex-shrink: 0; background: #f5efe4; padding: 18px 20px; border-right: 1px solid rgba(26,18,8,0.08); display: flex; flex-direction: column; justify-content: space-between; }
+  .preview-dark { background: #1a1208; }
+  .info { padding: 16px 18px; background: #13121f; display: flex; flex-direction: column; justify-content: center; gap: 4px; flex: 1; }
+  .info h3 { margin: 0 0 4px; font-size: 13px; color: #e2e8f0; }
+  .info p { margin: 0; font-size: 11px; color: #64748b; line-height: 1.5; }
+  .info .fonts { font-size: 10px; color: #4a5568; margin-top: 6px; font-family: monospace; }
+  .tag { display: inline-block; margin-top: 6px; padding: 2px 8px; border-radius: 2px; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; background: rgba(201,133,42,0.15); color: #c9852a; }
+
+  .role-label { font-size: 8px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #c9852a; margin-bottom: 4px; }
+  .divider { height: 1.5px; background: #c9852a; width: 40%; margin: 8px 0; }
+  .sub-text { font-size: 9px; color: #8a6a3a; line-height: 1.5; }
+  .co-text { font-size: 10px; font-weight: 700; color: #8a6a3a; letter-spacing: 0.04em; margin-top: 6px; }
+</style>
+
+<h2>Pick your typography direction</h2>
+<p class="subtitle">Same layout, same palette — only the type changes. This shapes the entire personality of the site.</p>
+
+<div class="options">
+
+  <!-- Option A: Playfair Display + Space Grotesk -->
+  <div class="opt" data-choice="playfair-space" onclick="toggleSelect(this)">
+    <div class="preview preview-dark">
+      <div>
+        <div class="role-label" style="font-family: 'Space Grotesk', sans-serif;">↗ Senior Software Engineer</div>
+        <div style="font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 900; color: #f5efe4; letter-spacing: -1px; line-height: 0.9;">Aidil<br>Safwan</div>
+        <div class="divider"></div>
+      </div>
+      <div class="sub-text" style="font-family: 'Space Grotesk', sans-serif;">Full-stack engineer who gives a damn about the frontend.</div>
+      <div class="co-text" style="font-family: 'Space Grotesk', sans-serif; color: #c9852a;">The Access Group ↗</div>
+    </div>
+    <div class="info">
+      <h3>A — Playfair Display + Space Grotesk</h3>
+      <p>Classic editorial pairing. Serif display for the big name, geometric sans for everything else. Warm and intelligent — feels like a quality publication.</p>
+      <div class="fonts">Display: Playfair Display 900<br>Body: Space Grotesk 400/600</div>
+      <span class="tag">Editorial · Warm · Sophisticated</span>
+    </div>
+  </div>
+
+  <!-- Option B: Fraunces + Syne -->
+  <div class="opt" data-choice="fraunces-syne" onclick="toggleSelect(this)">
+    <div class="preview preview-dark">
+      <div>
+        <div class="role-label" style="font-family: 'Syne', sans-serif; letter-spacing: 0.2em;">↗ Senior Software Engineer</div>
+        <div style="font-family: 'Fraunces', serif; font-size: 38px; font-weight: 900; color: #f5efe4; letter-spacing: -1px; line-height: 0.88;">Aidil<br>Safwan</div>
+        <div class="divider"></div>
+      </div>
+      <div class="sub-text" style="font-family: 'Syne', sans-serif;">Full-stack engineer who gives a damn about the frontend.</div>
+      <div class="co-text" style="font-family: 'Syne', sans-serif; color: #c9852a; font-weight: 700;">The Access Group ↗</div>
+    </div>
+    <div class="info">
+      <h3>B — Fraunces + Syne</h3>
+      <p>Fraunces is an optical-size serif with distinct personality — used by Stripe, Linear, and top design studios. Syne is a quirky geometric that adds edge. Less common, more memorable.</p>
+      <div class="fonts">Display: Fraunces 900<br>Body: Syne 400/700</div>
+      <span class="tag">Distinctive · Studio · Edgy</span>
+    </div>
+  </div>
+
+  <!-- Option C: DM Serif Display (italic) + Space Grotesk -->
+  <div class="opt" data-choice="dm-serif-space" onclick="toggleSelect(this)">
+    <div class="preview preview-dark">
+      <div>
+        <div class="role-label" style="font-family: 'Space Grotesk', sans-serif;">↗ Senior Software Engineer</div>
+        <div style="font-family: 'DM Serif Display', serif; font-style: italic; font-size: 40px; color: #f5efe4; letter-spacing: -0.5px; line-height: 0.9;">Aidil<br>Safwan</div>
+        <div class="divider"></div>
+      </div>
+      <div class="sub-text" style="font-family: 'Space Grotesk', sans-serif;">Full-stack engineer who gives a damn about the frontend.</div>
+      <div class="co-text" style="font-family: 'Space Grotesk', sans-serif; color: #c9852a;">The Access Group ↗</div>
+    </div>
+    <div class="info">
+      <h3>C — DM Serif Display (italic) + Space Grotesk</h3>
+      <p>Using the italic cut of DM Serif adds a sense of motion and personality without going full experimental. Elegant, confident, slightly unexpected for a dev portfolio.</p>
+      <div class="fonts">Display: DM Serif Display italic<br>Body: Space Grotesk 400/600</div>
+      <span class="tag">Elegant · Confident · Flowing</span>
+    </div>
+  </div>
+
+  <!-- Option D: Syne (all-in, no serif) -->
+  <div class="opt" data-choice="syne-only" onclick="toggleSelect(this)">
+    <div class="preview preview-dark">
+      <div>
+        <div class="role-label" style="font-family: 'Syne', sans-serif; font-weight: 400; letter-spacing: 0.22em;">↗ Senior Software Engineer</div>
+        <div style="font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800; color: #f5efe4; letter-spacing: -1.5px; line-height: 0.88;">AIDIL<br>SAFWAN</div>
+        <div class="divider"></div>
+      </div>
+      <div class="sub-text" style="font-family: 'Syne', sans-serif; font-weight: 400;">Full-stack engineer who gives a damn about the frontend.</div>
+      <div class="co-text" style="font-family: 'Syne', sans-serif; font-weight: 700; color: #c9852a; letter-spacing: 0.06em;">The Access Group ↗</div>
+    </div>
+    <div class="info">
+      <h3>D — Syne all the way (no serif)</h3>
+      <p>Single typeface system. Syne's unique letterforms create personality without a serif. Very clean, very intentional — feels like a design system someone actually thought about.</p>
+      <div class="fonts">Display + Body: Syne 400/700/800<br>No serif — pure sans hierarchy</div>
+      <span class="tag">Clean · Intentional · Design-system</span>
+    </div>
+  </div>
+
+</div>

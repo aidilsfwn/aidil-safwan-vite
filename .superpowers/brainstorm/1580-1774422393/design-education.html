@@ -1,0 +1,176 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; }
+
+  .desktop-shell { border: 2px solid #c9852a; border-radius: 14px; overflow: hidden; height: 460px; display: flex; box-shadow: 0 0 0 6px rgba(201,133,42,0.08), 0 20px 60px rgba(0,0,0,0.4); }
+
+  .sidebar { width: 160px; flex-shrink: 0; background: #1a1208; display: flex; flex-direction: column; justify-content: space-between; padding: 24px 18px; border-right: 1px solid rgba(201,133,42,0.12); }
+  .sb-label { font-family: 'Space Grotesk', sans-serif; font-size: 7px; font-weight: 600; color: #c9852a; letter-spacing: 0.2em; text-transform: uppercase; }
+  .sb-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; color: #f5efe4; letter-spacing: -0.5px; line-height: 1.05; }
+  .sb-divider { height: 1px; background: linear-gradient(to right, rgba(201,133,42,0.4), transparent); margin: 16px 0; }
+  .sb-nav { display: flex; flex-direction: column; gap: 4px; }
+  .sb-item { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border-radius: 6px; }
+  .sb-item.active { background: rgba(201,133,42,0.1); }
+  .sb-dot { width: 4px; height: 4px; border-radius: 50%; background: #4a3a2a; flex-shrink: 0; }
+  .sb-item.active .sb-dot { background: #c9852a; box-shadow: 0 0 5px rgba(201,133,42,0.6); }
+  .sb-item-label { font-family: 'Space Grotesk', sans-serif; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: #6b5a40; }
+  .sb-item.active .sb-item-label { color: #f5efe4; font-weight: 600; }
+  .sb-bottom { display: flex; flex-direction: column; gap: 12px; }
+  .sb-avail { display: flex; align-items: center; gap: 6px; }
+  .sb-avail-dot { width: 6px; height: 6px; border-radius: 50%; background: #c9852a; }
+  .sb-avail-text { font-family: 'Space Grotesk', sans-serif; font-size: 8px; color: #8a7a6a; }
+  .sb-socials { display: flex; gap: 10px; }
+  .sb-social { font-family: 'Space Grotesk', sans-serif; font-size: 7.5px; font-weight: 600; color: #4a3a2a; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .main { flex: 1; background: #f5efe4; display: flex; flex-direction: column; overflow: hidden; }
+  .snap-bar { display: flex; align-items: center; gap: 6px; padding: 10px 18px; border-bottom: 1px solid rgba(26,18,8,0.07); flex-shrink: 0; }
+  .snap-pip { width: 5px; height: 5px; border-radius: 50%; background: rgba(26,18,8,0.1); }
+  .snap-pip.on { background: #c9852a; }
+  .snap-label { font-family: 'Space Grotesk', sans-serif; font-size: 7px; color: #a08060; letter-spacing: 0.14em; text-transform: uppercase; margin-left: 6px; }
+
+  .edu-section { flex: 1; padding: 14px; display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
+  .edu-header { display: flex; align-items: baseline; justify-content: space-between; padding: 0 2px; flex-shrink: 0; }
+  .edu-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; color: #1a1208; letter-spacing: -1px; }
+  .edu-sub { font-family: 'Space Grotesk', sans-serif; font-size: 8px; color: #a08060; letter-spacing: 0.12em; text-transform: uppercase; }
+
+  /* Grid: 3 cols — degree hero, context card, fun-fact card */
+  .edu-grid { flex: 1; display: grid; grid-template-columns: 1.4fr 1fr; grid-template-rows: 1.3fr 1fr; gap: 8px; }
+
+  /* Degree hero */
+  .card-degree { grid-column: 1/2; grid-row: 1/2; background: #1a1208; border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+  .card-degree::before { content: ''; position: absolute; top: -30px; right: -30px; width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(circle, rgba(201,133,42,0.07), transparent 70%); }
+  .deg-eyebrow { font-family: 'Space Grotesk', sans-serif; font-size: 7px; font-weight: 600; color: #c9852a; letter-spacing: 0.2em; text-transform: uppercase; }
+  .deg-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 900; color: #f5efe4; letter-spacing: -0.3px; line-height: 1.15; margin: 5px 0; }
+  .deg-inst { font-family: 'Space Grotesk', sans-serif; font-size: 8.5px; color: #a08060; }
+  .deg-period { font-family: 'Space Grotesk', sans-serif; font-size: 7.5px; font-weight: 600; color: #6b5a40; letter-spacing: 0.06em; margin-top: 2px; }
+  .deg-divider { height: 1px; background: rgba(201,133,42,0.15); margin: 10px 0; }
+  .deg-bottom { display: flex; align-items: flex-end; justify-content: space-between; }
+  .deg-cgpa-label { font-family: 'Space Grotesk', sans-serif; font-size: 7px; font-weight: 600; color: #6b5a40; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 2px; }
+  .deg-cgpa { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; color: #c9852a; line-height: 1; }
+  .deg-year { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; color: rgba(201,133,42,0.1); line-height: 1; }
+
+  /* Foundation card */
+  .card-foundation { grid-column: 2/3; grid-row: 1/2; background: rgba(201,133,42,0.07); border: 1px solid rgba(201,133,42,0.14); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between; }
+  .fd-eyebrow { font-family: 'Space Grotesk', sans-serif; font-size: 7px; font-weight: 600; color: #8a6a3a; letter-spacing: 0.18em; text-transform: uppercase; }
+  .fd-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: #1a1208; line-height: 1.2; margin: 4px 0; }
+  .fd-inst { font-family: 'Space Grotesk', sans-serif; font-size: 8px; color: #a08060; }
+  .fd-period { font-family: 'Space Grotesk', sans-serif; font-size: 7.5px; font-weight: 600; color: #8a6a3a; margin-top: 2px; }
+  .fd-bottom { display: flex; align-items: flex-end; justify-content: space-between; }
+  .fd-cgpa-label { font-family: 'Space Grotesk', sans-serif; font-size: 7px; color: #a08060; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
+  .fd-cgpa { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; color: #c9852a; opacity: 0.7; line-height: 1; }
+
+  /* Journey card — spanning full bottom */
+  .card-journey { grid-column: 1/3; grid-row: 2/3; background: #f0e8d8; border: 1px solid rgba(26,18,8,0.07); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; gap: 20px; }
+  .journey-label { font-family: 'Space Grotesk', sans-serif; font-size: 7px; font-weight: 600; color: #8a6a3a; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px; flex-shrink: 0; }
+  .journey-text { font-family: 'Space Grotesk', sans-serif; font-size: 8.5px; color: #6b5a40; line-height: 1.6; }
+  .journey-text em { color: #1a1208; font-style: normal; font-weight: 600; }
+  .journey-divider { width: 1px; height: 50px; background: rgba(201,133,42,0.2); flex-shrink: 0; }
+  .journey-stats { display: flex; gap: 20px; flex-shrink: 0; }
+  .jstat { text-align: center; }
+  .jstat-num { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 900; color: #1a1208; line-height: 1; }
+  .jstat-label { font-family: 'Space Grotesk', sans-serif; font-size: 7px; color: #a08060; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+
+  .annotation { background: rgba(201,133,42,0.06); border-left: 2px solid #c9852a; padding: 8px 12px; border-radius: 0 6px 6px 0; font-size: 10px; color: #64748b; line-height: 1.5; margin-top: 14px; }
+  .annotation strong { color: #c9852a; }
+</style>
+
+<h2>Section 4 of 6 — Education</h2>
+<p class="subtitle">Degree gets the hero card with CGPA prominently displayed. Foundation sits as a supporting card. A bottom-spanning card tells the pivot story — Engineering → CS.</p>
+
+<div class="desktop-shell">
+  <div class="sidebar">
+    <div>
+      <div class="sb-label">Portfolio</div>
+      <div class="sb-name">Aidil<br>Safwan</div>
+      <div class="sb-divider"></div>
+      <div class="sb-nav">
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">About</div></div>
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">Skills</div></div>
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">Work</div></div>
+        <div class="sb-item active"><div class="sb-dot"></div><div class="sb-item-label">Education</div></div>
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">Projects</div></div>
+        <div class="sb-item"><div class="sb-dot"></div><div class="sb-item-label">Contact</div></div>
+      </div>
+    </div>
+    <div class="sb-bottom">
+      <div class="sb-avail"><div class="sb-avail-dot"></div><div class="sb-avail-text">Open to work</div></div>
+      <div class="sb-socials"><span class="sb-social">GH</span><span class="sb-social">LI</span><span class="sb-social">CV</span></div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="snap-bar">
+      <div class="snap-pip"></div><div class="snap-pip"></div><div class="snap-pip"></div><div class="snap-pip on"></div><div class="snap-pip"></div><div class="snap-pip"></div>
+      <span class="snap-label">04 — Education</span>
+    </div>
+    <div class="edu-section">
+      <div class="edu-header">
+        <div class="edu-title">Education.</div>
+        <div class="edu-sub">UiTM · 2014 – 2020</div>
+      </div>
+      <div class="edu-grid">
+
+        <!-- Degree hero -->
+        <div class="card-degree">
+          <div>
+            <div class="deg-eyebrow">↗ Bachelor's Degree</div>
+            <div class="deg-name">Computer Science<br>(Hons.)</div>
+            <div class="deg-inst">Universiti Teknologi MARA</div>
+            <div class="deg-period">2017 – 2020</div>
+            <div class="deg-divider"></div>
+            <div class="deg-cgpa-label">CGPA</div>
+            <div class="deg-cgpa">3.42</div>
+          </div>
+          <div class="deg-bottom">
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:7.5px; color:#6b5a40; max-width:140px; line-height:1.5;">Final year: Twitter sentiment analysis — bilingual NLP classification model.</div>
+            <div class="deg-year">20</div>
+          </div>
+        </div>
+
+        <!-- Foundation -->
+        <div class="card-foundation">
+          <div>
+            <div class="fd-eyebrow">Foundation</div>
+            <div class="fd-name">Foundation in<br>Engineering</div>
+            <div class="fd-inst">Universiti Teknologi MARA</div>
+            <div class="fd-period">2014 – 2015</div>
+          </div>
+          <div class="fd-bottom">
+            <div>
+              <div class="fd-cgpa-label">CGPA</div>
+              <div class="fd-cgpa">3.78</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pivot story — full width bottom -->
+        <div class="card-journey">
+          <div style="flex:1;">
+            <div class="journey-label">The pivot</div>
+            <div class="journey-text">Started in <em>Electronic Engineering</em> — switched to <em>Computer Science</em> when the pull towards coding became impossible to ignore. Never looked back.</div>
+          </div>
+          <div class="journey-divider"></div>
+          <div class="journey-stats">
+            <div class="jstat">
+              <div class="jstat-num">3.78</div>
+              <div class="jstat-label">Foundation</div>
+            </div>
+            <div class="jstat">
+              <div class="jstat-num">3.42</div>
+              <div class="jstat-label">Degree</div>
+            </div>
+            <div class="jstat">
+              <div class="jstat-num">6yr</div>
+              <div class="jstat-label">Academia</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="annotation">
+  <strong>Content optimisation:</strong> The Engineering → CS pivot is actually a compelling story — added it as a one-liner in the bottom card. The FYP (Twitter sentiment analysis / bilingual NLP) is genuinely interesting and kept. Both CGPAs displayed as numbers — they're good, show them.
+</div>
