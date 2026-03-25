@@ -7,72 +7,126 @@ import {
   FolderKanban,
 } from "lucide-react";
 
+// ─── Interfaces ────────────────────────────────────────────────────────────────
+
+export interface Project {
+  id: string;
+  title: string;
+  description: string;
+  tech: string[];
+  image?: string;
+  demoUrl?: string;
+  repoUrl?: string;
+  appStoreUrl?: string;
+  playStoreUrl?: string;
+  category: "professional" | "personal";
+  isArchived?: boolean;
+  archivedNote?: string;
+}
+
+export interface Experience {
+  title: string;
+  company: string;
+  period: string;
+  description?: string;
+  achievements: string[];
+  featuredAchievements?: string[];
+  tech?: string[];
+}
+
+export interface EducationEntry {
+  degree: string;
+  institution: string;
+  period: string;
+  details: string;
+}
+
+// ─── Profile ───────────────────────────────────────────────────────────────────
+
 export const profile = {
   name: "Aidil Safwan",
   title: "Senior Software Engineer @ The Access Group",
   location: "Kuala Lumpur, MY",
   email: "aidilsafwan.aas@gmail.com",
-  bio: "A lifelong knowledge seeker and problem solver at heart, I see coding as a tool to create meaningful solutions rather than just a profession. Currently, I’m a Senior Software Engineer at The Access Group, where I build and optimize digital solutions to enhance user experiences. Previously, I was a Frontend Developer at Aleph-Labs, crafting user-focused digital experiences. Before that, I worked as an Analyst Programmer at Public Bank, contributing to UI/UX design and mobile app development. Earlier in my career, I was a Software Engineer at INVOKE, where I developed web and mobile products and played a key role in various projects. My academic journey started in Electronic Engineering, but my passion for coding led me to pursue a Bachelor of Computer Science. My final-year project involved Twitter sentiment analysis, where I built a bilingual classification model and visualized the results. Outside of work, I love experimenting with personal projects, such as building my personal website and creating data-driven dashboards. I’m also passionate about giving back to the community, volunteering with Young Digital Leaders Malaysia and contributing to educational events at Petrosains. Driven by curiosity and a passion for learning, I’m always looking for opportunities to solve problems and grow. Let’s connect!",
+  bio: "Frontend engineer at heart, fullstack in practice. 5+ years turning ideas into digital products — from mobile banking apps to government platforms. Currently leading frontend at The Access Group.",
   githubUrl: "https://github.com/aidilsfwn",
   linkedinUrl: "https://linkedin.com/in/aidilsafwan",
   resumeUrl: "/AidilSafwanResume.pdf",
 };
 
-export const skills = {
-  Frontend: [
-    "React",
-    "TypeScript",
-    "JavaScript",
-    "Redux",
-    "UI/UX Implementation",
-  ],
-  Backend: ["Node.js", "Express", "PHP", "Laravel", "MySQL", "MongoDB"],
-  Mobile: ["React Native", "Expo", "Flutter", "iOS deployment", "Android deployment"],
-  "DevOps & Tools": ["Docker", "Git", "AWS", "Google Cloud", "CI/CD"],
+// ─── Skills ────────────────────────────────────────────────────────────────────
+
+export const skills: {
+  web: string[];
+  mobile: string[];
+  backend: string[];
+  devops: string[];
+} = {
+  web: ["React", "TypeScript", "JavaScript", "Redux", "Next.js", "UI/UX"],
+  mobile: ["React Native", "Expo", "Flutter", "iOS", "Android"],
+  backend: ["Laravel", "Node.js", "Express", "MySQL", "MongoDB", "PHP"],
+  devops: ["AWS", "Azure DevOps", "Docker", "GitHub Actions", "CI/CD"],
 };
 
-export const experiences = [
+// ─── Experience ────────────────────────────────────────────────────────────────
+
+export const experiences: Experience[] = [
   {
     title: "Senior Software Engineer",
     company: "The Access Group",
     period: "Mar 2025 - Present",
+    featuredAchievements: [
+      "Inherited a vendor-built codebase — led migration of CI/CD pipelines from Bitbucket to GitHub Actions from scratch.",
+      "Rebuilding the ChangeGPS accounting suite as Access Evo: a modular React + .NET + Azure SSO platform in a monorepo.",
+      "Served as interim technical lead through a leadership gap, maintaining delivery continuity across cross-functional teams.",
+    ],
+    tech: ["React", ".NET", "Azure", "GitHub Actions"],
     achievements: [
-      "Build and maintain full-stack systems using React + Vite, PHP Laravel, MySQL, and AWS, delivering scalable, cloud-native applications for The Access Group.",
-      "Collaborate closely with the Product Manager to translate business requirements into end-to-end technical solutions across the Access suite.",
-      "Mentor and guide engineers to optimize development workflows, boost team velocity, and uphold high standards of code quality.",
-      "Utilize AI-assisted development tools—including Devin, Claude, and GitHub Copilot—to accelerate delivery and minimize manual overhead.",
-      "Lead the integration of ChangeGPS into the Access ecosystem, evolving it from a standalone accounting tool into a modular, scalable platform for APAC markets.",
-      "Implement a microfrontend and microservices architecture, enabling independent deployments, modular scaling, and faster product iteration.",
-      "Spearhead the redevelopment of the ChangeGPS accounting suite, enhancing its ability to deliver compliance, advisory insights, and practice management capabilities on a modern, AI-augmented foundation.",
-      "Oversee the migration of CI/CD pipelines from Bitbucket to GitHub Actions, modernizing deployment automation and improving release efficiency across all environments.",
-      "Serve as interim technical lead during leadership transitions, ensuring delivery continuity, coordinating cross-functional efforts, and maintaining project momentum.",
-      "Act as Scrum Master, facilitating sprint planning, retrospectives, and capacity management while fostering agile practices that improve predictability and collaboration.",
+      "Build and maintain full-stack systems using React + Vite, PHP Laravel, MySQL, and AWS.",
+      "Collaborate closely with the Product Manager to translate business requirements into technical solutions.",
+      "Mentor and guide engineers to optimize development workflows and uphold code quality.",
+      "Utilize AI-assisted development tools—Devin, Claude, GitHub Copilot—to accelerate delivery.",
+      "Lead the integration of ChangeGPS into the Access ecosystem as a modular APAC platform.",
+      "Implement microfrontend and microservices architecture for independent deployments.",
+      "Spearhead redevelopment of the ChangeGPS accounting suite on an AI-augmented foundation.",
+      "Oversee CI/CD migration from Bitbucket to GitHub Actions.",
+      "Serve as interim technical lead during leadership transitions.",
+      "Act as Scrum Master facilitating sprint planning, retrospectives, and capacity management.",
     ],
   },
   {
     title: "Frontend Developer",
     company: "Aleph-Labs",
     period: "May 2022 - Feb 2025",
-    description:
-      "Developed and maintained full-stack web applications using React and Node.js. Implemented real-time data processing system handling 1M+ daily transactions.",
+    featuredAchievements: [
+      "First mobile team member for a large-scale banking app — built the component library and led project-wide mobile coordination.",
+      "Drove micro frontend migration for a banking web app payment module.",
+      "Delivered features for an Australian digital bank (in1bank), collaborating directly with product owners.",
+    ],
+    tech: ["React", "React Native", "Flutter", "Redux"],
     achievements: [
-      "First member of the mobile team for a large-scale app project, leading mobile development, including component library creation and project-wide coordination.",
+      "First member of the mobile team for a large-scale app project, leading mobile development including component library creation.",
       "Worked on end-to-end implementation, collaborating with product owners, analysts, stakeholders, and testing teams.",
       "Actively onboarded new developers, reviewed code, resolved bugs, handled change requests, and assisted with deployments.",
       "Played a role in a micro frontend migration for a banking web app payment module, including unit test refactoring.",
-      "Maintained a Flutter component library for a banking app and assisted with a prototype for an internal banking solution MVP.",
-      "Supported new feature implementation and bug fixes for an Australian digital bank app, collaborating closely with product owners.",
+      "Maintained a Flutter component library for a banking app and assisted with an internal banking solution MVP.",
+      "Supported new feature implementation and bug fixes for an Australian digital bank app.",
     ],
   },
   {
     title: "Analyst Programmer",
     company: "Public Bank",
     period: "Oct 2020 - May 2022",
+    featuredAchievements: [
+      "Built registration and eKYC modules for MyPB — a next-gen mobile banking app with native SDK bridge.",
+      "Led a complete redesign and codebase refactor of the internal HRMS app.",
+    ],
+    tech: ["React Native", "Redux", "iOS", "Android"],
     achievements: [
       "Progressed from trainee to full-fledged analyst programmer within a year.",
-      "Designed festive-themed UI elements for a Human Resource Management System (HRMS) app, coordinating with internal clients on requirements and API design for a digital library feature.",
-      "Led a complete redesign and codebase refactor for the HRMS app, ensuring a more efficient and maintainable structure.",
-      "Developed registration and eKYC modules for a new banking app, building a bridge for native SDK integration.",
+      "Designed festive-themed UI elements for the HRMS app, coordinating with internal clients.",
+      "Led a complete redesign and codebase refactor for the HRMS app.",
+      "Developed registration and eKYC modules for a new banking app with native SDK integration.",
       "Conducted code reviews, identified bugs, and enhanced overall app functionality.",
     ],
   },
@@ -80,17 +134,24 @@ export const experiences = [
     title: "Software Engineer",
     company: "INVOKE",
     period: "Feb 2020 - Oct 2020",
+    featuredAchievements: [
+      "Converted from intern to full-time hire based on performance.",
+      "Built n9.digital — the Negeri Sembilan state digital gateway connecting citizens, businesses, and government.",
+    ],
+    tech: ["React", "React Native", "Expo"],
     achievements: [
       "Initially joined as an intern; secured a permanent role due to high performance.",
-      "Collaborated with various teams to deliver client-focused solutions, including landing pages for a UK real estate client.",
+      "Collaborated with various teams to deliver client-focused solutions including landing pages for a UK real estate client.",
       "Built the company website, integrating form handling, security features, and notifications.",
-      "Developed a mobile solution for state-citizen engagement and an AI-powered job portal, providing mentorship to new joiners.",
-      "Practiced agile methodology, participated in scrums, contributed to sprint tasks, and assisted with code reviews and bug fixes.",
+      "Developed a mobile solution for state-citizen engagement and an AI-powered job portal.",
+      "Practiced agile methodology, participated in scrums, and assisted with code reviews.",
     ],
   },
 ];
 
-export const education = [
+// ─── Education ─────────────────────────────────────────────────────────────────
+
+export const education: EducationEntry[] = [
   {
     degree: "Bachelor of Computer Science (Hons.)",
     institution: "Universiti Teknologi MARA (UiTM)",
@@ -105,94 +166,145 @@ export const education = [
   },
 ];
 
-export const certifications = [
-  {
-    name: "AWS Certified Solutions Architect",
-    issuer: "Amazon Web Services",
-    date: "2023",
-  },
-  {
-    name: "Google Cloud Professional Developer",
-    issuer: "Google",
-    date: "2022",
-  },
-];
+// ─── Projects ──────────────────────────────────────────────────────────────────
 
-export const projects = [
+export const projects: Project[] = [
+  // Professional
   {
+    id: "changegps",
     title: "ChangeGPS",
     description:
       "A modern platform for accountants, offering practice management and compliance tools tailored to firms of all sizes.",
-    tech: ["Web Development", "React", "Laravel"],
+    tech: ["React", "Laravel", "AWS"],
     image: "/images/cgps.webp",
-    demoUrl: "https://changegps.com.au", // Example URL
-    repoUrl: "", // Private repo
+    demoUrl: "https://changegps.com.au",
+    category: "professional",
   },
   {
+    id: "in1bank",
     title: "in1bank",
     description:
       "A digital-first Australian banking app with seamless in-app account creation and the same government guarantees as traditional banks.",
-    tech: ["Mobile Development", "React Native", "Redux"],
+    tech: ["React Native", "Redux", "iOS", "Android"],
     image: "/images/in1bank.webp",
     demoUrl: "https://in1bank.com.au",
     appStoreUrl: "https://apps.apple.com/au/app/in1bank/id1490235916",
-    playStoreUrl: "https://play.google.com/store/apps/details?id=com.in1bank.mobile",
-    repoUrl: "",
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.in1bank.mobile",
+    category: "professional",
   },
   {
+    id: "kwsp",
     title: "KWSP i-Akaun",
     description:
-      "The refreshed KWSP i-Akaun app empowers users to monitor their retirement savings, manage transactions, and locate branches—all in one intuitive interface.",
-    tech: ["Mobile Development", "React Native", "Redux"],
+      "The refreshed KWSP i-Akaun app empowers users to monitor their retirement savings, manage transactions, and locate branches.",
+    tech: ["React Native", "Redux", "iOS", "Android"],
     image: "/images/kwsp.webp",
     demoUrl: "https://www.kwsp.gov.my/en/member/i-akaun",
     appStoreUrl: "https://apps.apple.com/my/app/kwsp-i-akaun/id1396563336",
-    playStoreUrl: "https://play.google.com/store/apps/details?id=my.gov.kwsp.iakaun",
-    repoUrl: "",
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=my.gov.kwsp.iakaun",
+    category: "professional",
   },
   {
+    id: "mypb",
     title: "MyPB",
     description:
-      "Public Bank’s next-gen mobile banking app, combining financial services and lifestyle features in a sleek, unified experience.",
-    tech: ["Mobile Development", "React Native", "Redux", "iOS", "Android"],
+      "Public Bank's next-gen mobile banking app, combining financial services and lifestyle features in a sleek, unified experience.",
+    tech: ["React Native", "Redux", "iOS", "Android"],
     image: "/images/mypb.webp",
     demoUrl: "https://www.pbebank.com",
-    appStoreUrl: "https://apps.apple.com/my/app/mypb-by-public-bank/id1527807753",
-    playStoreUrl: "https://play.google.com/store/apps/details?id=com.publicbank.mypb",
-    repoUrl: "",
+    appStoreUrl:
+      "https://apps.apple.com/my/app/mypb-by-public-bank/id1527807753",
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.publicbank.mypb",
+    category: "professional",
   },
   {
+    id: "pbexperience",
     title: "PBeXperience",
     description:
       "An internal productivity app by Public Bank, delivering a secure suite of digital tools to enhance employee efficiency on the go.",
-    tech: ["Mobile Development", "React Native", "Redux"],
+    tech: ["React Native", "Redux"],
     image: "/images/pbx.webp",
-    demoUrl: "",
     appStoreUrl: "https://apps.apple.com/my/app/pbexperience/id1181226879",
-    playStoreUrl: "https://play.google.com/store/apps/details?id=com.publicbank.pbe.mobile",
-    repoUrl: "",
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.publicbank.pbe.mobile",
+    category: "professional",
   },
   {
+    id: "n9digital",
     title: "n9.digital",
     description:
       "The official digital gateway for Negeri Sembilan, enabling seamless interactions between citizens, businesses, and government agencies.",
-    tech: ["Mobile Development", "React Native", "Expo"],
+    tech: ["React Native", "Expo"],
     image: "/images/n9.webp",
     demoUrl: "https://n9.digital",
     appStoreUrl: "https://apps.apple.com/my/app/n9-digital/id1481541604",
-    playStoreUrl: "https://play.google.com/store/apps/details?id=my.n9.digital",
-    repoUrl: "",
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=my.n9.digital",
+    category: "professional",
   },
   {
+    id: "invokeisdata",
     title: "invokeisdata",
     description:
-      "A sleek landing page for Invoke, showcasing the firm’s capabilities in data analytics, insights, and political intelligence.",
-    tech: ["Web Development", "React", "Express"],
+      "A sleek landing page for Invoke, showcasing the firm's capabilities in data analytics, insights, and political intelligence.",
+    tech: ["React", "Express"],
     image: "/images/invoke.jpg",
     demoUrl: "https://invokeisdata.com",
-    repoUrl: "",
+    category: "professional",
+  },
+  // Personal
+  {
+    id: "covid-dashboard",
+    title: "COVID-19 MY Dashboard",
+    description:
+      "A real-time COVID-19 statistics dashboard for Malaysia — automated data pipeline via Google Sheets, visualised in Google Data Studio. Referenced by government officials during the pandemic.",
+    tech: ["Google Data Studio", "Google Sheets"],
+    category: "personal",
+    isArchived: true,
+    archivedNote: "Data no longer maintained — pandemic has ended.",
+  },
+  {
+    id: "dah-qada",
+    title: "dah-qada",
+    description:
+      "A prayer qada tracker for Muslims — keep track of missed prayers and make them up, one at a time.",
+    tech: ["React", "Vite", "TypeScript"],
+    repoUrl: "https://github.com/aidilsfwn/dah-qada",
+    category: "personal",
+  },
+  {
+    id: "9mo",
+    title: "9mo",
+    description:
+      "A pregnancy and milestone tracker for the journey from conception to birth. 9 months, documented.",
+    tech: ["React", "TypeScript"],
+    repoUrl: "https://github.com/aidilsfwn/9mo",
+    category: "personal",
+  },
+  {
+    id: "elak-hujan",
+    title: "elak-hujan",
+    description:
+      "A rain prediction and avoidance tool built for Kuala Lumpur commuters — know before you go.",
+    tech: ["React"],
+    repoUrl: "https://github.com/aidilsfwn/elak-hujan",
+    category: "personal",
+  },
+  {
+    id: "af-1-anniversary",
+    title: "af-1-anniversary",
+    description:
+      "A mobile-first digital anniversary card — background music plays on load, shareable, with a PDF export option.",
+    tech: ["React 19", "TypeScript", "Vite", "Tailwind CSS"],
+    repoUrl: "https://github.com/aidilsfwn/af-1-anniversary",
+    category: "personal",
   },
 ];
+
+// ─── Menu ──────────────────────────────────────────────────────────────────────
 
 export const menu = [
   { label: "About", link: "#about", icon: <User /> },
