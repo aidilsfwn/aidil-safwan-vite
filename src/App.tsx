@@ -6,26 +6,40 @@ import {
   Projects,
   Skills,
 } from "./layouts/sections";
-import { Footer, FloatingDock } from "./components";
+import { FloatingDock, Sidebar, SnapSection } from "./components";
+import { MotionProvider } from "./context/MotionContext";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-300 selection:bg-indigo-500/30">
-      {/* <MobileMenu /> - Disabling MobileMenu in favor of generic FloatingDock for all screens? No, let's keep it but maybe hide it on mobile if Dock is used? 
-          Actually, FloatingDock works great on mobile too. Let's try fully replacing. 
-      */}
-      
-      <FloatingDock />
-
-      <main className="max-w-4xl mx-auto p-6 md:p-12 pb-32">
-        <Hero />
-        <Skills />
-        <Experience />
-        <Education />
-        <Projects />
-        <Contact />
-        <Footer />
-      </main>
-    </div>
+    <MotionProvider>
+      <div className="flex overflow-hidden bg-ink" style={{ height: "100dvh" }}>
+        <Sidebar className="hidden md:flex" />
+        <main
+          id="scroll-container"
+          className="flex-1 overflow-y-scroll"
+          style={{ scrollSnapType: "y mandatory", height: "100dvh" }}
+        >
+          <SnapSection id="about">
+            <Hero />
+          </SnapSection>
+          <SnapSection id="skills">
+            <Skills />
+          </SnapSection>
+          <SnapSection id="experience">
+            <Experience />
+          </SnapSection>
+          <SnapSection id="education">
+            <Education />
+          </SnapSection>
+          <SnapSection id="projects">
+            <Projects />
+          </SnapSection>
+          <SnapSection id="contact" dark>
+            <Contact />
+          </SnapSection>
+        </main>
+        <FloatingDock className="flex md:hidden" />
+      </div>
+    </MotionProvider>
   );
 }

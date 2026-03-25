@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
 
 import { projects } from "../../constants";
-import { SectionWrapper } from "../../components";
+import { SectionWrapper } from "../../components/SectionWrapper";
 
 export const Projects = () => {
   const scrollRef = useRef<HTMLDivElement>(null);

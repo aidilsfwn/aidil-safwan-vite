@@ -1,7 +1,7 @@
 import { MapPin, Download } from "lucide-react";
 
 import { profile } from "../../constants";
-import { SectionWrapper } from "../../components";
+import { SectionWrapper } from "../../components/SectionWrapper";
 
 export const Hero = () => {
   return (

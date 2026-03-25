@@ -1,7 +1,8 @@
 import { Calendar } from "lucide-react";
 
 import { experiences } from "../../constants";
-import { Timeline, TimelineItem, SectionWrapper } from "../../components";
+import { Timeline, TimelineItem } from "../../components/Timeline";
+import { SectionWrapper } from "../../components/SectionWrapper";
 
 export const Experience = () => {
   return (

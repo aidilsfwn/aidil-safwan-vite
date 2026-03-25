@@ -1,5 +1,5 @@
 import { skills } from "../../constants";
-import { SectionWrapper } from "../../components";
+import { SectionWrapper } from "../../components/SectionWrapper";
 
 export const Skills = () => {
   return (
