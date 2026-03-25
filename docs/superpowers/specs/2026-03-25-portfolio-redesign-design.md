@@ -19,76 +19,168 @@ The portfolio itself should demonstrate frontend skill — not just list it.
 
 ## Design Tokens
 
-### Palette
-| Token | Value | Usage |
+### Palette — Tailwind v4 (`styles.css` under `@theme`)
+```css
+@theme {
+  --color-cream: #f5efe4;
+  --color-dark: #1a1208;
+  --color-amber: #c9852a;
+  --color-amber-hover: #b8741f;
+  --color-cream-muted: #f0e8d8;
+  --color-text-body: #6b5a40;
+  --color-text-secondary: #a08060;
+  --color-text-muted: #8a7a6a;
+  --color-text-on-dark: #f5efe4;
+  --color-border-cream: rgba(26, 18, 8, 0.07);
+  --color-border-amber: rgba(201, 133, 42, 0.18);
+  --color-amber-tint: rgba(201, 133, 42, 0.08);
+}
+```
+
+These tokens are used in Tailwind classes as `bg-cream`, `text-amber`, `border-amber`, etc.
+
+### Typography — loaded in `styles.css`
+```css
+@import '@fontsource/playfair-display/900.css';
+@import '@fontsource/space-grotesk/400.css';
+@import '@fontsource/space-grotesk/600.css';
+@import '@fontsource/space-grotesk/700.css';
+```
+
+| Role | Font | Weight |
 |---|---|---|
-| `cream` | `#f5efe4` | Main content background |
-| `dark` | `#1a1208` | Sidebar, dark cards, contact section bg |
-| `amber` | `#c9852a` | Primary accent — borders, highlights, active states, CTAs |
-| `amber-muted` | `rgba(201,133,42,0.12)` | Card tints, pill backgrounds |
-| `text-primary` | `#1a1208` | Headings on cream bg |
-| `text-body` | `#6b5a40` | Body copy |
-| `text-secondary` | `#a08060` | Labels, metadata, subtitles |
-| `text-on-dark` | `#f5efe4` | All text on dark bg |
-| `text-muted-dark` | `#8a7a6a` | Secondary text on dark bg |
-| `border-cream` | `rgba(26,18,8,0.07)` | Subtle borders on cream bg |
-| `border-amber` | `rgba(201,133,42,0.18)` | Amber-tinted card borders |
+| Display / Headings | Playfair Display | 900 |
+| Body / UI / Labels | Space Grotesk | 400, 600, 700 |
 
-### Typography
-| Role | Font | Weight | Notes |
-|---|---|---|---|
-| Display / Headings | Playfair Display | 900 | Section titles, names, card headlines |
-| Body / UI | Space Grotesk | 400, 600, 700 | All body copy, labels, nav, pills |
-
-Both fonts loaded via `@fontsource` packages (no Google Fonts CDN dependency).
+Remove existing `--font-sans: Inter` from `styles.css`. Set:
+```css
+:root {
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Space Grotesk', system-ui, sans-serif;
+}
+```
 
 ---
 
-## Layout Architecture
+## DOM Structure (App.tsx rewrite)
 
-### Desktop (≥ `md` breakpoint)
+The current `max-w-4xl mx-auto` wrapper is **removed**. New top-level structure:
+
+```tsx
+<div className="flex h-screen overflow-hidden">
+  {/* Fixed sidebar — desktop only */}
+  <Sidebar className="hidden md:flex w-[160px] flex-shrink-0" />
+
+  {/* Snap-scroll content area */}
+  <main
+    id="scroll-container"
+    className="flex-1 overflow-y-auto"
+    style={{ scrollSnapType: 'y mandatory' }}
+  >
+    <SnapSection id="about"><Hero /></SnapSection>
+    <SnapSection id="skills"><Skills /></SnapSection>
+    <SnapSection id="experience"><Experience /></SnapSection>
+    <SnapSection id="education"><Education /></SnapSection>
+    <SnapSection id="projects"><Projects /></SnapSection>
+    <SnapSection id="contact"><Contact /></SnapSection>
+  </main>
+
+  {/* Mobile nav — hidden on desktop */}
+  <FloatingDock className="flex md:hidden" />
+</div>
 ```
-┌─────────────────┬──────────────────────────────────┐
-│  Fixed Sidebar  │  Snap-scroll content area        │
-│   160px wide    │  Full remaining width            │
-│   bg: #1a1208   │  bg: varies per section          │
-│                 │                                  │
-│  - Monogram     │  ┌──────────────────────────┐    │
-│  - Nav items    │  │  Section progress bar    │    │
-│  - Social links │  │  (pip dots + label)      │    │
-│  - Open status  │  ├──────────────────────────┤    │
-│                 │  │                          │    │
-│                 │  │  Bento grid content      │    │
-│                 │  │  (unique per section)    │    │
-│                 │  │                          │    │
-│                 │  └──────────────────────────┘    │
-└─────────────────┴──────────────────────────────────┘
-```
 
-**Sidebar** is `position: fixed`, full viewport height. Never scrolls.
-**Content area** uses `scroll-snap-type: y mandatory` — each section is `height: 100vh` and snaps into view.
-**Sidebar nav** active item updates via `IntersectionObserver` as sections snap.
-
-### Mobile (< `md` breakpoint)
-- Sidebar hidden (`hidden md:flex`)
-- Existing `FloatingDock` component handles navigation (already built)
-- Bento grids collapse to single-column stacked cards
-- Snap-scroll retained — works natively on iOS Safari and Android
+**Key points:**
+- `overflow-hidden` on the outer div prevents double scrollbars
+- The `<main>` element is the scroll container — NOT `window`
+- `FloatingDock` gets `className="flex md:hidden"` — hidden when sidebar is visible
+- Sidebar gets `className="hidden md:flex"` — hidden on mobile
 
 ---
 
-## Navigation Structure
+## Active Section State — Shared Hook
 
-6 sections, 6 nav items:
+Both `Sidebar` and `FloatingDock` share a single `useActiveSection` hook to avoid conflicting scroll listeners.
 
-| # | Label | Anchor | Sidebar dot colour |
-|---|---|---|---|
-| 1 | About | `#about` | amber (active) |
-| 2 | Skills | `#skills` | amber (active) |
-| 3 | Work | `#experience` | amber (active) |
-| 4 | Education | `#education` | amber (active) |
-| 5 | Projects | `#projects` | amber (active) |
-| 6 | Contact | `#contact` | amber (active) |
+```ts
+// src/hooks/useActiveSection.ts
+export function useActiveSection(sectionIds: string[]): string {
+  const [activeId, setActiveId] = useState(sectionIds[0]);
+
+  useEffect(() => {
+    const container = document.getElementById('scroll-container');
+    if (!container) return;
+
+    const observers = sectionIds.map(id => {
+      const el = document.getElementById(id);
+      if (!el) return null;
+      const observer = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveId(id); },
+        { root: container, threshold: 0.5 }
+      );
+      observer.observe(el);
+      return observer;
+    });
+
+    return () => observers.forEach(o => o?.disconnect());
+  }, [sectionIds]);
+
+  return activeId;
+}
+```
+
+`FloatingDock` is updated to use this hook instead of its current `window.scrollY` listener. The `root` is the `#scroll-container` element, not `window`.
+
+---
+
+## Component Specs
+
+### `SnapSection.tsx`
+```tsx
+interface SnapSectionProps {
+  id: string;
+  children: React.ReactNode;
+  className?: string;
+}
+// Renders: <section id={id} style={{ scrollSnapAlign: 'start', height: '100dvh' }} ...>
+```
+
+Uses `100dvh` (dynamic viewport height) instead of `100vh` to prevent overflow on mobile browsers with dynamic address bars.
+
+### `Sidebar.tsx`
+```tsx
+interface SidebarProps {
+  className?: string;
+}
+```
+- `position: fixed` (via Tailwind `fixed`), full height, `z-index: 40` (`z-40`)
+- Internally calls `useActiveSection(['about','skills','experience','education','projects','contact'])`
+- Renders: brand monogram, nav items, divider, social links, open-to-work status
+
+### `BentoGrid.tsx`
+Thin layout primitive — a named `div` with consistent gap and padding. Each section defines its own `grid-template-columns` and `grid-template-rows` inline (they are all different). `BentoGrid` only provides:
+```tsx
+interface BentoGridProps {
+  children: React.ReactNode;
+  className?: string; // caller supplies grid-cols, grid-rows
+}
+// Renders: <div className={cn('grid gap-2.5 p-3.5 flex-1 overflow-hidden', className)}>
+```
+
+### `FloatingDock.tsx` (updated)
+- Add `className?: string` prop — consumed as `className="flex md:hidden"` from App.tsx
+- Replace `window` scroll listener with `useActiveSection` hook
+- `z-index: 50` (`z-50`) — above sidebar's `z-40`
+
+---
+
+## Z-Index Layering
+
+| Element | z-index | Class |
+|---|---|---|
+| Sidebar | 40 | `z-40` |
+| FloatingDock | 50 | `z-50` |
+| Tooltips / overlays | 60 | `z-60` |
 
 ---
 
@@ -96,190 +188,259 @@ Both fonts loaded via `@fontsource` packages (no Google Fonts CDN dependency).
 
 ### Section 1 — About (Hero)
 
-**Background:** cream (`#f5efe4`)
-**Bento grid:** `grid-template-columns: 1.3fr 1fr` / `grid-template-rows: 1fr 1fr`
+**Background:** `bg-cream`
+**Bento grid spec:**
+```
+grid-template-columns: 1.3fr 1fr
+grid-template-rows: 1fr 1fr
+────────────────────────────
+│  Name card      │ Role   │
+│  (col 1, r 1-2) │ card   │
+│                 ├────────│
+│                 │ Stack  │
+│                 │ card   │
+────────────────────────────
+```
 
-| Card | Position | Background | Content |
+| Card | Grid area | Background | Content |
 |---|---|---|---|
-| Name card | col 1, row 1–2 (full height) | `#1a1208` | Eyebrow label, "Aidil Safwan" in Playfair 900, amber rule, short bio, circular avatar (44px) bottom-left, Resume button bottom-right |
-| Role card | col 2, row 1 | amber-tinted | "Currently at" label, company name in Playfair, title, period, year in large faded amber, arrow |
-| Stack card | col 2, row 2 | `#f0e8d8` | "Core Stack" label, tech pills (React, TypeScript, JavaScript, Redux, Next.js), location |
+| Name card | col 1 / row 1-2 | `#1a1208` | Eyebrow label, "Aidil Safwan" Playfair 900, amber rule, short bio, 44px circular avatar bottom-left, Resume pill button bottom-right |
+| Role card | col 2 / row 1 | `bg-amber-tint border-border-amber` | "Currently at" label, company name Playfair, title, period, faded year number, ↗ arrow |
+| Stack card | col 2 / row 2 | `bg-cream-muted border-border-cream` | "Core Stack" label, tech pills, 📍 location |
 
-**Avatar:** Small circular element (`44px`) embedded in bottom-left of the Name card. No standalone photo card.
-**Resume button:** Amber-bordered text button bottom-right of Name card.
+**Avatar:** 44px circle embedded bottom-left of Name card. Uses `memoji.png` from assets. `object-cover`, `rounded-full`.
+**Resume button:** Amber-bordered text button (`border border-amber text-amber text-xs font-semibold px-3 py-1.5 rounded`) links to `/AidilSafwanResume.pdf`.
 
-**Content (optimised):**
-- Bio: *"Full-stack engineer who actually gives a damn about the frontend. Building digital products across web and mobile."*
-- Core stack pills: React, TypeScript, JavaScript, Redux, Next.js
+**Bio (optimised):**
+> "Full-stack engineer who actually gives a damn about the frontend. Building digital products across web and mobile."
+
+**Core Stack pills:** React, TypeScript, JavaScript, Redux, Next.js
 
 ---
 
 ### Section 2 — Skills
 
-**Background:** cream
-**Section title:** "Craft." (Playfair, with full stop)
-**Bento grid:** `grid-template-columns: 1.7fr 1fr` / `grid-template-rows: 1fr 1fr`
+**Background:** `bg-cream`
+**Section title:** "Craft." (Playfair 900 with full stop)
+**Bento grid spec:**
+```
+grid-template-columns: 1.7fr 1fr
+grid-template-rows: 1fr 1fr
+────────────────────────────────────
+│  Frontend & Mobile hero           │ Backend │
+│  (col 1, row 1-2)                 ├─────────│
+│                                   │ DevOps  │
+────────────────────────────────────
+```
 
-| Card | Position | Background | Content |
-|---|---|---|---|
-| Frontend & Mobile hero | col 1, row 1–2 | `#1a1208` | Eyebrow "↗ Core Expertise", title "Frontend & Mobile", two internal sections (Web / Mobile) each with a divider line and pills, short note, tech count "11" |
-| Backend | col 2, row 1 | amber-tinted | "Backend" label, "Server-side" title, pills |
-| DevOps & Infra | col 2, row 2 | `#f0e8d8` | "DevOps & Infra" label, "Toolchain" title, pills |
+**Skills data — restructure `constants/index.tsx`:**
+```ts
+export const skills = {
+  web: ['React', 'TypeScript', 'JavaScript', 'Redux', 'Next.js'],
+  mobile: ['React Native', 'Expo', 'Flutter', 'iOS', 'Android'],
+  backend: ['Laravel', 'Node.js', 'Express', 'MySQL', 'MongoDB', 'PHP'],
+  devops: ['AWS', 'Azure DevOps', 'Docker', 'GitHub Actions', 'CI/CD'],
+};
+```
 
-**Skills content (corrected):**
-
-| Category | Skills |
-|---|---|
-| Web (Frontend) | React, TypeScript, JavaScript, Redux, Next.js |
-| Mobile | React Native, Expo, Flutter, iOS, Android |
-| Backend | Laravel, Node.js, Express, MySQL, MongoDB, PHP |
-| DevOps & Infra | AWS, Azure DevOps, Docker, GitHub Actions, CI/CD |
-
-Note: Google Cloud removed; Azure DevOps added.
+Hero card displays `skills.web` under a "Web" divider and `skills.mobile` under a "Mobile" divider.
 
 ---
 
 ### Section 3 — Work Experience
 
-**Background:** cream
-**Section title:** "Experience." with subtitle "6 years · 4 companies"
-**Bento grid:** `grid-template-columns: 1.2fr 1fr`
+**Background:** `bg-cream`
+**Section title:** "Experience." — subtitle: "6 years · 4 companies"
+**Bento grid spec:**
+```
+grid-template-columns: 1.2fr 1fr
+grid-template-rows: 1fr 1fr 1fr   (right column only)
+────────────────────────────────
+│  Current role       │ Aleph  │
+│  hero card          ├────────│
+│  (col 1, row 1-3)   │ Pub Bk │
+│                     ├────────│
+│                     │ INVOKE │
+────────────────────────────────
+```
 
-| Card | Position | Background | Content |
-|---|---|---|---|
-| Current role hero | col 1, full height | `#1a1208` | "Current" label with pulsing dot, company name, title, period, 3 distilled achievements, tech stack tags, faded year number |
-| Previous role 1 | col 2, row 1 | amber-tinted | Company, title, period, one-line highlight |
-| Previous role 2 | col 2, row 2 | cream border | Company, title, period, one-line highlight |
-| Previous role 3 | col 2, row 3 | cream border | Company, title, period, one-line highlight |
+**Current role featured achievements (3 of 10 — most impactful):**
+1. Leading ChangeGPS integration into the Access ecosystem — evolving into a modular APAC platform
+2. Architecting microfrontend + microservices system enabling independent deployments
+3. Migrated CI/CD from Bitbucket to GitHub Actions; serving as Scrum Master and interim tech lead
 
-**Content (distilled):**
+**Previous roles (one-line highlights):**
 
-| Role | Company | Period | Highlight |
-|---|---|---|---|
-| Senior Software Engineer | The Access Group | Mar 2025 – Present | Leading ChangeGPS integration; microfrontend + microservices architecture; GitHub Actions CI/CD migration; Scrum Master |
-| Frontend Developer | Aleph-Labs | May 2022 – Feb 2025 | Led mobile team on large-scale banking apps; micro frontend migration for payment modules; shipped to Australian digital bank |
-| Analyst Programmer | Public Bank | Oct 2020 – May 2022 | Led full HRMS redesign & refactor; built eKYC + registration modules for MyPB banking app |
-| Software Engineer | INVOKE | Feb 2020 – Oct 2020 | Intern-to-permanent; built company site, state-citizen mobile app, and AI-powered job portal |
+| Company | Highlight |
+|---|---|
+| Aleph-Labs | Led mobile team on large-scale banking apps; shipped micro frontend migration to Australian digital bank |
+| Public Bank | Full HRMS redesign & codebase refactor; built eKYC + registration modules for MyPB |
+| INVOKE | Intern-to-permanent; built company site, state-citizen mobile app, and AI-powered job portal |
 
 ---
 
 ### Section 4 — Education
 
-**Background:** cream
-**Section title:** "Education." with subtitle "UiTM · 2014 – 2020"
-**Bento grid:** `grid-template-columns: 1.4fr 1fr` / `grid-template-rows: 1.3fr 1fr`
+**Background:** `bg-cream`
+**Section title:** "Education." — subtitle: "UiTM · 2014 – 2020"
+**Bento grid spec:**
+```
+grid-template-columns: 1.4fr 1fr
+grid-template-rows: 1.3fr 1fr
+───────────────────────────────────
+│  Degree hero        │ Foundation │
+│  (col 1, row 1)     │ (col 2, r1)│
+├─────────────────────┴────────────│
+│  Pivot story card (col 1-2, r 2) │
+───────────────────────────────────
+```
 
-| Card | Position | Background | Content |
-|---|---|---|---|
-| Bachelor's degree hero | col 1, row 1 | `#1a1208` | "Bachelor's Degree" eyebrow, "Computer Science (Hons.)", UiTM, 2017–2020, CGPA 3.42 displayed prominently, FYP mention |
-| Foundation | col 2, row 1 | amber-tinted | "Foundation in Engineering", UiTM, 2014–2015, CGPA 3.78 |
-| Pivot story | col 1–2, row 2 | `#f0e8d8` | Full-width. Text: "Started in Electronic Engineering — switched to Computer Science when the pull towards coding became impossible to ignore." Stat block: 3.78 / 3.42 / 6yr |
+**Pivot story card copy (add to constants or hardcode in component):**
+> "Started in Electronic Engineering — switched to Computer Science when the pull towards coding became impossible to ignore. Never looked back."
 
-**FYP note:** Final year project — Twitter sentiment analysis, bilingual Malay/English NLP classification model with visualisation.
+**FYP detail (in Degree hero card):**
+> Final year: Twitter sentiment analysis — bilingual Malay/English NLP classification model with data visualisation.
+
+**Stat block in pivot card:** 3.78 (Foundation CGPA) · 3.42 (Degree CGPA) · 6yr (total academia)
 
 ---
 
 ### Section 5 — Projects
 
-**Background:** cream
-**Section title:** "Projects." with Professional / Personal toggle
-**Bento grid:** `grid-template-columns: 1.3fr 1fr`
+**Background:** `bg-cream`
+**Section title:** "Projects." with Professional / Personal tab toggle
 
-**Toggle interaction:** Framer Motion `AnimatePresence` fades the featured card and list when switching tabs. No page reload.
+**Tab toggle:**
+- Renders two buttons: "Professional" | "Personal"
+- State: `const [activeTab, setActiveTab] = useState<'professional' | 'personal'>('professional')`
+- AnimatePresence key: the `activeTab` string value (`"professional"` / `"personal"`)
+- Exit/enter animation: `opacity: 0↔1`, `x: ±10px`, 200ms ease
 
-**Layout:**
-- Left: Featured project card (image, name, description, tags, contextual links)
-- Right: Scrollable project list (thumbnail, name, type, tags, arrow). Clicking a row swaps the featured card.
+**Bento grid spec:**
+```
+grid-template-columns: 1.3fr 1fr
+─────────────────────────────────
+│  Featured card   │ Scrollable  │
+│  (full height)   │ project     │
+│                  │ list        │
+─────────────────────────────────
+```
 
-#### Professional Work (7 projects)
+**Featured card image fallback:** `onError` sets `src` to a placeholder div with the project emoji. No broken img element shown.
 
-| # | Project | Type | Tech | Links |
+#### Data structure update (`constants/index.tsx`)
+
+Add `category: 'professional' | 'personal'` to each project entry. Add `isArchived?: boolean`.
+
+```ts
+export interface Project {
+  title: string;
+  description: string;
+  tech: string[];
+  image: string;
+  category: 'professional' | 'personal';
+  demoUrl?: string;
+  repoUrl?: string;
+  appStoreUrl?: string;
+  playStoreUrl?: string;
+  isArchived?: boolean;
+  archivedNote?: string;
+}
+```
+
+#### Professional Projects (7)
+
+| Title | Description | Tech | Links |
+|---|---|---|---|
+| ChangeGPS | Modern accounting platform for accountants — practice management and compliance tools. Integrating into The Access Group ecosystem as a modular APAC platform. | React, Laravel, AWS, Microservices | demoUrl |
+| in1bank | Digital-first Australian banking app with seamless in-app account creation and government guarantees. | React Native, Redux | demoUrl, appStoreUrl, playStoreUrl |
+| KWSP i-Akaun | Refreshed EPF app — retirement savings monitoring, transactions, and branch locator. | React Native, Redux | demoUrl, appStoreUrl, playStoreUrl |
+| MyPB | Public Bank's next-gen mobile banking app combining financial services and lifestyle features. | React Native, Redux | demoUrl, appStoreUrl, playStoreUrl |
+| PBeXperience | Internal productivity app for Public Bank employees — secure suite of digital tools. | React Native, Redux | appStoreUrl, playStoreUrl |
+| n9.digital | Official digital gateway for Negeri Sembilan — citizen, business, and government interactions. | React Native, Expo | demoUrl, appStoreUrl, playStoreUrl |
+| invokeisdata | Landing page for INVOKE showcasing data analytics and political intelligence capabilities. | React, Express | demoUrl |
+
+#### Personal Projects (6)
+
+| Title | Description | Tech | Links | Notes |
 |---|---|---|---|---|
-| 1 | ChangeGPS | Web App | React, Laravel, AWS, Microservices | Live |
-| 2 | in1bank | Mobile | React Native, Redux | App Store, Play Store, Live |
-| 3 | KWSP i-Akaun | Mobile | React Native, Redux | App Store, Play Store, Live |
-| 4 | MyPB | Mobile | React Native, Redux, iOS, Android | App Store, Play Store, Live |
-| 5 | PBeXperience | Mobile | React Native, Redux | App Store, Play Store |
-| 6 | n9.digital | Mobile | React Native, Expo | App Store, Play Store, Live |
-| 7 | invokeisdata | Web | React, Express | Live |
-
-#### Personal Projects (6 projects)
-
-| # | Project | Type | Tech | Links | Notes |
-|---|---|---|---|---|---|
-| 1 | Elak Hujan | PWA | React 19, TanStack Query, Zustand, Deno Edge, MET API | Live, GitHub | Rain avoidance for Malaysian scooter commuters |
-| 2 | Dah Qada | PWA | React, TypeScript, IndexedDB, Dexie.js | GitHub | Islamic missed prayer (qada) tracker, fully local/private |
-| 3 | 9mo | PWA | React 19, Firebase, Recharts, shadcn/ui | GitHub | Pregnancy tracker — kicks, weight, contractions, dashboard |
-| 4 | af-1-anniversary | Web | React, TypeScript, Vite, Tailwind | GitHub | Personal anniversary web app |
-| 5 | COVID-19 Malaysia Dashboard | Web (Archived) | Google Data Studio, Google Sheets | — | Real-time pandemic stats dashboard; referenced by a government official. Taken down post-pandemic. |
-| 6 | This Portfolio | Web | React 19, Vite, Tailwind CSS v4, Framer Motion | GitHub | The site you're looking at |
-
-**Archived badge:** COVID-19 dashboard shows an "Archived" badge instead of live/store links, with the government reference called out in the featured card description.
+| Elak Hujan | Rain avoidance PWA for Malaysian scooter commuters — ranks best office days and departure times based on MET Malaysia forecasts. | React 19, TypeScript, TanStack Query v5, Zustand, Deno Edge Functions | demoUrl, repoUrl | — |
+| Dah Qada | Islamic missed prayer (qada) tracker. All data stored locally via IndexedDB — fully private, no server. | React, TypeScript, Dexie.js, JAKIM API | repoUrl | — |
+| 9mo | Pregnancy tracker PWA — kicks, weight, contraction timing, live dashboard. | React 19, TypeScript, Firebase Firestore, Recharts, shadcn/ui | repoUrl | — |
+| af-1-anniversary | Personal anniversary web app. | React 19, TypeScript, Tailwind CSS | repoUrl | — |
+| COVID-19 Malaysia Dashboard | Real-time pandemic statistics dashboard for Malaysia — automated data entry via Google Sheets with live visualisations. | Google Data Studio, Google Sheets | — | `isArchived: true`, `archivedNote: "Referenced by a government official during the pandemic. Taken down post-pandemic."` |
+| This Portfolio | The site you're looking at. Built to showcase frontend craft, not just list it. | React 19, Vite, Tailwind CSS v4, Framer Motion | repoUrl | — |
 
 ---
 
 ### Section 6 — Contact
 
-**Background:** `#1a1208` (full dark — content area inverts for the first time, signalling end of journey)
-**Layout:** `grid-template-columns: 1.1fr 1fr`
+**Background:** `#1a1208` (full dark — first time content area matches sidebar, signals journey end)
+**Bento grid spec:**
+```
+grid-template-columns: 1.1fr 1fr
+─────────────────────────────────
+│  Typographic CTA │  3 Contact  │
+│  (left)          │  cards      │
+│                  │  (right)    │
+─────────────────────────────────
+```
 
-| Column | Content |
-|---|---|
-| Left | Eyebrow "↗ Let's talk", Playfair heading "Got something in mind?", amber rule, sub-copy, primary email CTA button (amber bg), footer text "Based in Kuala Lumpur, MY · Available remotely" |
-| Right | Three contact cards (Email, LinkedIn, GitHub) — each with icon, label, value, arrow. Hover reveals amber arrow. |
-
-**Footer strip:** Thin bar at the very bottom. Left: copyright. Right: "Built with React + Vite" (amber highlight).
+**Footer strip:** Thin `border-t border-amber/10` strip at the very bottom of the Contact section (not a separate component). Copyright left, "Built with React + Vite" right.
 
 **Contact details:**
-- Email: aidilsafwan.aas@gmail.com
-- LinkedIn: linkedin.com/in/aidilsafwan
-- GitHub: github.com/aidilsfwn
+- Email: aidilsafwan.aas@gmail.com → `mailto:` link
+- LinkedIn: linkedin.com/in/aidilsafwan → external link
+- GitHub: github.com/aidilsfwn → external link
 
 ---
 
-## Animation System (Approach 1 — Polished & Shippable)
+## Animation System
 
-All animations via **Framer Motion**. No GSAP, no custom cursor, no WebGL.
+All animations via **Framer Motion** only. No GSAP.
 
 | Animation | Trigger | Spec |
 |---|---|---|
-| Bento card entrance | Section snaps into view (`IntersectionObserver`) | `opacity: 0→1`, `y: 20→0`, staggered 80ms between cards, 0.4s duration |
-| Sidebar nav indicator | Scroll / snap | Smooth `background-color` transition on active dot, 200ms |
-| Project featured card swap | Row click | Framer `AnimatePresence` fade, 250ms |
-| Project tab toggle | Toggle button click | Framer `AnimatePresence` fade, 200ms |
-| Contact cards hover | Mouse enter | `border-color` + arrow `opacity` transition, 200ms CSS |
-| Sidebar social/status | Page load | Spring entrance, 0.5s delay (existing FloatingDock pattern) |
+| Bento card entrance | Section enters viewport (`IntersectionObserver`, threshold 0.4) | `opacity: 0→1`, `y: 16→0`, stagger 80ms between cards, duration 0.4s, ease `easeOut` |
+| Sidebar nav active dot | `useActiveSection` state change | `background-color` CSS transition 200ms |
+| Project featured card swap | Row click | `AnimatePresence` with key = project title, `opacity: 0↔1` 250ms |
+| Projects tab toggle | Toggle click | `AnimatePresence` with key = `activeTab`, `opacity: 0↔1`, `x: ±10→0` 200ms |
+| Contact card hover | CSS only | `border-color` + arrow `opacity` 200ms transition |
+| FloatingDock entrance | Page load | Existing spring animation, no change |
 
-**`prefers-reduced-motion`:** All Framer Motion animations respect this via `useReducedMotion()` hook — durations set to 0 when active.
+**`prefers-reduced-motion`:** Call `const shouldReduceMotion = useReducedMotion()` once in `App.tsx` and pass as a prop or via context to all animated components. When true, set all durations to `0`.
 
 ---
 
-## Component Changes
+## Component Changes Summary
 
-### New / Replaced
-| Component | Action | Notes |
+### New
+| Component | Path | Notes |
 |---|---|---|
-| `SectionWrapper.tsx` | Replace | New snap-scroll wrapper with `IntersectionObserver` for active section detection |
-| `Sidebar.tsx` | New | Fixed left sidebar — monogram, nav, social links, open status |
-| `SnapSection.tsx` | New | `height: 100vh`, `scroll-snap-align: start` wrapper per section |
-| `BentoGrid.tsx` | New | Thin wrapper for CSS grid with gap and padding |
-| `ProjectsSection.tsx` | Replace | Full rewrite — featured + list layout with tab toggle state |
-| `FloatingDock.tsx` | Keep | Mobile nav, no changes needed |
+| `Sidebar` | `src/components/Sidebar.tsx` | Fixed desktop nav |
+| `SnapSection` | `src/components/SnapSection.tsx` | 100dvh snap wrapper |
+| `BentoGrid` | `src/components/BentoGrid.tsx` | Grid layout primitive |
+| `useActiveSection` | `src/hooks/useActiveSection.ts` | Shared IntersectionObserver hook |
 
-### Removed
-| Component | Reason |
-|---|---|
-| `Timeline.tsx` / `TimelineItem.tsx` | Replaced by bento card layout in Experience and Education |
-| `MobileMenu.tsx` | Was already unused; FloatingDock handles mobile nav |
-| `DesktopSidebar.tsx` | Was unused; replaced by new `Sidebar.tsx` |
-| `keen-slider` dependency | Replaced by click-to-feature interaction |
+### Rewrite (keep filename)
+- `src/layouts/sections/Hero.tsx`
+- `src/layouts/sections/Skills.tsx`
+- `src/layouts/sections/Experience.tsx`
+- `src/layouts/sections/Education.tsx`
+- `src/layouts/sections/Projects.tsx`
+- `src/layouts/sections/Contact.tsx`
+- `src/App.tsx`
+- `src/constants/index.tsx` (add personal projects, update interfaces, fix skills structure)
 
-### Content Updates (`constants/index.tsx`)
-- Google Cloud → Azure DevOps in DevOps skills
-- Bio shortened to: *"Full-stack engineer who actually gives a damn about the frontend. Building digital products across web and mobile."*
-- Personal projects array added (6 entries, see above)
-- Professional / personal flag added to each project entry
-- COVID dashboard description: references government official citation
+### Update
+- `src/components/FloatingDock.tsx` — add `className` prop, switch to `useActiveSection`
+
+### Delete
+- `src/components/Timeline.tsx`
+- `src/components/TimelineItem.tsx`
+- `src/components/MobileMenu.tsx` (was unused)
+- `src/components/DesktopSidebar.tsx` (was unused)
+- `src/components/SectionWrapper.tsx` (replaced by SnapSection + Framer entrance pattern)
 
 ---
 
@@ -301,66 +462,75 @@ keen-slider
 framer-motion
 lucide-react
 tailwindcss
+@tailwindcss/vite
 ```
 
 ---
 
-## Tailwind Configuration
+## TypeScript Interfaces
 
-Extend `tailwind.config.js` (or CSS variables in `styles.css` for Tailwind v4):
+```ts
+// src/constants/index.tsx
 
-```css
-:root {
-  --color-cream: #f5efe4;
-  --color-dark: #1a1208;
-  --color-amber: #c9852a;
-  --color-amber-muted: rgba(201, 133, 42, 0.12);
-  --color-text-body: #6b5a40;
-  --color-text-secondary: #a08060;
-  --color-text-on-dark: #f5efe4;
+export interface Project {
+  title: string;
+  description: string;
+  tech: string[];
+  image: string;
+  category: 'professional' | 'personal';
+  demoUrl?: string;
+  repoUrl?: string;
+  appStoreUrl?: string;
+  playStoreUrl?: string;
+  isArchived?: boolean;
+  archivedNote?: string;
 }
-```
 
----
+export interface Experience {
+  title: string;
+  company: string;
+  period: string;
+  achievements: string[];
+  featuredAchievements?: string[]; // max 3, shown in hero card
+  tech?: string[];
+}
 
-## File Structure (additions only)
-
-```
-src/
-├── components/
-│   ├── Sidebar.tsx          (new)
-│   ├── SnapSection.tsx      (new)
-│   └── BentoGrid.tsx        (new)
-├── layouts/sections/
-│   ├── Hero.tsx             (rewrite)
-│   ├── Skills.tsx           (rewrite)
-│   ├── Experience.tsx       (rewrite)
-│   ├── Education.tsx        (rewrite)
-│   ├── Projects.tsx         (rewrite)
-│   └── Contact.tsx          (rewrite)
-└── constants/
-    └── index.tsx            (update — personal projects, skill corrections, bio)
+export const skills: {
+  web: string[];
+  mobile: string[];
+  backend: string[];
+  devops: string[];
+};
 ```
 
 ---
 
 ## Responsive Breakpoints
 
-| Breakpoint | Layout |
-|---|---|
-| `< md` (< 768px) | No sidebar. Snap sections full width. Bento → single column. FloatingDock for nav. |
-| `≥ md` (≥ 768px) | Fixed sidebar (160px) + snap content area. Full bento grids. |
+| Breakpoint | Sidebar | FloatingDock | Bento |
+|---|---|---|---|
+| `< md` (< 768px) | `hidden` | `flex` (bottom fixed) | Single column stacked cards |
+| `≥ md` (≥ 768px) | `flex` fixed 160px | `hidden` | Full grid per section spec |
 
 ---
 
-## Open Questions / Decisions Made
+## Decisions Log
 
 | Question | Decision |
 |---|---|
-| Light vs dark mode | Light mode (cream) throughout, dark sidebar always, contact section fully dark. No toggle. |
-| Custom cursor | No — adds complexity, removed by touch on mobile anyway |
-| GSAP vs Framer Motion | Framer Motion only — cleaner, already in stack |
-| Education as own section | Yes — confirmed by user |
-| `af-1-anniversary` include? | Yes — included in personal projects |
-| COVID dashboard (taken down) | Yes — included with "Archived" badge, government reference in description |
-| `Google Cloud` in DevOps | Removed, replaced with Azure DevOps |
+| Light vs dark mode | Cream throughout, dark sidebar always, contact section fully dark. No toggle. |
+| Custom cursor | No — meaningless on touch, adds bundle weight |
+| GSAP vs Framer Motion | Framer Motion only — already in stack, sufficient |
+| Education own section | Yes |
+| `af-1-anniversary` include | Yes — personal tab |
+| COVID dashboard (taken down) | Yes — `isArchived: true`, "Archived" badge, govt reference in description |
+| Google Cloud in DevOps | Removed; replaced with Azure DevOps |
+| ScrollSpy mechanism | IntersectionObserver on `#scroll-container` — shared via `useActiveSection` hook |
+| FloatingDock on desktop | Hidden (`hidden md:hidden` → `className="flex md:hidden"` from App.tsx) |
+| 100vh vs 100dvh | `100dvh` — prevents mobile browser chrome overflow |
+| Font loading | `@import` in `styles.css` via `@fontsource` packages |
+| Tailwind v4 tokens | Defined in `styles.css` under `@theme` block |
+| Featured achievements | Add `featuredAchievements` field to Experience interface, max 3 items |
+| AnimatePresence keys | Project featured: project `title`. Tab toggle: `activeTab` string |
+| `useReducedMotion` | Called once in `App.tsx`, passed via context |
+| Sidebar z-index | `z-40`; FloatingDock `z-50`; tooltips `z-60` |
