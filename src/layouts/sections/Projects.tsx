@@ -1,65 +1,36 @@
-import { useEffect, useRef } from "react";
-import { useKeenSlider, KeenSliderInstance } from "keen-slider/react";
+import { useRef } from "react";
 import { ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
 
 import { projects } from "../../constants";
 import { SectionWrapper } from "../../components";
 
-import "keen-slider/keen-slider.min.css";
-
 export const Projects = () => {
-  const timer = useRef<number | null>(null);
-  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
-    loop: true,
-    renderMode: "performance",
-    drag: true,
-    defaultAnimation: {
-      duration: 1000,
-      easing: (t) => t,
-    },
-    slides: {
-      perView: 1,
-      spacing: 16,
-    },
-    breakpoints: {
-      "(min-width: 1024px)": {
-        slides: { perView: 3, spacing: 24 },
-      },
-    },
-    created(slider) {
-      autoPlay(slider);
-    },
-  });
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  const autoPlay = (slider: KeenSliderInstance) => {
-    clearInterval(timer.current!);
-    timer.current = setInterval(() => {
-      if (slider) {
-        slider.next();
-      }
-    }, 4000);
+  const scrollBy = (dir: number) => {
+    scrollRef.current?.scrollBy({ left: dir * 320, behavior: "smooth" });
   };
-
-  useEffect(() => {
-    return () => clearInterval(timer.current!);
-  }, []);
 
   return (
     <SectionWrapper id="projects" className="mb-20">
       <h2 className="text-3xl font-bold mb-6 text-slate-200">Projects</h2>
       <div className="flex flex-row gap-x-4 items-center">
         <button
-          onClick={() => instanceRef.current?.prev()}
+          onClick={() => scrollBy(-1)}
           className="hidden md:flex flex-none h-10 w-10 items-center justify-center rounded-full bg-slate-800 text-slate-400 hover:bg-indigo-600 hover:text-white transition-all shadow-lg"
         >
           <ChevronLeft size={20} />
         </button>
 
-        <div ref={sliderRef} className="keen-slider py-4 min-w-0">
+        <div
+          ref={scrollRef}
+          className="flex flex-row gap-4 overflow-x-auto py-4 min-w-0 scroll-smooth"
+          style={{ scrollbarWidth: "none" }}
+        >
           {projects.map((project, index) => (
             <div
               key={index}
-              className="keen-slider__slide bg-slate-900/50 backdrop-blur-md rounded-2xl p-6 border border-slate-800 hover:border-indigo-500/30 transition-colors duration-300 hover:bg-slate-800/50 flex flex-col h-full"
+              className="flex-none w-72 lg:w-80 bg-slate-900/50 backdrop-blur-md rounded-2xl p-6 border border-slate-800 hover:border-indigo-500/30 transition-colors duration-300 hover:bg-slate-800/50 flex flex-col h-full"
             >
               <img
                 src={project.image}
@@ -74,7 +45,6 @@ export const Projects = () => {
                 {project.description}
               </p>
               <div className="flex justify-center gap-3 mb-6 flex-wrap">
-                {/* App Store & Play Store Logic */}
                 {(project.appStoreUrl || project.playStoreUrl) ? (
                   <>
                     {project.appStoreUrl && (
@@ -84,7 +54,7 @@ export const Projects = () => {
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 text-xs font-semibold text-white bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-full transition-colors border border-slate-700"
                       >
-                         <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Apple_logo_white.svg" alt="Apple" className="w-3 h-3" />
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Apple_logo_white.svg" alt="Apple" className="w-3 h-3" />
                         App Store
                       </a>
                     )}
@@ -96,12 +66,11 @@ export const Projects = () => {
                         className="flex items-center gap-2 text-xs font-semibold text-white bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-full transition-colors border border-slate-700"
                       >
                         <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg" alt="Android" className="w-3 h-3" />
-                         Play Store
+                        Play Store
                       </a>
                     )}
                   </>
                 ) : (
-                  /* Web Project Logic */
                   project.demoUrl && (
                     <a
                       href={project.demoUrl}
@@ -115,7 +84,6 @@ export const Projects = () => {
                   )
                 )}
 
-                {/* Code Button */}
                 {project.repoUrl && (
                   <a
                     href={project.repoUrl}
@@ -143,7 +111,7 @@ export const Projects = () => {
         </div>
 
         <button
-          onClick={() => instanceRef.current?.next()}
+          onClick={() => scrollBy(1)}
           className="hidden md:flex flex-none h-10 w-10 items-center justify-center rounded-full bg-slate-800 text-slate-400 hover:bg-indigo-600 hover:text-white transition-all shadow-lg"
         >
           <ChevronRight size={20} />
