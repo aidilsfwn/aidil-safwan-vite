@@ -32,12 +32,14 @@ export const Projects = () => {
               key={index}
               className="flex-none w-72 lg:w-80 bg-slate-900/50 backdrop-blur-md rounded-2xl p-6 border border-slate-800 hover:border-indigo-500/30 transition-colors duration-300 hover:bg-slate-800/50 flex flex-col h-full"
             >
-              <img
-                src={project.image}
-                alt={project.title}
-                loading="lazy"
-                className="h-32 w-full object-cover rounded-xl mb-6 border border-slate-700/50"
-              />
+              {project.image && (
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  loading="lazy"
+                  className="h-32 w-full object-cover rounded-xl mb-6 border border-slate-700/50"
+                />
+              )}
               <h3 className="text-xl font-semibold text-indigo-400 mb-2 text-center">
                 {project.title}
               </h3>
