@@ -29,7 +29,6 @@ export interface Experience {
   company: string;
   period: string;
   description?: string;
-  achievements: string[];
   featuredAchievements?: string[];
   tech?: string[];
 }
@@ -62,11 +61,19 @@ export const skills: {
   backend: string[];
   devops: string[];
 } = {
-  core: ["TypeScript", "JavaScript", "Redux", "Git", "Figma", "UI/UX"],
+  core: ["TypeScript", "JavaScript"],
   web: ["React", "Vite"],
   mobile: ["React Native", "Expo", "Flutter", "iOS", "Android"],
-  backend: ["Laravel", "PHP", ".NET", "Express.js", "MySQL", "MS SQL", "Firebase", "Supabase"],
-  devops: ["AWS", "Azure", "Docker", "GitHub Actions", "CI/CD"],
+  backend: [
+    "Laravel",
+    ".NET",
+    "Express.js",
+    "MySQL",
+    "MS SQL",
+    "Firebase",
+    "Supabase",
+  ],
+  devops: ["AWS", "Azure", "Docker"],
 };
 
 // ─── Experience ────────────────────────────────────────────────────────────────
@@ -77,9 +84,9 @@ export const experiences: Experience[] = [
     company: "The Access Group",
     period: "Mar 2025 - Present",
     featuredAchievements: [
-      "Inherited a vendor-built codebase — led migration of CI/CD pipelines from Bitbucket to GitHub Actions from scratch.",
-      "Rebuilding the ChangeGPS accounting suite as Access Evo: a modular React + .NET + Azure SSO platform in a monorepo.",
-      "Served as interim technical lead through a leadership gap, maintaining delivery continuity across cross-functional teams.",
+      "Took over a vendor codebase and rebuilt the entire CI/CD pipeline.",
+      "Rebuilding ChangeGPS as a modular platform on a monorepo.",
+      "Stepped in as interim tech lead during a leadership gap.",
     ],
     tech: [
       "React",
@@ -94,101 +101,28 @@ export const experiences: Experience[] = [
       "Vite",
       "MySQL",
       "MS SQL",
-      "Full-stack Development",
-      "Prompt Engineering",
-      "Web Development",
-      "DevOps",
-      "Spec-driven Development",
-    ],
-    achievements: [
-      "Build and maintain full-stack systems using React + Vite, PHP Laravel, MySQL, and AWS.",
-      "Collaborate closely with the Product Manager to translate business requirements into technical solutions.",
-      "Mentor and guide engineers to optimize development workflows and uphold code quality.",
-      "Utilize AI-assisted development tools—Devin, Claude, GitHub Copilot—to accelerate delivery.",
-      "Lead the integration of ChangeGPS into the Access ecosystem as a modular APAC platform.",
-      "Implement microfrontend and microservices architecture for independent deployments.",
-      "Spearhead redevelopment of the ChangeGPS accounting suite on an AI-augmented foundation.",
-      "Oversee CI/CD migration from Bitbucket to GitHub Actions.",
-      "Serve as interim technical lead during leadership transitions.",
-      "Act as Scrum Master facilitating sprint planning, retrospectives, and capacity management.",
     ],
   },
   {
     title: "Frontend Developer",
     company: "Aleph-Labs",
     period: "May 2022 - Feb 2025",
-    featuredAchievements: [
-      "First mobile team member for a large-scale banking app — built the component library and led project-wide mobile coordination.",
-      "Drove micro frontend migration for a banking web app payment module.",
-      "Delivered features for an Australian digital bank (in1bank), collaborating directly with product owners.",
-    ],
-    tech: [
-      "React",
-      "React Native",
-      "Flutter",
-      "TypeScript",
-      "Mobile Development",
-    ],
-    achievements: [
-      "First member of the mobile team for a large-scale app project, leading mobile development including component library creation.",
-      "Worked on end-to-end implementation, collaborating with product owners, analysts, stakeholders, and testing teams.",
-      "Actively onboarded new developers, reviewed code, resolved bugs, handled change requests, and assisted with deployments.",
-      "Played a role in a micro frontend migration for a banking web app payment module, including unit test refactoring.",
-      "Maintained a Flutter component library for a banking app and assisted with an internal banking solution MVP.",
-      "Supported new feature implementation and bug fixes for an Australian digital bank app.",
-    ],
+    description: "Led mobile development end-to-end on a large-scale banking app, maintained a Flutter component library for a separate banking client, and owned feature delivery on an Australian digital bank.",
+    tech: ["React", "React Native", "Flutter", "TypeScript"],
   },
   {
     title: "Analyst Programmer",
     company: "Public Bank",
     period: "Oct 2020 - May 2022",
-    featuredAchievements: [
-      "Built registration and eKYC modules for MyPB — a next-gen mobile banking app with native SDK bridge.",
-      "Led a complete redesign and codebase refactor of the internal HRMS app.",
-    ],
-    tech: [
-      "React Native",
-      "Redux",
-      "iOS",
-      "Android",
-      "JavaScript",
-      "Figma",
-      "Mobile Development",
-      "UI/UX",
-    ],
-    achievements: [
-      "Progressed from trainee to full-fledged analyst programmer within a year.",
-      "Designed festive-themed UI elements for the HRMS app, coordinating with internal clients.",
-      "Led a complete redesign and codebase refactor for the HRMS app.",
-      "Developed registration and eKYC modules for a new banking app with native SDK integration.",
-      "Conducted code reviews, identified bugs, and enhanced overall app functionality.",
-    ],
+    description: "Built the eKYC and registration flow for MyPB and redesigned the internal HRMS app from the ground up.",
+    tech: ["React Native", "iOS", "Android", "JavaScript", "Figma"],
   },
   {
     title: "Software Engineer",
     company: "INVOKE",
     period: "Feb 2020 - Oct 2020",
-    featuredAchievements: [
-      "Converted from intern to full-time hire based on performance.",
-      "Built n9.digital — the Negeri Sembilan state digital gateway connecting citizens, businesses, and government.",
-    ],
-    tech: [
-      "React",
-      "React Native",
-      "Expo",
-      "Express.js",
-      "JavaScript",
-      "Full-stack Development",
-      "Mobile Development",
-      "Web Development",
-    ],
-    achievements: [
-      "Initially joined as an intern; secured a permanent role due to high performance.",
-      "Collaborated with various teams to deliver client-focused solutions including landing pages for a UK real estate client.",
-      "Built the company website, integrating form handling, security features, and notifications.",
-      "Developed a mobile solution for state-citizen engagement and an AI-powered job portal.",
-      "Practiced agile methodology, participated in scrums, and assisted with code reviews.",
-    ],
+    description: "Built n9.digital, Negeri Sembilan's state digital gateway, and invokeisdata.com, the company's public website — then got converted from intern to full-time.",
+    tech: ["React", "React Native", "Expo", "Express.js", "JavaScript"],
   },
 ];
 

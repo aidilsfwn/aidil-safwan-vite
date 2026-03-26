@@ -55,7 +55,7 @@ export const Experience = () => {
             </p>
             <div className="h-px bg-amber/[0.12] my-3" />
             <div className="flex flex-col gap-2">
-              {(current.featuredAchievements ?? current.achievements.slice(0, 3)).map(
+              {(current.featuredAchievements ?? []).map(
                 (ach, i) => (
                   <div key={i} className="flex gap-2 items-start">
                     <span className="w-1 h-1 rounded-full bg-amber flex-shrink-0 mt-1.5" />
@@ -98,9 +98,9 @@ export const Experience = () => {
               <p className="font-sans text-[9px] font-semibold text-ink/30 tracking-[0.06em]">
                 {exp.period}
               </p>
-              {exp.featuredAchievements?.[0] && (
+              {exp.description && (
                 <p className="font-sans text-[9px] text-ink/50 leading-relaxed border-t border-ink/[0.06] pt-1.5 mt-0.5">
-                  {exp.featuredAchievements[0]}
+                  {exp.description}
                 </p>
               )}
               {(exp.tech ?? []).length > 0 && (
