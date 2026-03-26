@@ -25,6 +25,8 @@ Add a new snap-scroll section called **"Beyond the Code"** to the portfolio, pla
 
 A new nav entry is inserted into the `menu` array in `src/constants/index.tsx` at index 5 (between Projects and Contact), with `label: "Beyond"`, `link: "#beyond"`, and a `Heart` icon from lucide-react.
 
+**Mobile nav (FloatingDock):** The `beyond` section is intentionally excluded from `FloatingDock`'s `navItems`. The dock uses its own hardcoded list (not the `menu` constant), so no change is needed there. On mobile, users reach the section by scrolling past Projects. The desktop sidebar gets the full 7-item nav.
+
 ---
 
 ## Layout
