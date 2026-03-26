@@ -49,7 +49,7 @@ export const profile = {
   bio: "Frontend engineer at heart, fullstack in practice. 5+ years turning ideas into digital products — from mobile banking apps to government platforms. Currently leading frontend at The Access Group.",
   githubUrl: "https://github.com/aidilsfwn",
   linkedinUrl: "https://linkedin.com/in/aidilsafwan",
-  resumeUrl: "/AidilSafwanResume.pdf",
+  resumeUrl: "/CV-AidilSafwan.pdf",
 };
 
 // ─── Skills ────────────────────────────────────────────────────────────────────
@@ -107,21 +107,24 @@ export const experiences: Experience[] = [
     title: "Frontend Developer",
     company: "Aleph-Labs",
     period: "May 2022 - Feb 2025",
-    description: "Led mobile development end-to-end on a large-scale banking app, maintained a Flutter component library for a separate banking client, and owned feature delivery on an Australian digital bank.",
+    description:
+      "Led mobile development end-to-end on a large-scale banking app, maintained a Flutter component library for a separate banking client, and owned feature delivery on an Australian digital bank.",
     tech: ["React", "React Native", "Flutter", "TypeScript"],
   },
   {
     title: "Analyst Programmer",
     company: "Public Bank",
     period: "Oct 2020 - May 2022",
-    description: "Built the eKYC and registration flow for MyPB and redesigned the internal HRMS app from the ground up.",
+    description:
+      "Built the eKYC and registration flow for MyPB and redesigned the internal HRMS app from the ground up.",
     tech: ["React Native", "iOS", "Android", "JavaScript", "Figma"],
   },
   {
     title: "Software Engineer",
     company: "INVOKE",
     period: "Feb 2020 - Oct 2020",
-    description: "Built n9.digital, Negeri Sembilan's state digital gateway, and invokeisdata.com, the company's public website — then got converted from intern to full-time.",
+    description:
+      "Built n9.digital, Negeri Sembilan's state digital gateway, and invokeisdata.com, the company's public website — then got converted from intern to full-time.",
     tech: ["React", "React Native", "Expo", "Express.js", "JavaScript"],
   },
 ];
