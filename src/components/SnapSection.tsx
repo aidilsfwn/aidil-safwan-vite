@@ -6,6 +6,7 @@ type SectionId =
   | "experience"
   | "education"
   | "projects"
+  | "beyond"
   | "contact";
 
 const SECTION_DATA: Record<SectionId, { index: number; label: string }> = {
@@ -14,7 +15,8 @@ const SECTION_DATA: Record<SectionId, { index: number; label: string }> = {
   experience: { index: 2, label: "03 — Work" },
   education:  { index: 3, label: "04 — Education" },
   projects:   { index: 4, label: "05 — Projects" },
-  contact:    { index: 5, label: "06 — Contact" },
+  beyond:     { index: 5, label: "06 — Beyond" },
+  contact:    { index: 6, label: "07 — Contact" },
 };
 
 const TOTAL = Object.keys(SECTION_DATA).length;

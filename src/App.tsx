@@ -5,6 +5,7 @@ import {
   Hero,
   Projects,
   Skills,
+  Beyond,
 } from "./layouts/sections";
 import { FloatingDock, Sidebar, SnapSection } from "./components";
 import { MotionProvider } from "./context/MotionContext";
@@ -33,6 +34,9 @@ export default function App() {
             </SnapSection>
             <SnapSection id="projects">
               <Projects />
+            </SnapSection>
+            <SnapSection id="beyond">
+              <Beyond />
             </SnapSection>
             <SnapSection id="contact" dark>
               <Contact />

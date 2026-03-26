@@ -6,6 +6,7 @@ const SECTION_IDS = [
   "experience",
   "education",
   "projects",
+  "beyond",
   "contact",
 ] as const;
 
