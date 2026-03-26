@@ -92,7 +92,7 @@ function SpotifyCard() {
           </p>
           <div className="flex flex-col gap-1.5">
             {topTracks.map((t, i) => (
-              <div key={i} className="flex items-center gap-2">
+              <div key={`${t.title}-${t.artist}`} className="flex items-center gap-2">
                 <span className="font-sans text-[8px] font-bold text-amber/40 w-3 flex-shrink-0">
                   {i + 1}
                 </span>
