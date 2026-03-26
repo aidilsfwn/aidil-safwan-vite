@@ -133,27 +133,25 @@ export const Skills = () => (
       {/* Backend card */}
       <motion.div
         variants={card}
-        className="bg-amber/[0.07] border border-amber/[0.14] rounded-xl p-4 flex flex-col justify-between"
+        className="bg-amber/[0.07] border border-amber/[0.14] rounded-xl p-4 flex flex-col"
       >
-        <div>
-          <p className="font-sans text-[9px] font-semibold text-amber/60 tracking-[0.18em] uppercase">
-            Backend
-          </p>
-          <h3 className="font-display text-[15px] font-bold text-ink mt-0.5 mb-2">
-            Server-side
-          </h3>
-          <div className="flex flex-wrap gap-1">
-            {skills.backend.map((s) => (
-              <span
-                key={s}
-                className="font-sans text-[9px] font-semibold text-ink/60 bg-ink/[0.05] px-1.5 py-0.5 rounded-[2px]"
-              >
-                {s}
-              </span>
-            ))}
-          </div>
+        <p className="font-sans text-[9px] font-semibold text-amber/60 tracking-[0.18em] uppercase">
+          Backend
+        </p>
+        <h3 className="font-display text-[15px] font-bold text-ink mt-0.5 mb-2">
+          Server-side
+        </h3>
+        <div className="flex flex-wrap gap-1">
+          {skills.backend.map((s) => (
+            <span
+              key={s}
+              className="font-sans text-[9px] font-semibold text-ink/60 bg-ink/[0.05] px-1.5 py-0.5 rounded-[2px]"
+            >
+              {s}
+            </span>
+          ))}
         </div>
-        <p className="font-sans text-[9px] text-ink/30">
+        <p className="font-sans text-[9px] text-ink/30 mt-3">
           Supporting the frontend. Properly.
         </p>
       </motion.div>
@@ -161,27 +159,25 @@ export const Skills = () => (
       {/* DevOps card */}
       <motion.div
         variants={card}
-        className="bg-amber/[0.07] border border-ink/[0.07] rounded-xl p-4 flex flex-col justify-between"
+        className="bg-amber/[0.07] border border-ink/[0.07] rounded-xl p-4 flex flex-col"
       >
-        <div>
-          <p className="font-sans text-[9px] font-semibold text-amber/60 tracking-[0.18em] uppercase">
-            DevOps & Infra
-          </p>
-          <h3 className="font-display text-[15px] font-bold text-ink mt-0.5 mb-2">
-            Toolchain
-          </h3>
-          <div className="flex flex-wrap gap-1">
-            {skills.devops.map((s) => (
-              <span
-                key={s}
-                className="font-sans text-[9px] font-semibold text-ink/60 bg-ink/[0.05] px-1.5 py-0.5 rounded-[2px]"
-              >
-                {s}
-              </span>
-            ))}
-          </div>
+        <p className="font-sans text-[9px] font-semibold text-amber/60 tracking-[0.18em] uppercase">
+          DevOps & Infra
+        </p>
+        <h3 className="font-display text-[15px] font-bold text-ink mt-0.5 mb-2">
+          Toolchain
+        </h3>
+        <div className="flex flex-wrap gap-1">
+          {skills.devops.map((s) => (
+            <span
+              key={s}
+              className="font-sans text-[9px] font-semibold text-ink/60 bg-ink/[0.05] px-1.5 py-0.5 rounded-[2px]"
+            >
+              {s}
+            </span>
+          ))}
         </div>
-        <p className="font-sans text-[9px] text-ink/30">Ship it. Reliably.</p>
+        <p className="font-sans text-[9px] text-ink/30 mt-3">Ship it. Reliably.</p>
       </motion.div>
     </motion.div>
   </div>
