@@ -74,7 +74,7 @@ export const Hero = () => (
       </div>
       <div className="flex justify-between items-end mt-auto pt-3">
         <span className="font-display text-[32px] font-black text-amber/[0.15] leading-none">
-          2025
+          2025 - Present
         </span>
       </div>
     </motion.div>
@@ -89,16 +89,14 @@ export const Hero = () => (
           Core Stack
         </p>
         <div className="flex flex-wrap gap-1.5 mt-2">
-          {["React", "React Native", "TypeScript"].map(
-            (tech) => (
-              <span
-                key={tech}
-                className="font-sans text-[10px] font-semibold text-ink bg-ink/[0.08] px-2 py-0.5 rounded-[3px]"
-              >
-                {tech}
-              </span>
-            ),
-          )}
+          {["React", "React Native", "TypeScript"].map((tech) => (
+            <span
+              key={tech}
+              className="font-sans text-[10px] font-semibold text-ink bg-ink/[0.08] px-2 py-0.5 rounded-[3px]"
+            >
+              {tech}
+            </span>
+          ))}
         </div>
       </div>
     </motion.div>
