@@ -89,7 +89,7 @@ export const Hero = () => (
           Core Stack
         </p>
         <div className="flex flex-wrap gap-1.5 mt-2">
-          {["React", "TypeScript", "React Native", "Laravel", "Next.js"].map(
+          {["TypeScript", "React", "React Native", "Laravel", ".NET"].map(
             (tech) => (
               <span
                 key={tech}
