@@ -34,7 +34,7 @@ export const Experience = () => {
         {/* Current role — full height, dark */}
         <motion.div
           variants={card}
-          className="bg-ink rounded-xl p-5 flex flex-col justify-between relative overflow-hidden"
+          className="bg-ink rounded-xl p-5 flex flex-col relative overflow-hidden"
         >
           <div className="absolute -bottom-12 -right-12 w-44 h-44 rounded-full bg-amber/[0.05] blur-3xl pointer-events-none" />
           <div>
@@ -67,7 +67,7 @@ export const Experience = () => {
               )}
             </div>
           </div>
-          <div className="flex items-end justify-between mt-3">
+          <div className="flex items-end justify-between mt-auto pt-3">
             <div className="flex flex-wrap gap-1">
               {(current.tech ?? []).map((t) => (
                 <span

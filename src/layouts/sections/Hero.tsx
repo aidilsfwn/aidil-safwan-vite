@@ -21,7 +21,7 @@ export const Hero = () => (
     {/* Name card — spans full height, dark */}
     <motion.div
       variants={card}
-      className="md:row-span-2 bg-ink rounded-xl p-5 flex flex-col justify-between relative overflow-hidden border border-amber/[0.08]"
+      className="md:row-span-2 bg-ink rounded-xl p-5 flex flex-col relative overflow-hidden border border-amber/[0.08]"
     >
       <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-amber/[0.06] blur-3xl pointer-events-none" />
       <div>
@@ -38,7 +38,7 @@ export const Hero = () => (
           {profile.bio}
         </p>
       </div>
-      <div className="flex">
+      <div className="flex mt-auto pt-4">
         <a
           href={profile.resumeUrl}
           target="_blank"
@@ -53,7 +53,7 @@ export const Hero = () => (
     {/* Role card */}
     <motion.div
       variants={card}
-      className="bg-amber/[0.08] border border-amber/[0.18] rounded-xl p-4 flex flex-col justify-between"
+      className="bg-amber/[0.08] border border-amber/[0.18] rounded-xl p-4 flex flex-col"
     >
       <div>
         <p className="font-sans text-[9px] font-semibold text-amber tracking-[0.18em] uppercase">
@@ -68,7 +68,7 @@ export const Hero = () => (
           Senior Software Engineer
         </p>
       </div>
-      <div className="flex justify-between items-end">
+      <div className="flex justify-between items-end mt-auto pt-3">
         <span className="font-display text-[32px] font-black text-amber/[0.15] leading-none">
           2025
         </span>
@@ -79,7 +79,7 @@ export const Hero = () => (
     {/* Stack card */}
     <motion.div
       variants={card}
-      className="bg-amber/[0.07] border border-ink/[0.07] rounded-xl p-4 flex flex-col justify-between"
+      className="bg-amber/[0.07] border border-ink/[0.07] rounded-xl p-4 flex flex-col"
     >
       <div>
         <p className="font-sans text-[9px] font-semibold text-ink/50 tracking-[0.18em] uppercase">
@@ -98,7 +98,7 @@ export const Hero = () => (
           )}
         </div>
       </div>
-      <p className="font-sans text-[11px] text-ink/40">📍 {profile.location}</p>
+      <p className="font-sans text-[11px] text-ink/40 mt-auto pt-3">📍 {profile.location}</p>
     </motion.div>
   </motion.div>
 );

@@ -5,7 +5,7 @@ export const Contact = () => (
     {/* Main content */}
     <div className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-3 p-4 overflow-y-auto md:overflow-hidden">
       {/* Left — typographic CTA */}
-      <div className="flex flex-col justify-between">
+      <div className="flex flex-col">
         <div className="flex flex-col gap-3">
           <p className="font-sans text-[9px] font-semibold text-amber tracking-[0.2em] uppercase">
             ↗ Let's talk
@@ -30,7 +30,7 @@ export const Contact = () => (
             Send an email <span className="text-base">↗</span>
           </a>
         </div>
-        <p className="font-sans text-[9px] text-cream/20 tracking-[0.06em]">
+        <p className="font-sans text-[9px] text-cream/20 tracking-[0.06em] mt-auto pt-4">
           Based in Kuala Lumpur, MY · Available remotely
         </p>
       </div>

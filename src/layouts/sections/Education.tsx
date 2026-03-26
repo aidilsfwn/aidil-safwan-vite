@@ -36,7 +36,7 @@ export const Education = () => {
         {/* Degree hero */}
         <motion.div
           variants={card}
-          className="bg-ink rounded-xl p-5 flex flex-col justify-between relative overflow-hidden"
+          className="bg-ink rounded-xl p-5 flex flex-col relative overflow-hidden"
         >
           <div className="absolute -top-8 -right-8 w-36 h-36 rounded-full bg-amber/[0.06] blur-3xl pointer-events-none" />
           <div>
@@ -60,7 +60,7 @@ export const Education = () => {
               {degreeCgpa}
             </span>
           </div>
-          <div className="flex items-end justify-between">
+          <div className="flex items-end justify-between mt-auto pt-3">
             <p className="font-sans text-[9px] text-cream/25 leading-relaxed max-w-[140px]">
               FYP: Twitter sentiment analysis — bilingual NLP classification
               model.
@@ -74,7 +74,7 @@ export const Education = () => {
         {/* Foundation card */}
         <motion.div
           variants={card}
-          className="bg-amber/[0.07] border border-amber/[0.14] rounded-xl p-4 flex flex-col justify-between"
+          className="bg-amber/[0.07] border border-amber/[0.14] rounded-xl p-4 flex flex-col"
         >
           <div>
             <p className="font-sans text-[9px] font-semibold text-amber/60 tracking-[0.18em] uppercase">
@@ -90,7 +90,7 @@ export const Education = () => {
               {foundation.period}
             </p>
           </div>
-          <div>
+          <div className="mt-auto pt-3">
             <p className="font-sans text-[9px] text-ink/40 tracking-[0.1em] uppercase">
               CGPA
             </p>
