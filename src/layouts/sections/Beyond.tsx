@@ -125,106 +125,106 @@ export const Beyond = () => (
   <div className="flex-1 flex flex-col gap-3 p-4 overflow-y-auto md:overflow-hidden">
     <div className="flex items-baseline justify-between flex-shrink-0 px-0.5">
       <h2 className="font-display text-[26px] font-black text-ink tracking-[-1px]">
-        Beyond.
+        Beyond The Code.
       </h2>
       <p className="font-sans text-[10px] text-ink/40 tracking-[0.12em] uppercase">
         Off the clock
       </p>
     </div>
-  <motion.div
-    className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.3fr_1fr] md:grid-rows-2 gap-3 overflow-y-auto md:overflow-hidden"
-    variants={stagger}
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true, amount: 0.4 }}
-  >
-    <SpotifyCard />
-
-    {/* My Teams */}
     <motion.div
-      variants={card}
-      className="bg-amber/[0.08] border border-amber/[0.18] rounded-xl p-4 flex flex-col relative overflow-hidden"
+      className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.3fr_1fr] md:grid-rows-2 gap-3 overflow-y-auto md:overflow-hidden"
+      variants={stagger}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.4 }}
     >
-      <p className="font-sans text-[9px] font-semibold text-ink/50 tracking-[0.18em] uppercase mb-3">
-        My Teams
-      </p>
-      {beyond.teams.map((team, i) => (
-        <div key={team.name}>
-          {i > 0 && <div className="h-px bg-ink/[0.1] my-2.5" />}
-          <div className="flex items-center gap-2.5">
-            <span className="text-xl leading-none">{team.icon}</span>
-            <div>
-              <p className="font-sans text-[10px] font-bold text-ink/70 leading-tight">
-                {team.name}
-              </p>
-              <p className="font-sans text-[9px] text-ink/40">
-                {team.league} · {team.tagline}
-              </p>
+      <SpotifyCard />
+
+      {/* My Teams */}
+      <motion.div
+        variants={card}
+        className="bg-amber/[0.08] border border-amber/[0.18] rounded-xl p-4 flex flex-col relative overflow-hidden"
+      >
+        <p className="font-sans text-[9px] font-semibold text-ink/50 tracking-[0.18em] uppercase mb-3">
+          My Teams
+        </p>
+        {beyond.teams.map((team, i) => (
+          <div key={team.name}>
+            {i > 0 && <div className="h-px bg-ink/[0.1] my-2.5" />}
+            <div className="flex items-center gap-2.5">
+              <span className="text-xl leading-none">{team.icon}</span>
+              <div>
+                <p className="font-sans text-[10px] font-bold text-ink/70 leading-tight">
+                  {team.name}
+                </p>
+                <p className="font-sans text-[9px] text-ink/40">
+                  {team.league} · {team.tagline}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </motion.div>
+
+      {/* Outside the IDE */}
+      <motion.div
+        variants={card}
+        className="bg-amber/[0.07] border border-ink/[0.07] rounded-xl p-4 flex flex-col"
+      >
+        <p className="font-sans text-[9px] font-semibold text-ink/50 tracking-[0.18em] uppercase mb-2">
+          Outside the IDE
+        </p>
+
+        <div className="flex flex-col gap-2">
+          <div>
+            <p className="font-sans text-[7px] font-bold text-ink/40 tracking-[0.15em] uppercase mb-1">
+              I play
+            </p>
+            <div className="flex flex-wrap gap-1">
+              {beyond.play.map((s) => (
+                <span
+                  key={s}
+                  className="font-sans text-[9px] font-semibold text-ink/60 bg-ink/[0.08] px-2 py-0.5 rounded-[3px]"
+                >
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="font-sans text-[7px] font-bold text-ink/40 tracking-[0.15em] uppercase mb-1">
+              I watch
+            </p>
+            <div className="flex flex-wrap gap-1">
+              {beyond.watch.map((s) => (
+                <span
+                  key={s}
+                  className="font-sans text-[9px] font-semibold text-ink/60 bg-ink/[0.08] px-2 py-0.5 rounded-[3px]"
+                >
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="font-sans text-[7px] font-bold text-ink/40 tracking-[0.15em] uppercase mb-1">
+              Also
+            </p>
+            <div className="flex flex-wrap gap-1">
+              {beyond.also.map((s) => (
+                <span
+                  key={s}
+                  className="font-sans text-[9px] font-semibold text-ink/60 bg-ink/[0.08] px-2 py-0.5 rounded-[3px]"
+                >
+                  {s}
+                </span>
+              ))}
             </div>
           </div>
         </div>
-      ))}
+      </motion.div>
     </motion.div>
-
-    {/* Outside the IDE */}
-    <motion.div
-      variants={card}
-      className="bg-amber/[0.07] border border-ink/[0.07] rounded-xl p-4 flex flex-col"
-    >
-      <p className="font-sans text-[9px] font-semibold text-ink/50 tracking-[0.18em] uppercase mb-2">
-        Outside the IDE
-      </p>
-
-      <div className="flex flex-col gap-2">
-        <div>
-          <p className="font-sans text-[7px] font-bold text-ink/40 tracking-[0.15em] uppercase mb-1">
-            I play
-          </p>
-          <div className="flex flex-wrap gap-1">
-            {beyond.play.map((s) => (
-              <span
-                key={s}
-                className="font-sans text-[9px] font-semibold text-ink/60 bg-ink/[0.08] px-2 py-0.5 rounded-[3px]"
-              >
-                {s}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <p className="font-sans text-[7px] font-bold text-ink/40 tracking-[0.15em] uppercase mb-1">
-            I watch
-          </p>
-          <div className="flex flex-wrap gap-1">
-            {beyond.watch.map((s) => (
-              <span
-                key={s}
-                className="font-sans text-[9px] font-semibold text-ink/60 bg-ink/[0.08] px-2 py-0.5 rounded-[3px]"
-              >
-                {s}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <p className="font-sans text-[7px] font-bold text-ink/40 tracking-[0.15em] uppercase mb-1">
-            Also
-          </p>
-          <div className="flex flex-wrap gap-1">
-            {beyond.also.map((s) => (
-              <span
-                key={s}
-                className="font-sans text-[9px] font-semibold text-ink/60 bg-ink/[0.08] px-2 py-0.5 rounded-[3px]"
-              >
-                {s}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  </motion.div>
   </div>
 );
