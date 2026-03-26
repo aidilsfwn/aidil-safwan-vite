@@ -162,20 +162,20 @@ export const Beyond = () => (
       variants={card}
       className="bg-amber/[0.07] border border-ink/[0.07] rounded-xl p-4 flex flex-col"
     >
-      <p className="font-sans text-[9px] font-semibold text-cream/40 tracking-[0.18em] uppercase mb-2">
+      <p className="font-sans text-[9px] font-semibold text-ink/50 tracking-[0.18em] uppercase mb-2">
         Outside the IDE
       </p>
 
       <div className="flex flex-col gap-2">
         <div>
-          <p className="font-sans text-[7px] font-bold text-cream/30 tracking-[0.15em] uppercase mb-1">
+          <p className="font-sans text-[7px] font-bold text-ink/40 tracking-[0.15em] uppercase mb-1">
             I play
           </p>
           <div className="flex flex-wrap gap-1">
             {beyond.play.map((s) => (
               <span
                 key={s}
-                className="font-sans text-[9px] font-semibold text-cream/60 bg-white/[0.06] px-2 py-0.5 rounded-[3px]"
+                className="font-sans text-[9px] font-semibold text-ink/60 bg-ink/[0.08] px-2 py-0.5 rounded-[3px]"
               >
                 {s}
               </span>
@@ -184,14 +184,14 @@ export const Beyond = () => (
         </div>
 
         <div>
-          <p className="font-sans text-[7px] font-bold text-cream/30 tracking-[0.15em] uppercase mb-1">
+          <p className="font-sans text-[7px] font-bold text-ink/40 tracking-[0.15em] uppercase mb-1">
             I watch
           </p>
           <div className="flex flex-wrap gap-1">
             {beyond.watch.map((s) => (
               <span
                 key={s}
-                className="font-sans text-[9px] font-semibold text-cream/60 bg-white/[0.06] px-2 py-0.5 rounded-[3px]"
+                className="font-sans text-[9px] font-semibold text-ink/60 bg-ink/[0.08] px-2 py-0.5 rounded-[3px]"
               >
                 {s}
               </span>
@@ -200,14 +200,14 @@ export const Beyond = () => (
         </div>
 
         <div>
-          <p className="font-sans text-[7px] font-bold text-cream/30 tracking-[0.15em] uppercase mb-1">
+          <p className="font-sans text-[7px] font-bold text-ink/40 tracking-[0.15em] uppercase mb-1">
             Also
           </p>
           <div className="flex flex-wrap gap-1">
             {beyond.also.map((s) => (
               <span
                 key={s}
-                className="font-sans text-[9px] font-semibold text-cream/60 bg-white/[0.06] px-2 py-0.5 rounded-[3px]"
+                className="font-sans text-[9px] font-semibold text-ink/60 bg-ink/[0.08] px-2 py-0.5 rounded-[3px]"
               >
                 {s}
               </span>
