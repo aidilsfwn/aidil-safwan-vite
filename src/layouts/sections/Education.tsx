@@ -11,7 +11,7 @@ const card: Variants = {
 };
 
 export const Education = () => {
-  const [degree, foundation] = education;
+  const [degree, foundation, usm] = education;
 
   return (
     <div className="flex-1 flex flex-col gap-3 p-4 overflow-y-auto md:overflow-hidden">
@@ -20,21 +20,21 @@ export const Education = () => {
           Education.
         </h2>
         <p className="font-sans text-[10px] text-ink/40 tracking-[0.12em] uppercase">
-          UiTM · 2014 – 2020
+          UiTM · USM · 2014 – 2020
         </p>
       </div>
 
       <motion.div
-        className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.4fr_1fr] md:grid-rows-[1.3fr_1fr] gap-3"
+        className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.4fr_1fr] md:grid-rows-[1fr_1fr_auto] gap-3 md:overflow-hidden"
         variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.4 }}
       >
-        {/* Degree hero */}
+        {/* Degree hero — spans both right-column rows */}
         <motion.div
           variants={card}
-          className="bg-ink rounded-xl p-5 flex flex-col relative overflow-hidden"
+          className="md:row-span-2 bg-ink rounded-xl p-5 flex flex-col relative overflow-hidden"
         >
           <div className="absolute -top-8 -right-8 w-36 h-36 rounded-full bg-amber/[0.06] blur-3xl pointer-events-none" />
           <div>
@@ -64,44 +64,59 @@ export const Education = () => {
           variants={card}
           className="bg-amber/[0.07] border border-amber/[0.14] rounded-xl p-4 flex flex-col"
         >
-          <div>
-            <p className="font-sans text-[9px] font-semibold text-amber/60 tracking-[0.18em] uppercase">
-              Foundation
-            </p>
-            <h3 className="font-display text-[15px] font-bold text-ink leading-[1.2] mt-1">
-              {foundation.degree}
-            </h3>
-            <p className="font-sans text-[11px] text-ink/50 mt-1">
-              {foundation.institution}
-            </p>
-            <p className="font-sans text-[10px] font-semibold text-amber/50 mt-0.5">
-              {foundation.period}
-            </p>
-          </div>
+          <p className="font-sans text-[9px] font-semibold text-amber/60 tracking-[0.18em] uppercase">
+            Foundation
+          </p>
+          <h3 className="font-display text-[15px] font-bold text-ink leading-[1.2] mt-1">
+            {foundation.degree}
+          </h3>
+          <p className="font-sans text-[11px] text-ink/50 mt-1">
+            {foundation.institution}
+          </p>
+          <p className="font-sans text-[10px] font-semibold text-amber/50 mt-0.5">
+            {foundation.period}
+          </p>
+        </motion.div>
+
+        {/* USM — incomplete degree */}
+        <motion.div
+          variants={card}
+          className="bg-ink/[0.03] border border-ink/[0.07] rounded-xl p-4 flex flex-col"
+        >
+          <p className="font-sans text-[9px] font-semibold text-ink/40 tracking-[0.18em] uppercase">
+            Incomplete
+          </p>
+          <h3 className="font-display text-[15px] font-bold text-ink leading-[1.2] mt-1">
+            {usm.degree}
+          </h3>
+          <p className="font-sans text-[11px] text-ink/50 mt-1">
+            {usm.institution}
+          </p>
+          <p className="font-sans text-[10px] font-semibold text-ink/30 mt-0.5">
+            {usm.period}
+          </p>
         </motion.div>
 
         {/* Pivot story — spans full bottom width */}
         <motion.div
           variants={card}
-          className="md:col-span-2 bg-amber/[0.07] border border-ink/[0.07] rounded-xl px-5 py-4 flex items-center gap-6"
+          className="md:col-span-2 bg-amber/[0.07] border border-ink/[0.07] rounded-xl px-5 py-4"
         >
-          <div className="flex-1">
-            <p className="font-sans text-[9px] font-semibold text-amber/60 tracking-[0.18em] uppercase mb-1.5">
-              The pivot
-            </p>
-            <p className="font-sans text-[11px] text-ink/60 leading-relaxed">
-              Started in{" "}
-              <strong className="text-ink font-semibold">
-                Electronic Engineering
-              </strong>{" "}
-              — switched to{" "}
-              <strong className="text-ink font-semibold">
-                Computer Science
-              </strong>{" "}
-              when the pull towards coding became impossible to ignore. Never
-              looked back.
-            </p>
-          </div>
+          <p className="font-sans text-[9px] font-semibold text-amber/60 tracking-[0.18em] uppercase mb-1.5">
+            The pivot
+          </p>
+          <p className="font-sans text-[11px] text-ink/60 leading-relaxed">
+            Started in{" "}
+            <strong className="text-ink font-semibold">
+              Electronic Engineering
+            </strong>{" "}
+            at USM — switched to{" "}
+            <strong className="text-ink font-semibold">
+              Computer Science
+            </strong>{" "}
+            at UiTM when the pull towards coding became impossible to ignore.
+            Never looked back.
+          </p>
         </motion.div>
       </motion.div>
     </div>

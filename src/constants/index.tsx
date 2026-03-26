@@ -166,6 +166,12 @@ export const education: EducationEntry[] = [
     period: "2014 - 2015",
     details: "CGPA: 3.78",
   },
+  {
+    degree: "Bachelor of Electronic Engineering (Hons.)",
+    institution: "Universiti Sains Malaysia (USM)",
+    period: "2015 - 2016",
+    details: "Incomplete",
+  },
 ];
 
 // ─── Projects ──────────────────────────────────────────────────────────────────
