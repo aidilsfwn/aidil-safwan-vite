@@ -47,9 +47,8 @@ export function useSpotify(): SpotifyState {
     function scheduleNext() {
       // Poll every 30s when playing, 60s otherwise
       const delay = isPlayingRef.current ? 30_000 : 60_000;
-      intervalId = setTimeout(async () => {
-        await load();
-        scheduleNext();
+      intervalId = setTimeout(() => {
+        load().then(scheduleNext);
       }, delay);
     }
 
