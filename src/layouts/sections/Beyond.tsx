@@ -225,5 +225,6 @@ export const Beyond = () => (
         </div>
       </div>
     </motion.div>
+  </motion.div>
   </div>
 );
