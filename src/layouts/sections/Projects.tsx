@@ -146,14 +146,14 @@ export const Projects = () => {
       {/* Content grid */}
       <div className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.3fr_1fr] gap-3 overflow-y-auto md:overflow-hidden">
         {/* Featured card with AnimatePresence */}
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="sync">
           {featured && (
             <motion.div
               key={featured.id}
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.97 }}
-              transition={{ duration: 0.2 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
               className="overflow-hidden min-h-[260px] md:min-h-0"
             >
               <FeaturedCard project={featured} />
@@ -163,14 +163,15 @@ export const Projects = () => {
 
         {/* Project list */}
         <div className="flex flex-col gap-2 md:overflow-y-auto scrollbar-thin">
-          <AnimatePresence mode="popLayout">
-            {list.map((project, i) => (
+          <AnimatePresence initial={false}>
+            {list.map((project) => (
               <motion.button
                 key={project.id}
-                initial={{ opacity: 0, x: 12 }}
+                layout
+                initial={{ opacity: 0, x: 8 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 12 }}
-                transition={{ delay: i * 0.04, duration: 0.2 }}
+                exit={{ opacity: 0, x: 8 }}
+                transition={{ duration: 0.15 }}
                 onClick={() => setFeaturedId(project.id)}
                 className="flex gap-3 items-center bg-ink/[0.03] border border-ink/[0.07] rounded-xl px-3 py-2.5 text-left hover:border-amber/30 hover:bg-amber/[0.06] transition-all flex-shrink-0 group"
               >
