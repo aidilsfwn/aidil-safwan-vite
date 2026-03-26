@@ -197,7 +197,7 @@ export const Projects = () => {
                     {project.title}
                   </p>
                   <div className="flex gap-1 mt-1.5 flex-wrap">
-                    {project.tech.slice(0, 2).map((t) => (
+                    {project.tech.slice(0, 5).map((t) => (
                       <span
                         key={t}
                         className="font-sans text-[8px] font-semibold text-ink/40 bg-ink/[0.05] px-1.5 py-0.5 rounded-[2px]"
