@@ -38,7 +38,6 @@ export interface EducationEntry {
   degree: string;
   institution: string;
   period: string;
-  details: string;
 }
 
 // ─── Profile ───────────────────────────────────────────────────────────────────
@@ -63,11 +62,11 @@ export const skills: {
   backend: string[];
   devops: string[];
 } = {
-  core: ["TypeScript", "JavaScript", "Redux", "UI/UX", "Git"],
-  web: ["React"],
+  core: ["TypeScript", "JavaScript", "Redux", "Git", "Figma", "UI/UX"],
+  web: ["React", "Vite"],
   mobile: ["React Native", "Expo", "Flutter", "iOS", "Android"],
-  backend: ["Laravel", "Node.js", "Express", "MySQL", "MongoDB", "PHP"],
-  devops: ["AWS", "Azure DevOps", "Docker", "GitHub Actions", "CI/CD"],
+  backend: ["Laravel", "PHP", ".NET", "Express.js", "MySQL", "MS SQL", "Firebase", "Supabase"],
+  devops: ["AWS", "Azure", "Docker", "GitHub Actions", "CI/CD"],
 };
 
 // ─── Experience ────────────────────────────────────────────────────────────────
@@ -82,7 +81,25 @@ export const experiences: Experience[] = [
       "Rebuilding the ChangeGPS accounting suite as Access Evo: a modular React + .NET + Azure SSO platform in a monorepo.",
       "Served as interim technical lead through a leadership gap, maintaining delivery continuity across cross-functional teams.",
     ],
-    tech: ["React", ".NET", "Azure", "GitHub Actions"],
+    tech: [
+      "React",
+      ".NET",
+      "Azure",
+      "Laravel",
+      "AWS",
+      "Docker",
+      "TypeScript",
+      "JavaScript",
+      "PHP",
+      "Vite",
+      "MySQL",
+      "MS SQL",
+      "Full-stack Development",
+      "Prompt Engineering",
+      "Web Development",
+      "DevOps",
+      "Spec-driven Development",
+    ],
     achievements: [
       "Build and maintain full-stack systems using React + Vite, PHP Laravel, MySQL, and AWS.",
       "Collaborate closely with the Product Manager to translate business requirements into technical solutions.",
@@ -105,7 +122,13 @@ export const experiences: Experience[] = [
       "Drove micro frontend migration for a banking web app payment module.",
       "Delivered features for an Australian digital bank (in1bank), collaborating directly with product owners.",
     ],
-    tech: ["React", "React Native", "Flutter", "Redux"],
+    tech: [
+      "React",
+      "React Native",
+      "Flutter",
+      "TypeScript",
+      "Mobile Development",
+    ],
     achievements: [
       "First member of the mobile team for a large-scale app project, leading mobile development including component library creation.",
       "Worked on end-to-end implementation, collaborating with product owners, analysts, stakeholders, and testing teams.",
@@ -123,7 +146,16 @@ export const experiences: Experience[] = [
       "Built registration and eKYC modules for MyPB — a next-gen mobile banking app with native SDK bridge.",
       "Led a complete redesign and codebase refactor of the internal HRMS app.",
     ],
-    tech: ["React Native", "Redux", "iOS", "Android"],
+    tech: [
+      "React Native",
+      "Redux",
+      "iOS",
+      "Android",
+      "JavaScript",
+      "Figma",
+      "Mobile Development",
+      "UI/UX",
+    ],
     achievements: [
       "Progressed from trainee to full-fledged analyst programmer within a year.",
       "Designed festive-themed UI elements for the HRMS app, coordinating with internal clients.",
@@ -140,7 +172,16 @@ export const experiences: Experience[] = [
       "Converted from intern to full-time hire based on performance.",
       "Built n9.digital — the Negeri Sembilan state digital gateway connecting citizens, businesses, and government.",
     ],
-    tech: ["React", "React Native", "Expo"],
+    tech: [
+      "React",
+      "React Native",
+      "Expo",
+      "Express.js",
+      "JavaScript",
+      "Full-stack Development",
+      "Mobile Development",
+      "Web Development",
+    ],
     achievements: [
       "Initially joined as an intern; secured a permanent role due to high performance.",
       "Collaborated with various teams to deliver client-focused solutions including landing pages for a UK real estate client.",
@@ -158,19 +199,16 @@ export const education: EducationEntry[] = [
     degree: "Bachelor of Computer Science (Hons.)",
     institution: "Universiti Teknologi MARA (UiTM)",
     period: "2017 - 2020",
-    details: "CGPA: 3.42",
   },
   {
     degree: "Foundation in Engineering",
     institution: "Universiti Teknologi MARA (UiTM)",
     period: "2014 - 2015",
-    details: "CGPA: 3.78",
   },
   {
     degree: "Bachelor of Electronic Engineering (Hons.)",
     institution: "Universiti Sains Malaysia (USM)",
     period: "2015 - 2016",
-    details: "Incomplete",
   },
 ];
 
@@ -183,9 +221,27 @@ export const projects: Project[] = [
     title: "ChangeGPS",
     description:
       "A modern platform for accountants, offering practice management and compliance tools tailored to firms of all sizes.",
-    tech: ["React", "Laravel", "AWS"],
+    tech: [
+      "React",
+      ".NET",
+      "Azure",
+      "Full-stack Development",
+      "Prompt Engineering",
+      "Laravel",
+      "Docker",
+      "AWS",
+      "TypeScript",
+      "JavaScript",
+      "PHP",
+      "Vite",
+      "MySQL",
+      "MS SQL",
+      "Web Development",
+      "DevOps",
+      "Spec-driven Development",
+    ],
     image: "/images/cgps.webp",
-    demoUrl: "https://changegps.com.au",
+    demoUrl: "https://changetech.cloud",
     category: "professional",
   },
   {
@@ -193,9 +249,8 @@ export const projects: Project[] = [
     title: "in1bank",
     description:
       "A digital-first Australian banking app with seamless in-app account creation and the same government guarantees as traditional banks.",
-    tech: ["React Native", "Redux", "iOS", "Android"],
+    tech: ["React Native", "iOS", "Android"],
     image: "/images/in1bank.webp",
-    demoUrl: "https://in1bank.com.au",
     appStoreUrl: "https://apps.apple.com/au/app/in1bank/id1490235916",
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.in1bank.mobile",
@@ -206,9 +261,14 @@ export const projects: Project[] = [
     title: "KWSP i-Akaun",
     description:
       "The refreshed KWSP i-Akaun app empowers users to monitor their retirement savings, manage transactions, and locate branches.",
-    tech: ["React Native", "Redux", "iOS", "Android"],
+    tech: [
+      "React Native",
+      "iOS",
+      "Android",
+      "TypeScript",
+      "Mobile Development",
+    ],
     image: "/images/kwsp.webp",
-    demoUrl: "https://www.kwsp.gov.my/en/member/i-akaun",
     appStoreUrl: "https://apps.apple.com/my/app/kwsp-i-akaun/id1396563336",
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=my.gov.kwsp.iakaun",
@@ -219,9 +279,14 @@ export const projects: Project[] = [
     title: "MyPB",
     description:
       "Public Bank's next-gen mobile banking app, combining financial services and lifestyle features in a sleek, unified experience.",
-    tech: ["React Native", "Redux", "iOS", "Android"],
+    tech: [
+      "React Native",
+      "iOS",
+      "Android",
+      "JavaScript",
+      "Mobile Development",
+    ],
     image: "/images/mypb.webp",
-    demoUrl: "https://www.pbebank.com",
     appStoreUrl:
       "https://apps.apple.com/my/app/mypb-by-public-bank/id1527807753",
     playStoreUrl:
@@ -233,7 +298,15 @@ export const projects: Project[] = [
     title: "PBeXperience",
     description:
       "An internal productivity app by Public Bank, delivering a secure suite of digital tools to enhance employee efficiency on the go.",
-    tech: ["React Native", "Redux"],
+    tech: [
+      "React Native",
+      "iOS",
+      "Android",
+      "JavaScript",
+      "Figma",
+      "Mobile Development",
+      "UI/UX",
+    ],
     image: "/images/pbx.webp",
     appStoreUrl: "https://apps.apple.com/my/app/pbexperience/id1181226879",
     playStoreUrl:
@@ -245,9 +318,8 @@ export const projects: Project[] = [
     title: "n9.digital",
     description:
       "The official digital gateway for Negeri Sembilan, enabling seamless interactions between citizens, businesses, and government agencies.",
-    tech: ["React Native", "Expo"],
+    tech: ["React Native", "Expo", "JavaScript", "Mobile Development"],
     image: "/images/n9.webp",
-    demoUrl: "https://n9.digital",
     appStoreUrl: "https://apps.apple.com/my/app/n9-digital/id1481541604",
     playStoreUrl: "https://play.google.com/store/apps/details?id=my.n9.digital",
     category: "professional",
@@ -257,7 +329,13 @@ export const projects: Project[] = [
     title: "invokeisdata",
     description:
       "A sleek landing page for Invoke, showcasing the firm's capabilities in data analytics, insights, and political intelligence.",
-    tech: ["React", "Express"],
+    tech: [
+      "React",
+      "Express.js",
+      "JavaScript",
+      "Full-stack Development",
+      "Web Development",
+    ],
     image: "/images/invoke.jpg",
     demoUrl: "https://invokeisdata.com",
     category: "professional",
@@ -268,8 +346,9 @@ export const projects: Project[] = [
     title: "ElakHujan",
     description:
       "A rain prediction and avoidance tool built for Kuala Lumpur commuters — know before you go.",
-    tech: ["React", "TypeScript", "Vite"],
+    tech: ["React", "Vite", "TypeScript", "Supabase", "Web Development"],
     repoUrl: "https://github.com/aidilsfwn/elak-hujan",
+    demoUrl: "https://elak-hujan.aidilsfwn.dev",
     category: "personal",
   },
   {
@@ -277,8 +356,9 @@ export const projects: Project[] = [
     title: "9mo.",
     description:
       "A pregnancy and milestone tracker for the journey from conception to birth. 9 months, documented.",
-    tech: ["React", "TypeScript", "Vite"],
+    tech: ["React", "Vite", "TypeScript", "Firebase", "Web Development"],
     repoUrl: "https://github.com/aidilsfwn/9mo",
+    demoUrl: "https://9mo.aidilsfwn.dev",
     category: "personal",
   },
   {
@@ -286,8 +366,9 @@ export const projects: Project[] = [
     title: "Dah Qada?",
     description:
       "A prayer qada tracker for Muslims — keep track of missed prayers and make them up, one at a time.",
-    tech: ["React", "TypeScript", "Vite"],
+    tech: ["React", "Vite", "TypeScript", "Firebase", "Web Development"],
     repoUrl: "https://github.com/aidilsfwn/dah-qada",
+    demoUrl: "https://dah-qada.aidilsfwn.dev",
     category: "personal",
   },
   {
@@ -295,8 +376,9 @@ export const projects: Project[] = [
     title: "Aidil & Farhana's First Anniversary",
     description:
       "A mobile-first digital anniversary card — background music plays on load, shareable, with a PDF export option.",
-    tech: ["React", "TypeScript", "Vite", "Tailwind CSS"],
+    tech: ["React", "Vite", "TypeScript", "Web Development"],
     repoUrl: "https://github.com/aidilsfwn/af-1-anniversary",
+    demoUrl: "https://af-1-anniversary.aidilsfwn.dev",
     category: "personal",
   },
   {
@@ -304,7 +386,13 @@ export const projects: Project[] = [
     title: "COVID-19 MY Dashboard",
     description:
       "A real-time COVID-19 statistics dashboard for Malaysia — automated data pipeline via Google Sheets, visualised in Google Data Studio. Referenced by government officials during the pandemic.",
-    tech: ["Google Data Studio", "Google Apps Script", "Google Sheets"],
+    tech: [
+      "Google Data Studio",
+      "Google Apps Script",
+      "Google Sheets",
+      "Data Analytics",
+      "Data Visualization",
+    ],
     category: "personal",
     isArchived: true,
     archivedNote: "Data no longer maintained — pandemic has ended.",
@@ -328,9 +416,9 @@ export const beyond = {
       icon: "⬛",
     },
   ],
-  play: ["Football", "Futsal", "Badminton", "Pickleball", "Frisbee"],
+  play: ["Football", "Futsal", "Badminton", "Ultimate Frisbee"],
   watch: ["Football", "Badminton", "F1"],
-  also: ["Photography"],
+  also: ["Photography", "Music"],
 };
 
 // ─── Menu ──────────────────────────────────────────────────────────────────────
