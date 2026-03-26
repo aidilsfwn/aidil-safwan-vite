@@ -12,8 +12,6 @@ const card: Variants = {
 
 export const Education = () => {
   const [degree, foundation] = education;
-  const degreeCgpa = degree.details.replace("CGPA: ", "");
-  const foundCgpa = foundation.details.replace("CGPA: ", "");
 
   return (
     <div className="flex-1 flex flex-col gap-3 p-4 overflow-y-auto md:overflow-hidden">
@@ -52,13 +50,6 @@ export const Education = () => {
             <p className="font-sans text-[10px] font-semibold text-cream/25 tracking-[0.06em] mt-0.5">
               {degree.period}
             </p>
-            <div className="h-px bg-amber/[0.12] my-3" />
-            <p className="font-sans text-[9px] font-semibold text-cream/30 tracking-[0.12em] uppercase mb-1">
-              CGPA
-            </p>
-            <span className="font-display text-[32px] font-black text-amber leading-none">
-              {degreeCgpa}
-            </span>
           </div>
           <div className="mt-auto pt-3">
             <p className="font-sans text-[9px] text-cream/25 leading-relaxed max-w-[140px]">
@@ -87,14 +78,6 @@ export const Education = () => {
               {foundation.period}
             </p>
           </div>
-          <div className="mt-auto pt-3">
-            <p className="font-sans text-[9px] text-ink/40 tracking-[0.1em] uppercase">
-              CGPA
-            </p>
-            <span className="font-display text-[24px] font-black text-amber/70 leading-none">
-              {foundCgpa}
-            </span>
-          </div>
         </motion.div>
 
         {/* Pivot story — spans full bottom width */}
@@ -118,23 +101,6 @@ export const Education = () => {
               when the pull towards coding became impossible to ignore. Never
               looked back.
             </p>
-          </div>
-          <div className="w-px h-12 bg-amber/[0.2] flex-shrink-0" />
-          <div className="flex gap-5 flex-shrink-0">
-            {[
-              { num: foundCgpa, label: "Foundation" },
-              { num: degreeCgpa, label: "Degree" },
-              { num: "6yr",      label: "Academia" },
-            ].map(({ num, label }) => (
-              <div key={label} className="text-center">
-                <p className="font-display text-[22px] font-black text-ink leading-none">
-                  {num}
-                </p>
-                <p className="font-sans text-[9px] text-ink/40 tracking-[0.1em] uppercase mt-1">
-                  {label}
-                </p>
-              </div>
-            ))}
           </div>
         </motion.div>
       </motion.div>
