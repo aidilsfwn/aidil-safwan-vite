@@ -195,7 +195,7 @@ export const Projects = () => {
                   <p className="font-display text-[13px] font-bold text-ink leading-tight truncate">
                     {project.title}
                   </p>
-                  <div className="flex gap-1 mt-0.5 flex-wrap">
+                  <div className="flex gap-1 mt-1.5 flex-wrap">
                     {project.tech.slice(0, 2).map((t) => (
                       <span
                         key={t}
