@@ -6,6 +6,7 @@ const REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN!;
 
 const TOKEN_URL = "https://accounts.spotify.com/api/token";
 const NOW_PLAYING_URL = "https://api.spotify.com/v1/me/player/currently-playing";
+const RECENTLY_PLAYED_URL = "https://api.spotify.com/v1/me/player/recently-played?limit=1";
 const TOP_TRACKS_URL = "https://api.spotify.com/v1/me/top/tracks?limit=3&time_range=medium_term";
 
 async function getAccessToken(): Promise<string> {
@@ -52,8 +53,24 @@ export const handler: Handler = async () => {
         };
       }
     } else if (npRes.status !== 204) {
-      // 204 = nothing playing (expected); anything else is unexpected
       throw new Error(`Now-playing request failed (${npRes.status})`);
+    }
+
+    // If nothing is currently playing, fall back to most recently played track
+    if (!current) {
+      const rpRes = await fetch(RECENTLY_PLAYED_URL, { headers });
+      if (rpRes.ok) {
+        const rpData = await rpRes.json();
+        const item = rpData.items?.[0]?.track;
+        if (item) {
+          const images: { url: string }[] = item.album.images ?? [];
+          current = {
+            title: item.name,
+            artist: item.artists.map((a: { name: string }) => a.name).join(", "),
+            albumArt: images.at(-1)?.url ?? null,
+          };
+        }
+      }
     }
 
     // Always fetch top tracks (shown below now-playing)
