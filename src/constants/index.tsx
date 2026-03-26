@@ -57,12 +57,14 @@ export const profile = {
 // ─── Skills ────────────────────────────────────────────────────────────────────
 
 export const skills: {
+  core: string[];
   web: string[];
   mobile: string[];
   backend: string[];
   devops: string[];
 } = {
-  web: ["React", "TypeScript", "JavaScript", "Redux", "Next.js", "UI/UX"],
+  core: ["TypeScript", "JavaScript", "Redux", "UI/UX", "Git"],
+  web: ["React"],
   mobile: ["React Native", "Expo", "Flutter", "iOS", "Android"],
   backend: ["Laravel", "Node.js", "Express", "MySQL", "MongoDB", "PHP"],
   devops: ["AWS", "Azure DevOps", "Docker", "GitHub Actions", "CI/CD"],
@@ -241,8 +243,7 @@ export const projects: Project[] = [
     image: "/images/n9.webp",
     demoUrl: "https://n9.digital",
     appStoreUrl: "https://apps.apple.com/my/app/n9-digital/id1481541604",
-    playStoreUrl:
-      "https://play.google.com/store/apps/details?id=my.n9.digital",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=my.n9.digital",
     category: "professional",
   },
   {
@@ -257,50 +258,50 @@ export const projects: Project[] = [
   },
   // Personal
   {
-    id: "covid-dashboard",
-    title: "COVID-19 MY Dashboard",
-    description:
-      "A real-time COVID-19 statistics dashboard for Malaysia — automated data pipeline via Google Sheets, visualised in Google Data Studio. Referenced by government officials during the pandemic.",
-    tech: ["Google Data Studio", "Google Sheets"],
-    category: "personal",
-    isArchived: true,
-    archivedNote: "Data no longer maintained — pandemic has ended.",
-  },
-  {
-    id: "dah-qada",
-    title: "dah-qada",
-    description:
-      "A prayer qada tracker for Muslims — keep track of missed prayers and make them up, one at a time.",
-    tech: ["React", "Vite", "TypeScript"],
-    repoUrl: "https://github.com/aidilsfwn/dah-qada",
-    category: "personal",
-  },
-  {
-    id: "9mo",
-    title: "9mo",
-    description:
-      "A pregnancy and milestone tracker for the journey from conception to birth. 9 months, documented.",
-    tech: ["React", "TypeScript"],
-    repoUrl: "https://github.com/aidilsfwn/9mo",
-    category: "personal",
-  },
-  {
     id: "elak-hujan",
-    title: "elak-hujan",
+    title: "ElakHujan",
     description:
       "A rain prediction and avoidance tool built for Kuala Lumpur commuters — know before you go.",
-    tech: ["React"],
+    tech: ["React", "TypeScript", "Vite"],
     repoUrl: "https://github.com/aidilsfwn/elak-hujan",
     category: "personal",
   },
   {
+    id: "9mo",
+    title: "9mo.",
+    description:
+      "A pregnancy and milestone tracker for the journey from conception to birth. 9 months, documented.",
+    tech: ["React", "TypeScript", "Vite"],
+    repoUrl: "https://github.com/aidilsfwn/9mo",
+    category: "personal",
+  },
+  {
+    id: "dah-qada",
+    title: "Dah Qada?",
+    description:
+      "A prayer qada tracker for Muslims — keep track of missed prayers and make them up, one at a time.",
+    tech: ["React", "TypeScript", "Vite"],
+    repoUrl: "https://github.com/aidilsfwn/dah-qada",
+    category: "personal",
+  },
+  {
     id: "af-1-anniversary",
-    title: "af-1-anniversary",
+    title: "Aidil & Farhana's First Anniversary",
     description:
       "A mobile-first digital anniversary card — background music plays on load, shareable, with a PDF export option.",
-    tech: ["React 19", "TypeScript", "Vite", "Tailwind CSS"],
+    tech: ["React", "TypeScript", "Vite", "Tailwind CSS"],
     repoUrl: "https://github.com/aidilsfwn/af-1-anniversary",
     category: "personal",
+  },
+  {
+    id: "covid-dashboard",
+    title: "COVID-19 MY Dashboard",
+    description:
+      "A real-time COVID-19 statistics dashboard for Malaysia — automated data pipeline via Google Sheets, visualised in Google Data Studio. Referenced by government officials during the pandemic.",
+    tech: ["Google Data Studio", "Google Apps Script", "Google Sheets"],
+    category: "personal",
+    isArchived: true,
+    archivedNote: "Data no longer maintained — pandemic has ended.",
   },
 ];
 

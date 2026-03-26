@@ -44,6 +44,26 @@ export const Skills = () => (
           </h3>
 
           <div className="flex flex-col gap-4">
+            {/* Core row */}
+            <div>
+              <div className="flex items-center gap-2 mb-1.5">
+                <p className="font-sans text-[9px] font-semibold text-cream/30 tracking-[0.16em] uppercase">
+                  Core
+                </p>
+                <div className="flex-1 h-px bg-amber/[0.1]" />
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {skills.core.map((s) => (
+                  <span
+                    key={s}
+                    className="font-sans text-[10px] font-semibold text-amber/80 bg-amber/[0.08] border border-amber/[0.15] px-2.5 py-1 rounded-[3px]"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </div>
+
             {/* Web row */}
             <div>
               <div className="flex items-center gap-2 mb-1.5">
@@ -93,9 +113,12 @@ export const Skills = () => (
           </p>
           <div className="flex justify-between items-end">
             <span className="font-display text-[44px] font-black text-amber/[0.08] leading-none">
-              {skills.web.length + skills.mobile.length}
+              {skills.core.length + skills.web.length + skills.mobile.length}
             </span>
             <div className="flex gap-1.5">
+              <span className="font-sans text-[9px] font-bold text-amber/70 bg-amber/[0.08] border border-amber/[0.15] px-2 py-1 rounded-[3px]">
+                Core
+              </span>
               <span className="font-sans text-[9px] font-bold text-amber bg-amber/[0.12] px-2 py-1 rounded-[3px]">
                 Web
               </span>
