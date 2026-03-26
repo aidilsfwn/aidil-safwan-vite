@@ -37,6 +37,7 @@ export const Hero = () => (
         <p className="font-sans text-[11px] text-cream/50 leading-relaxed mt-3 md:max-w-[200px]">
           {profile.bio}
         </p>
+        <p className="font-sans text-[10px] text-cream/30 mt-2">📍 {profile.location}</p>
       </div>
       <div className="flex mt-auto pt-4">
         <a
@@ -98,7 +99,6 @@ export const Hero = () => (
           )}
         </div>
       </div>
-      <p className="font-sans text-[11px] text-ink/40 mt-auto pt-3">📍 {profile.location}</p>
     </motion.div>
   </motion.div>
 );
