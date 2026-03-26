@@ -14,7 +14,7 @@ export const Experience = () => {
   const [current, ...previous] = experiences;
 
   return (
-    <div className="flex-1 flex flex-col gap-3 p-4 overflow-y-auto md:overflow-hidden">
+    <div className="md:flex-1 flex flex-col gap-3 p-4 overflow-y-auto md:overflow-hidden">
       <div className="flex items-baseline justify-between flex-shrink-0 px-0.5">
         <h2 className="font-display text-[26px] font-black text-ink tracking-[-1px]">
           Work.
@@ -25,7 +25,7 @@ export const Experience = () => {
       </div>
 
       <motion.div
-        className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-3 md:overflow-hidden"
+        className="md:flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-3 md:overflow-hidden"
         variants={stagger}
         initial="hidden"
         whileInView="visible"
