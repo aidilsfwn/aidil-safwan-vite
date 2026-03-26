@@ -205,6 +205,11 @@ export const Projects = () => {
                         {t}
                       </span>
                     ))}
+                    {project.tech.length > 5 && (
+                      <span className="font-sans text-[8px] font-semibold text-ink/30 px-1 py-0.5">
+                        +{project.tech.length - 5}
+                      </span>
+                    )}
                   </div>
                 </div>
               </button>
