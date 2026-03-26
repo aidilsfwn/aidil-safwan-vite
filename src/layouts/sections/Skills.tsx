@@ -151,7 +151,7 @@ export const Skills = () => (
             </span>
           ))}
         </div>
-        <p className="font-sans text-[9px] text-ink/30 mt-3">
+        <p className="font-sans text-[9px] text-ink/30 mt-auto pt-3">
           Supporting the frontend. Properly.
         </p>
       </motion.div>
@@ -177,7 +177,7 @@ export const Skills = () => (
             </span>
           ))}
         </div>
-        <p className="font-sans text-[9px] text-ink/30 mt-3">Ship it. Reliably.</p>
+        <p className="font-sans text-[9px] text-ink/30 mt-auto pt-3">Ship it. Reliably.</p>
       </motion.div>
     </motion.div>
   </div>
