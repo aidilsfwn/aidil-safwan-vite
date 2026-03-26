@@ -165,7 +165,7 @@ export const Projects = () => {
 
         {/* Project list — all items always rendered, active one highlighted */}
         <div className="flex flex-col gap-2 md:overflow-y-auto scrollbar-thin">
-            {filtered.map((project) => {
+            {filtered.slice(0, 5).map((project) => {
               const isActive = project.id === featured?.id;
               return (
               <button
