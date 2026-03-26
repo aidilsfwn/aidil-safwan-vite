@@ -305,6 +305,18 @@ export const projects: Project[] = [
   },
 ];
 
+// ─── Beyond ────────────────────────────────────────────────────────────────────
+
+export const beyond = {
+  teams: [
+    { name: "Arsenal FC", league: "Premier League", tagline: "Proud Gooner", icon: "🔴" },
+    { name: "Mercedes AMG Petronas", league: "Formula 1", tagline: "Still believing", icon: "⬛" },
+  ],
+  play: ["Football", "Futsal", "Badminton", "Pickleball", "Frisbee"],
+  watch: ["Football", "Badminton", "F1"],
+  also: ["Photography"],
+};
+
 // ─── Menu ──────────────────────────────────────────────────────────────────────
 
 export const menu = [
