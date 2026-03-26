@@ -1,7 +1,7 @@
 {
   "name": "aidil-safwan-vite",
   "private": true,
-  "version": "0.0.0",
+  "version": "3.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@netlify/functions": "^5.1.5",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
@@ -31,6 +32,6 @@
     "globals": "^17.4.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.57.2",
-    "vite": "^8.0.2"
+    "vite": "^8.0.0"
   }
 }
