@@ -36,7 +36,7 @@ export const Skills = () => (
         <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-amber/[0.06] blur-3xl pointer-events-none" />
         <div>
           <p className="font-sans text-[9px] font-semibold text-amber tracking-[0.2em] uppercase">
-            ↗ Core Expertise
+            Core Expertise
           </p>
           <h3 className="font-display text-[22px] font-black text-cream leading-none tracking-[-0.5px] mt-1.5 mb-4">
             Frontend &<br />

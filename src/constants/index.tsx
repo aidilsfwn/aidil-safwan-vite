@@ -309,8 +309,18 @@ export const projects: Project[] = [
 
 export const beyond = {
   teams: [
-    { name: "Arsenal FC", league: "Premier League", tagline: "Proud Gooner", icon: "🔴" },
-    { name: "Mercedes AMG Petronas", league: "Formula 1", tagline: "Still believing", icon: "⬛" },
+    {
+      name: "Arsenal FC",
+      league: "Premier League",
+      tagline: "Proud Gooner",
+      icon: "🔴",
+    },
+    {
+      name: "Mercedes AMG Petronas F1 Team",
+      league: "Formula 1",
+      tagline: "Still believing",
+      icon: "⬛",
+    },
   ],
   play: ["Football", "Futsal", "Badminton", "Pickleball", "Frisbee"],
   watch: ["Football", "Badminton", "F1"],

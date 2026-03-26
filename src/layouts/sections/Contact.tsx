@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import { profile } from "../../constants";
 
 export const Contact = () => (
@@ -8,7 +9,7 @@ export const Contact = () => (
       <div className="flex flex-col">
         <div className="flex flex-col gap-3">
           <p className="font-sans text-[9px] font-semibold text-amber tracking-[0.2em] uppercase">
-            ↗ Let's talk
+            Let's talk
           </p>
           <div>
             <h2 className="font-display text-[28px] md:text-[40px] font-black text-cream leading-[0.88] tracking-[-2px]">
@@ -27,7 +28,7 @@ export const Contact = () => (
             href={`mailto:${profile.email}`}
             className="inline-flex items-center gap-2 bg-amber text-ink font-sans text-[11px] font-bold tracking-[0.1em] uppercase px-5 py-2.5 rounded-[4px] self-start hover:bg-amber/90 transition-colors"
           >
-            Send an email <span className="text-base">↗</span>
+            Send an email <ArrowUpRight className="w-3.5 h-3.5" />
           </a>
         </div>
         <p className="font-sans text-[9px] text-cream/20 tracking-[0.06em] mt-auto pt-4">
@@ -90,9 +91,7 @@ export const Contact = () => (
                 {value}
               </p>
             </div>
-            <span className="text-amber/30 group-hover:text-amber transition-colors text-base flex-shrink-0">
-              ↗
-            </span>
+            <ArrowUpRight className="w-4 h-4 text-amber/30 group-hover:text-amber transition-colors flex-shrink-0" />
           </a>
         ))}
       </div>

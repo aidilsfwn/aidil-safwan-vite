@@ -41,7 +41,7 @@ export const Education = () => {
           <div className="absolute -top-8 -right-8 w-36 h-36 rounded-full bg-amber/[0.06] blur-3xl pointer-events-none" />
           <div>
             <p className="font-sans text-[9px] font-semibold text-amber tracking-[0.2em] uppercase">
-              ↗ Bachelor's Degree
+              Bachelor's Degree
             </p>
             <h3 className="font-display text-[18px] font-black text-cream leading-[1.15] tracking-[-0.3px] mt-1.5">
               {degree.degree}

@@ -12,23 +12,24 @@
 
 ## File Map
 
-| File | Action | Responsibility |
-|------|--------|----------------|
-| `netlify.toml` | Create | Enable esbuild bundler for TypeScript Netlify Functions |
-| `netlify/functions/spotify.ts` | Create | Server-side Spotify token refresh + API proxy |
-| `src/hooks/useSpotify.ts` | Create | Fetch + poll Spotify function, expose state to components |
-| `src/layouts/sections/Beyond.tsx` | Create | "Beyond the Code" bento-grid section component |
-| `src/layouts/sections/index.ts` | Modify | Export `Beyond` |
-| `src/constants/index.tsx` | Modify | Add `beyond` data constant |
-| `src/hooks/useActiveSection.ts` | Modify | Add `"beyond"` to `SECTION_IDS` |
-| `src/components/Sidebar.tsx` | Modify | Add "Beyond" to `NAV_ITEMS` |
-| `src/App.tsx` | Modify | Add `<SnapSection id="beyond"><Beyond /></SnapSection>` |
+| File                              | Action | Responsibility                                            |
+| --------------------------------- | ------ | --------------------------------------------------------- |
+| `netlify.toml`                    | Create | Enable esbuild bundler for TypeScript Netlify Functions   |
+| `netlify/functions/spotify.ts`    | Create | Server-side Spotify token refresh + API proxy             |
+| `src/hooks/useSpotify.ts`         | Create | Fetch + poll Spotify function, expose state to components |
+| `src/layouts/sections/Beyond.tsx` | Create | "Beyond the Code" bento-grid section component            |
+| `src/layouts/sections/index.ts`   | Modify | Export `Beyond`                                           |
+| `src/constants/index.tsx`         | Modify | Add `beyond` data constant                                |
+| `src/hooks/useActiveSection.ts`   | Modify | Add `"beyond"` to `SECTION_IDS`                           |
+| `src/components/Sidebar.tsx`      | Modify | Add "Beyond" to `NAV_ITEMS`                               |
+| `src/App.tsx`                     | Modify | Add `<SnapSection id="beyond"><Beyond /></SnapSection>`   |
 
 ---
 
 ## Task 1: netlify.toml — Enable TypeScript Functions
 
 **Files:**
+
 - Create: `netlify.toml`
 
 - [ ] **Step 1: Create netlify.toml**
@@ -103,6 +104,7 @@ In Netlify dashboard — go to Site → Environment Variables and add the same t
 ## Task 3: Netlify Function — Spotify API Proxy
 
 **Files:**
+
 - Create: `netlify/functions/spotify.ts`
 
 - [ ] **Step 1: Create the functions directory**
@@ -123,8 +125,10 @@ const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET!;
 const REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN!;
 
 const TOKEN_URL = "https://accounts.spotify.com/api/token";
-const NOW_PLAYING_URL = "https://api.spotify.com/v1/me/player/currently-playing";
-const TOP_TRACKS_URL = "https://api.spotify.com/v1/me/top/tracks?limit=3&time_range=medium_term";
+const NOW_PLAYING_URL =
+  "https://api.spotify.com/v1/me/player/currently-playing";
+const TOP_TRACKS_URL =
+  "https://api.spotify.com/v1/me/top/tracks?limit=3&time_range=medium_term";
 
 async function getAccessToken(): Promise<string> {
   const basic = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString("base64");
@@ -160,7 +164,9 @@ export const handler: Handler = async () => {
         isPlaying = true;
         current = {
           title: npData.item.name,
-          artist: npData.item.artists.map((a: { name: string }) => a.name).join(", "),
+          artist: npData.item.artists
+            .map((a: { name: string }) => a.name)
+            .join(", "),
           albumArt: npData.item.album.images[2]?.url ?? null,
         };
       }
@@ -169,13 +175,12 @@ export const handler: Handler = async () => {
     // Always fetch top tracks (shown below now-playing)
     const ttRes = await fetch(TOP_TRACKS_URL, { headers });
     const ttData = await ttRes.json();
-    const topTracks = (ttData.items ?? []).map((t: {
-      name: string;
-      artists: { name: string }[];
-    }) => ({
-      title: t.name,
-      artist: t.artists.map((a) => a.name).join(", "),
-    }));
+    const topTracks = (ttData.items ?? []).map(
+      (t: { name: string; artists: { name: string }[] }) => ({
+        title: t.name,
+        artist: t.artists.map((a) => a.name).join(", "),
+      }),
+    );
 
     return {
       statusCode: 200,
@@ -234,6 +239,7 @@ git commit -m "feat: add Spotify Netlify function"
 ## Task 4: useSpotify Hook
 
 **Files:**
+
 - Create: `src/hooks/useSpotify.ts`
 
 - [ ] **Step 1: Write the hook**
@@ -257,7 +263,9 @@ export interface SpotifyState {
   error: boolean;
 }
 
-async function fetchSpotify(): Promise<Omit<SpotifyState, "loading" | "error">> {
+async function fetchSpotify(): Promise<
+  Omit<SpotifyState, "loading" | "error">
+> {
   const res = await fetch("/.netlify/functions/spotify");
   if (!res.ok) throw new Error("Spotify fetch failed");
   return res.json();
@@ -325,6 +333,7 @@ git commit -m "feat: add useSpotify polling hook"
 ## Task 5: Add `beyond` Constant
 
 **Files:**
+
 - Modify: `src/constants/index.tsx`
 
 > **Note:** `Sidebar.tsx` uses its own hardcoded `NAV_ITEMS` array — it does NOT consume the `menu` constant from `constants/index.tsx`. The `menu` constant is not used anywhere for nav rendering, so it does not need a new entry. The sidebar update happens in Task 7.
@@ -338,8 +347,18 @@ At the bottom of `src/constants/index.tsx`, before the `menu` block, add:
 
 export const beyond = {
   teams: [
-    { name: "Arsenal FC", league: "Premier League", tagline: "Proud Gooner", icon: "🔴" },
-    { name: "Mercedes AMG Petronas", league: "Formula 1", tagline: "Still believing", icon: "⬛" },
+    {
+      name: "Arsenal FC",
+      league: "Premier League",
+      tagline: "Proud Gooner",
+      icon: "🔴",
+    },
+    {
+      name: "Mercedes AMG Petronas",
+      league: "Formula 1",
+      tagline: "Still believing",
+      icon: "⬛",
+    },
   ],
   play: ["Football", "Futsal", "Badminton", "Pickleball", "Frisbee"],
   watch: ["Football", "Badminton", "F1"],
@@ -367,6 +386,7 @@ git commit -m "feat: add beyond section constants"
 ## Task 6: Beyond.tsx Section Component
 
 **Files:**
+
 - Create: `src/layouts/sections/Beyond.tsx`
 
 This component uses the same Framer Motion `stagger` + `card` pattern as `Hero.tsx`. Reference `Hero.tsx` for the animation variants — they are identical.
@@ -618,6 +638,7 @@ git commit -m "feat: add Beyond section component"
 ## Task 7: Wire Up — Export, Routing, Nav
 
 **Files:**
+
 - Modify: `src/layouts/sections/index.ts`
 - Modify: `src/hooks/useActiveSection.ts`
 - Modify: `src/components/Sidebar.tsx`
@@ -642,7 +663,7 @@ const SECTION_IDS = [
   "experience",
   "education",
   "projects",
-  "beyond",   // ← add this
+  "beyond", // ← add this
   "contact",
 ] as const;
 ```
@@ -653,13 +674,13 @@ In `src/components/Sidebar.tsx`, update the `NAV_ITEMS` array (insert between `p
 
 ```typescript
 const NAV_ITEMS = [
-  { id: "about",      label: "About" },
-  { id: "skills",     label: "Skills" },
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
   { id: "experience", label: "Work" },
-  { id: "education",  label: "Education" },
-  { id: "projects",   label: "Projects" },
-  { id: "beyond",     label: "Beyond" },   // ← add this
-  { id: "contact",    label: "Contact" },
+  { id: "education", label: "Education" },
+  { id: "projects", label: "Projects" },
+  { id: "beyond", label: "Beyond" }, // ← add this
+  { id: "contact", label: "Contact" },
 ] as const;
 ```
 
@@ -675,7 +696,7 @@ import {
   Hero,
   Projects,
   Skills,
-  Beyond,     // ← add
+  Beyond, // ← add
 } from "./layouts/sections";
 ```
 
@@ -694,6 +715,7 @@ npm run dev
 ```
 
 Check:
+
 - Scrolling to the Beyond section highlights "Beyond" in the desktop sidebar
 - Spotify card shows loading state (dimmed) then real data
 - My Teams shows Arsenal + Mercedes
@@ -722,6 +744,7 @@ git commit -m "feat: wire up Beyond the Code section"
 - [ ] **Step 1: Confirm env vars are set in Netlify dashboard**
 
 In Netlify → Site → Environment Variables, verify these exist:
+
 - `SPOTIFY_CLIENT_ID`
 - `SPOTIFY_CLIENT_SECRET`
 - `SPOTIFY_REFRESH_TOKEN`
@@ -735,6 +758,7 @@ git push origin main
 - [ ] **Step 3: Smoke test deployed site**
 
 Visit the live URL and check:
+
 - The Beyond section renders
 - `/.netlify/functions/spotify` returns valid JSON
 - Spotify card shows real data (or graceful fallback)

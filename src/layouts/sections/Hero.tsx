@@ -1,4 +1,5 @@
 import { motion, type Variants } from "framer-motion";
+import { Download } from "lucide-react";
 import { profile } from "../../constants";
 
 const stagger: Variants = {
@@ -26,7 +27,7 @@ export const Hero = () => (
       <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-amber/[0.06] blur-3xl pointer-events-none" />
       <div>
         <p className="font-sans text-[10px] font-semibold text-amber tracking-[0.2em] uppercase">
-          ↗ Senior Software Engineer
+          Senior Software Engineer
         </p>
         <h1 className="font-display text-[40px] md:text-[52px] font-black text-cream leading-[0.85] tracking-[-3px] mt-2">
           {profile.name.split(" ")[0]}
@@ -37,16 +38,18 @@ export const Hero = () => (
         <p className="font-sans text-[11px] text-cream/50 leading-relaxed mt-3 md:max-w-[200px]">
           {profile.bio}
         </p>
-        <p className="font-sans text-[10px] text-cream/30 mt-2">📍 {profile.location}</p>
+        <p className="font-sans text-[10px] text-cream/30 mt-2">
+          📍 {profile.location}
+        </p>
       </div>
       <div className="flex mt-auto pt-4">
         <a
           href={profile.resumeUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-sans text-[10px] font-bold text-amber tracking-[0.12em] uppercase border border-amber/35 px-3 py-1.5 rounded-[3px] hover:bg-amber/10 transition-colors"
+          className="inline-flex items-center gap-1.5 font-sans text-[10px] font-bold text-amber tracking-[0.12em] uppercase border border-amber/35 px-3 py-1.5 rounded-[3px] hover:bg-amber/10 transition-colors"
         >
-          ↓ Resume
+          <Download className="w-3 h-3" /> Download Resume
         </a>
       </div>
     </motion.div>
@@ -73,7 +76,6 @@ export const Hero = () => (
         <span className="font-display text-[32px] font-black text-amber/[0.15] leading-none">
           2025
         </span>
-        <span className="text-amber text-xl">↗</span>
       </div>
     </motion.div>
 

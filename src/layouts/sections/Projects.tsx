@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { projects, type Project } from "../../constants";
 
 type Tab = "professional" | "personal";
@@ -46,9 +47,9 @@ const FeaturedCard = ({ project }: { project: Project }) => (
             href={project.demoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-sans text-[9px] font-bold text-cream bg-ink/60 backdrop-blur-sm px-2 py-1 rounded-[3px] border border-cream/10 hover:bg-ink/80 transition-colors"
+            className="inline-flex items-center gap-1 font-sans text-[9px] font-bold text-cream bg-ink/60 backdrop-blur-sm px-2 py-1 rounded-[3px] border border-cream/10 hover:bg-ink/80 transition-colors"
           >
-            Live ↗
+            Live <ArrowUpRight className="w-3 h-3" />
           </a>
         )}
         {project.appStoreUrl && (
@@ -56,9 +57,9 @@ const FeaturedCard = ({ project }: { project: Project }) => (
             href={project.appStoreUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-sans text-[9px] font-bold text-cream bg-ink/60 backdrop-blur-sm px-2 py-1 rounded-[3px] border border-cream/10 hover:bg-ink/80 transition-colors"
+            className="inline-flex items-center gap-1 font-sans text-[9px] font-bold text-cream bg-ink/60 backdrop-blur-sm px-2 py-1 rounded-[3px] border border-cream/10 hover:bg-ink/80 transition-colors"
           >
-            App Store ↗
+            App Store <ArrowUpRight className="w-3 h-3" />
           </a>
         )}
         {project.repoUrl && (
@@ -66,9 +67,9 @@ const FeaturedCard = ({ project }: { project: Project }) => (
             href={project.repoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-sans text-[9px] font-bold text-cream bg-ink/60 backdrop-blur-sm px-2 py-1 rounded-[3px] border border-cream/10 hover:bg-ink/80 transition-colors"
+            className="inline-flex items-center gap-1 font-sans text-[9px] font-bold text-cream bg-ink/60 backdrop-blur-sm px-2 py-1 rounded-[3px] border border-cream/10 hover:bg-ink/80 transition-colors"
           >
-            Code ↗
+            Code <ArrowUpRight className="w-3 h-3" />
           </a>
         )}
       </div>
@@ -206,9 +207,6 @@ export const Projects = () => {
                     ))}
                   </div>
                 </div>
-                <span aria-hidden="true" className={`text-amber text-sm flex-shrink-0 transition-opacity ${isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>
-                  ↗
-                </span>
               </button>
               );
             })}
