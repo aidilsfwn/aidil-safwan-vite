@@ -6,9 +6,9 @@ import { projects, type Project } from "../../constants";
 type Tab = "professional" | "personal";
 
 const FeaturedCard = ({ project }: { project: Project }) => (
-  <div className="bg-ink rounded-xl overflow-hidden flex flex-col h-full">
+  <div className="bg-ink rounded-xl overflow-hidden flex flex-col md:h-full">
     {/* Image area */}
-    <div className="h-[110px] bg-ink flex items-center justify-center relative flex-shrink-0 overflow-hidden">
+    <div className="h-[100px] md:h-[110px] bg-ink flex items-center justify-center relative flex-shrink-0 overflow-hidden">
       {project.image ? (
         <>
           {/* Blurred backdrop — same image, scaled up, blurred, dimmed */}
@@ -24,7 +24,8 @@ const FeaturedCard = ({ project }: { project: Project }) => (
             alt={project.title}
             className="relative z-10 h-[72px] w-[72px] object-cover rounded-[22%] drop-shadow-xl"
             onError={(e) => {
-              (e.currentTarget as HTMLImageElement).closest(".image-area")
+              (e.currentTarget as HTMLImageElement)
+                .closest(".image-area")
                 ?.classList.add("no-image");
             }}
           />
@@ -90,7 +91,7 @@ const FeaturedCard = ({ project }: { project: Project }) => (
           </p>
         )}
       </div>
-      <div className="flex flex-wrap gap-1.5 mt-2">
+      <div className="flex flex-wrap gap-1.5 mt-4">
         {project.tech.map((t) => (
           <span
             key={t}
@@ -145,9 +146,9 @@ export const Projects = () => {
 
       {/* Content grid */}
       <div className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.3fr_1fr] gap-3 overflow-y-auto md:overflow-hidden">
-        {/* Featured card — relative container so crossfading cards overlap, never shift layout */}
-        <div className="relative min-h-[260px] md:min-h-0">
-          <AnimatePresence mode="sync">
+        {/* Featured card — flex on mobile, absolute on desktop */}
+        <div className="flex flex-col md:relative md:min-h-0">
+          <AnimatePresence mode="wait">
             {featured && (
               <motion.div
                 key={featured.id}
@@ -155,7 +156,7 @@ export const Projects = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="absolute inset-0"
+                className="md:absolute md:inset-0"
               >
                 <FeaturedCard project={featured} />
               </motion.div>
@@ -165,9 +166,9 @@ export const Projects = () => {
 
         {/* Project list — all items always rendered, active one highlighted */}
         <div className="flex flex-col gap-2 md:overflow-y-auto scrollbar-thin">
-            {filtered.map((project) => {
-              const isActive = project.id === featured?.id;
-              return (
+          {filtered.map((project) => {
+            const isActive = project.id === featured?.id;
+            return (
               <button
                 key={project.id}
                 onClick={() => setFeaturedId(project.id)}
@@ -213,8 +214,8 @@ export const Projects = () => {
                   </div>
                 </div>
               </button>
-              );
-            })}
+            );
+          })}
         </div>
       </div>
     </div>
