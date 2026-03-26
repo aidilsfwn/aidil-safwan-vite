@@ -18,7 +18,7 @@ export const FloatingDock = ({ className = "" }: FloatingDockProps) => {
   const active = useActiveSection();
 
   return (
-    <nav className={`w-full bg-ink/95 backdrop-blur-xl border-t border-amber/[0.08] ${className}`}>
+    <nav className={`w-full bg-ink/95 backdrop-blur-xl border-t border-amber/[0.08] ${className}`} style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
       <div className="flex items-center w-full h-14 px-1">
         {navItems.map((item) => (
           <button

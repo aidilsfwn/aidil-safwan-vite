@@ -23,10 +23,10 @@ html {
   }
 }
 
-/* Mobile: free vertical scroll, sections fill screen minus bottom nav */
+/* Mobile: free vertical scroll, sections fill screen minus bottom nav + safe area */
 @media (max-width: 767px) {
   #scroll-container > section {
     height: auto !important;
-    min-height: calc(100dvh - 56px);
+    min-height: calc(100dvh - 56px - env(safe-area-inset-bottom));
   }
 }

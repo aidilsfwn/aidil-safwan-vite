@@ -111,7 +111,6 @@ export const Projects = () => {
   const featured =
     (featuredId ? filtered.find((p) => p.id === featuredId) : null) ??
     filtered[0];
-  const list = filtered.filter((p) => p.id !== featured?.id);
 
   const handleTabChange = (t: Tab) => {
     setTab(t);
@@ -145,35 +144,37 @@ export const Projects = () => {
 
       {/* Content grid */}
       <div className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.3fr_1fr] gap-3 overflow-y-auto md:overflow-hidden">
-        {/* Featured card with AnimatePresence */}
-        <AnimatePresence mode="sync">
-          {featured && (
-            <motion.div
-              key={featured.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
-              className="overflow-hidden min-h-[260px] md:min-h-0"
-            >
-              <FeaturedCard project={featured} />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Featured card — relative container so crossfading cards overlap, never shift layout */}
+        <div className="relative min-h-[260px] md:min-h-0">
+          <AnimatePresence mode="sync">
+            {featured && (
+              <motion.div
+                key={featured.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="absolute inset-0"
+              >
+                <FeaturedCard project={featured} />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
-        {/* Project list */}
+        {/* Project list — all items always rendered, active one highlighted */}
         <div className="flex flex-col gap-2 md:overflow-y-auto scrollbar-thin">
-          <AnimatePresence initial={false}>
-            {list.map((project) => (
-              <motion.button
+            {filtered.map((project) => {
+              const isActive = project.id === featured?.id;
+              return (
+              <button
                 key={project.id}
-                layout
-                initial={{ opacity: 0, x: 8 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 8 }}
-                transition={{ duration: 0.15 }}
                 onClick={() => setFeaturedId(project.id)}
-                className="flex gap-3 items-center bg-ink/[0.03] border border-ink/[0.07] rounded-xl px-3 py-2.5 text-left hover:border-amber/30 hover:bg-amber/[0.06] transition-all flex-shrink-0 group"
+                className={`flex gap-3 items-center rounded-xl px-3 py-2.5 text-left transition-all flex-shrink-0 group border ${
+                  isActive
+                    ? "border-amber/40 bg-amber/[0.08]"
+                    : "border-ink/[0.07] bg-ink/[0.03] hover:border-amber/30 hover:bg-amber/[0.06]"
+                }`}
               >
                 <div className="w-8 h-8 rounded-lg bg-ink/10 flex-shrink-0 flex items-center justify-center text-sm overflow-hidden">
                   {project.image ? (
@@ -205,12 +206,12 @@ export const Projects = () => {
                     ))}
                   </div>
                 </div>
-                <span aria-hidden="true" className="text-amber opacity-0 group-hover:opacity-100 transition-opacity text-sm flex-shrink-0">
+                <span aria-hidden="true" className={`text-amber text-sm flex-shrink-0 transition-opacity ${isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>
                   ↗
                 </span>
-              </motion.button>
-            ))}
-          </AnimatePresence>
+              </button>
+              );
+            })}
         </div>
       </div>
     </div>
