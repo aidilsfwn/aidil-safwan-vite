@@ -42,8 +42,8 @@ export const handler: Handler = async () => {
 
     if (npRes.status === 200) {
       const npData = await npRes.json();
-      if (npData.is_playing && npData.item) {
-        isPlaying = true;
+      if (npData.item) {
+        isPlaying = npData.is_playing ?? false;
         const images: { url: string }[] = npData.item.album.images ?? [];
         current = {
           title: npData.item.name,
