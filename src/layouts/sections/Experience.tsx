@@ -25,7 +25,7 @@ export const Experience = () => {
       </div>
 
       <motion.div
-        className="flex-1 grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-3 md:overflow-hidden"
+        className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-3 md:overflow-hidden"
         variants={stagger}
         initial="hidden"
         whileInView="visible"

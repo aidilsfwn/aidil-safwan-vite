@@ -32,12 +32,14 @@ export const SnapSection = ({ id, children, dark = false }: SnapSectionProps) =>
     <section
       id={id}
       style={{ height: "100dvh", scrollSnapAlign: "start" }}
-      className={`flex flex-col overflow-hidden ${dark ? "bg-ink" : "bg-cream"}`}
+      className={`flex flex-col md:overflow-hidden ${dark ? "bg-ink" : "bg-cream"}`}
     >
       {/* Snap progress bar */}
       <div
-        className={`flex-shrink-0 flex items-center gap-1.5 px-5 py-2.5 border-b ${
-          dark ? "border-amber/[0.08]" : "border-ink/[0.07]"
+        className={`sticky top-0 z-10 flex-shrink-0 flex items-center gap-1.5 px-5 py-2.5 border-b backdrop-blur-md ${
+          dark
+            ? "border-amber/[0.08] bg-ink/80"
+            : "border-ink/[0.07] bg-cream/80"
         }`}
       >
         {Array.from({ length: TOTAL }, (_, i) => (

@@ -22,7 +22,7 @@ export const Skills = () => (
     </div>
 
     <motion.div
-      className="flex-1 grid grid-cols-2 md:grid-cols-[1.7fr_1fr] md:grid-rows-2 gap-3"
+      className="flex-1 min-h-0 grid grid-cols-2 md:grid-cols-[1.7fr_1fr] md:grid-rows-2 gap-3"
       variants={stagger}
       initial="hidden"
       whileInView="visible"

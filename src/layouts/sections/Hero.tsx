@@ -12,7 +12,7 @@ const card: Variants = {
 
 export const Hero = () => (
   <motion.div
-    className="flex-1 grid grid-cols-1 md:grid-cols-[1.3fr_1fr] md:grid-rows-2 gap-3 p-4 overflow-y-auto md:overflow-hidden"
+    className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.3fr_1fr] md:grid-rows-2 gap-3 p-4 overflow-y-auto md:overflow-hidden"
     variants={stagger}
     initial="hidden"
     whileInView="visible"
@@ -38,10 +38,7 @@ export const Hero = () => (
           {profile.bio}
         </p>
       </div>
-      <div className="flex items-end justify-between">
-        <div className="w-11 h-11 rounded-full bg-amber/20 border-2 border-amber/30 flex items-center justify-center text-xl select-none">
-          👤
-        </div>
+      <div className="flex">
         <a
           href={profile.resumeUrl}
           target="_blank"
@@ -97,7 +94,7 @@ export const Hero = () => (
               >
                 {tech}
               </span>
-            )
+            ),
           )}
         </div>
       </div>

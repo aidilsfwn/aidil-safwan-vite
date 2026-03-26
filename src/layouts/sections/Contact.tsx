@@ -3,7 +3,7 @@ import { profile } from "../../constants";
 export const Contact = () => (
   <div className="flex-1 flex flex-col overflow-hidden">
     {/* Main content */}
-    <div className="flex-1 grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-3 p-4 overflow-y-auto md:overflow-hidden">
+    <div className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-3 p-4 overflow-y-auto md:overflow-hidden">
       {/* Left — typographic CTA */}
       <div className="flex flex-col justify-between">
         <div className="flex flex-col gap-3">

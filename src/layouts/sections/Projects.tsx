@@ -144,7 +144,7 @@ export const Projects = () => {
       </div>
 
       {/* Content grid */}
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-[1.3fr_1fr] gap-3 overflow-y-auto md:overflow-hidden">
+      <div className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.3fr_1fr] gap-3 overflow-y-auto md:overflow-hidden">
         {/* Featured card with AnimatePresence */}
         <AnimatePresence mode="wait">
           {featured && (
