@@ -122,8 +122,17 @@ function SpotifyCard() {
 }
 
 export const Beyond = () => (
+  <div className="flex-1 flex flex-col gap-3 p-4 overflow-y-auto md:overflow-hidden">
+    <div className="flex items-baseline justify-between flex-shrink-0 px-0.5">
+      <h2 className="font-display text-[26px] font-black text-ink tracking-[-1px]">
+        Beyond.
+      </h2>
+      <p className="font-sans text-[10px] text-ink/40 tracking-[0.12em] uppercase">
+        Off the clock
+      </p>
+    </div>
   <motion.div
-    className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.3fr_1fr] md:grid-rows-2 gap-3 p-4 overflow-y-auto md:overflow-hidden"
+    className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.3fr_1fr] md:grid-rows-2 gap-3 overflow-y-auto md:overflow-hidden"
     variants={stagger}
     initial="hidden"
     whileInView="visible"
@@ -216,5 +225,5 @@ export const Beyond = () => (
         </div>
       </div>
     </motion.div>
-  </motion.div>
+  </div>
 );

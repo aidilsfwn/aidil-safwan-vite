@@ -324,7 +324,7 @@ export const beyond = {
     {
       name: "Mercedes AMG Petronas F1 Team",
       league: "Formula 1",
-      tagline: "Still believing",
+      tagline: "Silver Arrows faithful",
       icon: "⬛",
     },
   ],
