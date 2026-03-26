@@ -60,14 +60,11 @@ export const Education = () => {
               {degreeCgpa}
             </span>
           </div>
-          <div className="flex items-end justify-between mt-auto pt-3">
+          <div className="mt-auto pt-3">
             <p className="font-sans text-[9px] text-cream/25 leading-relaxed max-w-[140px]">
               FYP: Twitter sentiment analysis — bilingual NLP classification
               model.
             </p>
-            <span className="font-display text-[40px] font-black text-amber/[0.08] leading-none">
-              20
-            </span>
           </div>
         </motion.div>
 

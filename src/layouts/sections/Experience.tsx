@@ -67,20 +67,15 @@ export const Experience = () => {
               )}
             </div>
           </div>
-          <div className="flex items-end justify-between mt-auto pt-3">
-            <div className="flex flex-wrap gap-1">
-              {(current.tech ?? []).map((t) => (
-                <span
-                  key={t}
-                  className="font-sans text-[8px] font-semibold text-amber bg-amber/[0.1] px-1.5 py-0.5 rounded-[2px]"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-            <span className="font-display text-[34px] font-black text-amber/[0.08] leading-none">
-              25
-            </span>
+          <div className="flex flex-wrap gap-1 mt-auto pt-3">
+            {(current.tech ?? []).map((t) => (
+              <span
+                key={t}
+                className="font-sans text-[8px] font-semibold text-amber bg-amber/[0.1] px-1.5 py-0.5 rounded-[2px]"
+              >
+                {t}
+              </span>
+            ))}
           </div>
         </motion.div>
 
@@ -96,9 +91,6 @@ export const Experience = () => {
                   : "bg-ink/[0.03] border border-ink/[0.07]"
               }`}
             >
-              <span className="absolute top-3 right-3 font-display text-[20px] font-black text-amber/[0.08] leading-none">
-                {String(i + 2).padStart(2, "0")}
-              </span>
               <h4 className="font-display text-[14px] font-bold text-ink leading-tight">
                 {exp.company}
               </h4>
@@ -110,6 +102,18 @@ export const Experience = () => {
                 <p className="font-sans text-[9px] text-ink/50 leading-relaxed border-t border-ink/[0.06] pt-1.5 mt-0.5">
                   {exp.featuredAchievements[0]}
                 </p>
+              )}
+              {(exp.tech ?? []).length > 0 && (
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {(exp.tech ?? []).map((t) => (
+                    <span
+                      key={t}
+                      className="font-sans text-[8px] font-semibold text-ink/40 bg-ink/[0.06] px-1.5 py-0.5 rounded-[2px]"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
               )}
             </motion.div>
           ))}

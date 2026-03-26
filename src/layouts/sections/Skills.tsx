@@ -111,11 +111,7 @@ export const Skills = () => (
             Same component mindset, two platforms. Shipped to production across
             both.
           </p>
-          <div className="flex justify-between items-end">
-            <span className="font-display text-[44px] font-black text-amber/[0.08] leading-none">
-              {skills.core.length + skills.web.length + skills.mobile.length}
-            </span>
-            <div className="flex gap-1.5">
+          <div className="flex gap-1.5">
               <span className="font-sans text-[9px] font-bold text-amber/70 bg-amber/[0.08] border border-amber/[0.15] px-2 py-1 rounded-[3px]">
                 Core
               </span>
@@ -125,7 +121,6 @@ export const Skills = () => (
               <span className="font-sans text-[9px] font-bold text-cream/40 border border-cream/[0.15] px-2 py-1 rounded-[3px]">
                 Mobile
               </span>
-            </div>
           </div>
         </div>
       </motion.div>
