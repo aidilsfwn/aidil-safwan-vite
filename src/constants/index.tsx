@@ -279,6 +279,41 @@ export const projects: Project[] = [
   },
   // Personal
   {
+    id: "amandas-piggy-bank",
+    title: "Amanda's Piggy Bank",
+    description:
+      "A private, mobile-first savings ledger for tracking Amanda's gifts, SSPN transfers, dividends, and reconciled balances across devices.",
+    tech: [
+      "React",
+      "Vite",
+      "TypeScript",
+      "Supabase",
+      "PostgreSQL",
+      "Vitest",
+      "Web Development",
+    ],
+    repoUrl: "https://github.com/aidilsfwn/amandas-piggy-bank",
+    demoUrl: "https://amandas-piggy-bank.aidilsfwn.dev",
+    category: "personal",
+  },
+  {
+    id: "adv-log",
+    title: "ADV Log",
+    description:
+      "A mobile-first Honda ADV150 maintenance tracker with service history, odometer records, and practical time-, mileage-, and condition-based reminders.",
+    tech: [
+      "React",
+      "Vite",
+      "TypeScript",
+      "Supabase",
+      "PostgreSQL",
+      "Web Development",
+    ],
+    repoUrl: "https://github.com/aidilsfwn/adv-log",
+    demoUrl: "https://adv-log.aidilsfwn.dev",
+    category: "personal",
+  },
+  {
     id: "elak-hujan",
     title: "ElakHujan",
     description:

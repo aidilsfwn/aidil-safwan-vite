@@ -37,8 +37,14 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px soli
 
 .skip-link { position: fixed; left: 1rem; top: -5rem; z-index: 200; background: var(--paper); color: var(--paper-ink); padding: .75rem 1rem; border-radius: .4rem; font-weight: 700; }
 .skip-link:focus { top: 1rem; }
-.studio-shell { height: 100dvh; overflow: hidden; background: var(--ink-850); }
+.studio-shell { position: relative; height: 100dvh; overflow: hidden; background: var(--ink-850); isolation: isolate; }
+.cursor-glow { position: fixed; z-index: 40; left: 0; top: 0; display: none; width: clamp(24rem, 38vw, 38rem); aspect-ratio: 1; border-radius: 50%; pointer-events: none; opacity: 0; background: radial-gradient(circle, rgba(223,163,78,.13) 0%, rgba(201,133,42,.065) 34%, transparent 70%); filter: blur(10px); mix-blend-mode: screen; will-change: transform, opacity; transition: opacity .35s ease; }
 #scroll-container { height: 100%; overflow-y: auto; overscroll-behavior-y: contain; background-color: var(--ink-850); background-image: linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px); background-size: 80px 80px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .cursor-glow { display: block; }
+  .cursor-glow.is-visible { opacity: 1; }
+}
 
 .workspace-rail { display: none; }
 .chapter { position: relative; min-height: 100dvh; border-bottom: 1px solid var(--line-subtle); scroll-margin: 0; }
@@ -390,5 +396,6 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px soli
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .cursor-glow { display: none !important; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }

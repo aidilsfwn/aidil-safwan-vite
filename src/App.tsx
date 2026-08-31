@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { WorkspaceRail, CommandNavigation, Chapter } from "./components";
+import { WorkspaceRail, CommandNavigation, Chapter, CursorGlow } from "./components";
 import { Beyond, Contact, Education, Experience, Hero, Projects, Skills } from "./layouts/sections";
 import { MotionProvider } from "./context/MotionContext";
 
@@ -22,6 +22,7 @@ export default function App() {
     <MotionProvider>
       <a className="skip-link" href="#about">Skip to portfolio</a>
       <div className="studio-shell">
+        <CursorGlow />
         <WorkspaceRail />
         <CommandNavigation open={drawerOpen} setOpen={setDrawerOpen} />
         <main id="scroll-container" tabIndex={-1}>
