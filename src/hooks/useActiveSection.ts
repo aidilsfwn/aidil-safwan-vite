@@ -25,7 +25,7 @@ export function useActiveSection(): string {
           }
         }
       },
-      { root: container, threshold: 0.5 }
+      { root: container, rootMargin: "-44% 0px -44% 0px", threshold: 0 }
     );
 
     const elements = SECTION_IDS.map((id) =>
@@ -43,6 +43,9 @@ export function scrollToSection(id: string): void {
   const container = document.getElementById("scroll-container");
   const el = document.getElementById(id);
   if (!container || !el) return;
-  // Scroll the snap container, not the window, for reliable snap behavior
-  container.scrollTo({ top: el.offsetTop, behavior: "smooth" });
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  container.scrollTo({ top: el.offsetTop, behavior: reduced ? "auto" : "smooth" });
+  if (window.location.hash !== `#${id}`) {
+    window.history.replaceState(null, "", `#${id}`);
+  }
 }

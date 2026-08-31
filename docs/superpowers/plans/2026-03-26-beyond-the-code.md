@@ -69,7 +69,7 @@ Go to https://developer.spotify.com/dashboard → "Create app". Set redirect URI
 Run this in your browser — replace `YOUR_CLIENT_ID` and `YOUR_REDIRECT_URI`:
 
 ```
-https://accounts.spotify.com/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=YOUR_REDIRECT_URI&scope=user-read-currently-playing%20user-top-read
+https://accounts.spotify.com/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=YOUR_REDIRECT_URI&scope=user-read-currently-playing%20user-read-recently-played%20user-top-read
 ```
 
 After authorising, you'll be redirected to your redirect URI with a `?code=...` query param. Copy that code.
@@ -128,7 +128,7 @@ const TOKEN_URL = "https://accounts.spotify.com/api/token";
 const NOW_PLAYING_URL =
   "https://api.spotify.com/v1/me/player/currently-playing";
 const TOP_TRACKS_URL =
-  "https://api.spotify.com/v1/me/top/tracks?limit=3&time_range=medium_term";
+  "https://api.spotify.com/v1/me/top/tracks?limit=3&time_range=short_term";
 
 async function getAccessToken(): Promise<string> {
   const basic = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString("base64");

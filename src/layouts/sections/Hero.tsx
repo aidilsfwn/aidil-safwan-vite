@@ -1,104 +1,38 @@
-import { motion, type Variants } from "framer-motion";
-import { Download } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowDown, ArrowUpRight, MapPin } from "lucide-react";
 import { profile } from "../../constants";
+import memoji from "../../assets/memoji.png";
+import { scrollToSection } from "../../hooks/useActiveSection";
+import { useMotion } from "../../hooks/useMotion";
 
-const stagger: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
-};
-const card: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
-};
-
-export const Hero = () => (
-  <motion.div
-    className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.3fr_1fr] md:grid-rows-2 gap-3 p-4 overflow-y-auto md:overflow-hidden"
-    variants={stagger}
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true, amount: 0.4 }}
-  >
-    {/* Name card — spans full height, dark */}
-    <motion.div
-      variants={card}
-      className="md:row-span-2 bg-ink rounded-xl p-5 flex flex-col relative overflow-hidden border border-amber/[0.08]"
-    >
-      <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-amber/[0.06] blur-3xl pointer-events-none" />
-      <div>
-        <p className="font-sans text-[10px] font-semibold text-amber tracking-[0.2em] uppercase">
-          Senior Software Engineer
-        </p>
-        <h1 className="font-display text-[40px] md:text-[52px] font-black text-cream leading-[0.85] tracking-[-3px] mt-2">
-          {profile.name.split(" ")[0]}
-          <br />
-          {profile.name.split(" ")[1]}
-        </h1>
-        <div className="h-px w-[55%] bg-gradient-to-r from-amber to-transparent mt-3" />
-        <p className="font-sans text-[11px] text-cream/50 leading-relaxed mt-3 md:max-w-[200px]">
-          {profile.bio}
-        </p>
-        <p className="font-sans text-[10px] text-cream/30 mt-2">
-          📍 {profile.location}
-        </p>
+export function Hero() {
+  const { shouldAnimate } = useMotion();
+  const reveal = shouldAnimate ? { opacity: 1, y: 22 } : { opacity: 1, y: 0 };
+  return (
+    <motion.div className="identity-dossier" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.35 }} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.075 } } }}>
+      <div className="identity-dossier__main">
+        <motion.p className="eyebrow" variants={{ hidden: reveal, visible: { opacity: 1, y: 0 } }}>Senior Software Engineer</motion.p>
+        <motion.h1 variants={{ hidden: reveal, visible: { opacity: 1, y: 0, transition: { duration: 0.62, ease: [0.22, 1, 0.36, 1] } } }}>Aidil<br /><em>Safwan</em></motion.h1>
+        <motion.div className="identity-signature" variants={{ hidden: reveal, visible: { opacity: 1, y: 0 } }}>
+          <span aria-hidden="true">signed / aidil</span>
+          <img src={memoji} width="184" height="184" alt="Aidil Safwan memoji" />
+        </motion.div>
       </div>
-      <div className="flex mt-auto pt-4">
-        <a
-          href={profile.resumeUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 font-sans text-[10px] font-bold text-amber tracking-[0.12em] uppercase border border-amber/35 px-3 py-1.5 rounded-[3px] hover:bg-amber/10 transition-colors"
-        >
-          <Download className="w-3 h-3" /> Download Resume
-        </a>
-      </div>
-    </motion.div>
-
-    {/* Role card */}
-    <motion.div
-      variants={card}
-      className="bg-amber/[0.08] border border-amber/[0.18] rounded-xl p-4 flex flex-col"
-    >
-      <div>
-        <p className="font-sans text-[9px] font-semibold text-amber tracking-[0.18em] uppercase">
-          Currently at
-        </p>
-        <h2 className="font-display text-[18px] font-bold text-ink leading-tight mt-1">
-          The Access
-          <br />
-          Group
-        </h2>
-        <p className="font-sans text-[11px] text-ink/50 mt-1">
-          Senior Software Engineer
-        </p>
-      </div>
-      <div className="flex justify-between items-end mt-auto pt-3">
-        <span className="font-display text-[32px] font-black text-amber/[0.15] leading-none">
-          2025 - Present
-        </span>
-      </div>
-    </motion.div>
-
-    {/* Stack card */}
-    <motion.div
-      variants={card}
-      className="bg-amber/[0.07] border border-ink/[0.07] rounded-xl p-4 flex flex-col"
-    >
-      <div>
-        <p className="font-sans text-[9px] font-semibold text-ink/50 tracking-[0.18em] uppercase">
-          Core Stack
-        </p>
-        <div className="flex flex-wrap gap-1.5 mt-2">
-          {["React", "React Native", "TypeScript"].map((tech) => (
-            <span
-              key={tech}
-              className="font-sans text-[10px] font-semibold text-ink bg-ink/[0.08] px-2 py-0.5 rounded-[3px]"
-            >
-              {tech}
-            </span>
-          ))}
+      <motion.aside className="identity-manifest" aria-label="Profile manifest" variants={{ hidden: reveal, visible: { opacity: 1, y: 0 } }}>
+        <p className="manifest-label">manifest / 2026</p>
+        <p className="hero-bio">{profile.bio}</p>
+        <div className="current-role">
+          <span>Current station</span>
+          <strong>The Access Group</strong>
+          <p>Senior Software Engineer · Mar 2025 - Present</p>
         </div>
-      </div>
+        <dl className="hero-meta">
+          <div><dt>Core stack</dt><dd>React · React Native · TypeScript</dd></div>
+          <div><dt>Based</dt><dd><MapPin aria-hidden="true" /><span>{profile.location}</span></dd></div>
+        </dl>
+        <a className="primary-action" href={profile.resumeUrl} target="_blank" rel="noreferrer">Download Resume <ArrowUpRight aria-hidden="true" /></a>
+      </motion.aside>
+      <button className="explore-cue" type="button" onClick={() => scrollToSection("skills")}><span>Explore workspace</span><ArrowDown aria-hidden="true" /></button>
     </motion.div>
-  </motion.div>
-);
+  );
+}

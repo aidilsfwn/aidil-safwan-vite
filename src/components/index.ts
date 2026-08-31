@@ -1,4 +1,3 @@
-export * from "./FloatingDock";
-export * from "./Sidebar";
-export * from "./SnapSection";
-export * from "./BentoGrid";
+export { Chapter } from "./Chapter";
+export { CommandNavigation } from "./CommandNavigation";
+export { WorkspaceRail } from "./WorkspaceRail";

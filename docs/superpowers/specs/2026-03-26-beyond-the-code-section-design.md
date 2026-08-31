@@ -83,7 +83,7 @@ Bento grid: `grid-cols-1 md:grid-cols-[1.3fr_1fr] md:grid-rows-2`, matching the 
 1. Use stored refresh token to obtain a fresh access token from Spotify (`POST https://accounts.spotify.com/api/token`)
 2. Call `GET https://api.spotify.com/v1/me/player/currently-playing`
 3. If a track is actively playing (`is_playing: true`), return it
-4. Otherwise, call `GET https://api.spotify.com/v1/me/top/tracks?limit=3&time_range=medium_term`
+4. Otherwise, call the recently-played endpoint for the latest track, and fetch `GET https://api.spotify.com/v1/me/top/tracks?limit=3&time_range=short_term` for the last four weeks
 5. Return a unified response shape
 
 **Response shape:**

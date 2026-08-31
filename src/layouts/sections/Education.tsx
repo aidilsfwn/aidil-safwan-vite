@@ -1,124 +1,18 @@
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { education } from "../../constants";
 
-const stagger: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
-};
-const card: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
-};
-
-export const Education = () => {
-  const [degree, foundation, usm] = education;
-
+export function Education() {
+  const [computerScience, foundation, engineering] = education;
   return (
-    <div className="flex-1 flex flex-col gap-3 p-4 overflow-y-auto md:overflow-hidden">
-      <div className="flex items-baseline justify-between flex-shrink-0 px-0.5">
-        <h2 className="font-display text-[26px] font-black text-ink tracking-[-1px]">
-          Education.
-        </h2>
-        <p className="font-sans text-[10px] text-ink/40 tracking-[0.12em] uppercase">
-          UiTM · USM · 2014 – 2020
-        </p>
+    <div className="education-route">
+      <header className="section-heading"><div><p className="eyebrow">04 / Education path</p><h2>The pivot.</h2></div><p className="section-stat">UiTM · USM · 2014 – 2020</p></header>
+      <div className="education-map">
+        <motion.div className="education-map__route" aria-hidden="true" initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }} />
+        <article className="education-station education-station--foundation"><span>01 / Foundation</span><h3>{foundation.degree}</h3><p>{foundation.institution}</p><time>{foundation.period}</time></article>
+        <article className="education-station education-station--engineering"><span>02 / Incomplete</span><h3>{engineering.degree}</h3><p>{engineering.institution}</p><time>{engineering.period}</time></article>
+        <aside className="pivot-note"><span>The pivot</span><p>Started in <strong>Electronic Engineering</strong> at USM — switched to <strong>Computer Science</strong> at UiTM when the pull towards coding became impossible to ignore. Never looked back.</p></aside>
+        <article className="education-station education-station--destination document-card"><span>03 / Bachelor's Degree</span><h3>{computerScience.degree}</h3><p>{computerScience.institution}</p><time>{computerScience.period}</time><div className="fyp-note"><small>Final year project</small><p>FYP: Twitter sentiment analysis — bilingual NLP classification model.</p></div></article>
       </div>
-
-      <motion.div
-        className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.4fr_1fr] md:grid-rows-[1fr_1fr_auto] gap-3 md:overflow-hidden"
-        variants={stagger}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
-      >
-        {/* Degree hero — spans both right-column rows */}
-        <motion.div
-          variants={card}
-          className="md:row-span-2 bg-ink rounded-xl p-5 flex flex-col relative overflow-hidden"
-        >
-          <div className="absolute -top-8 -right-8 w-36 h-36 rounded-full bg-amber/[0.06] blur-3xl pointer-events-none" />
-          <div>
-            <p className="font-sans text-[9px] font-semibold text-amber tracking-[0.2em] uppercase">
-              Bachelor's Degree
-            </p>
-            <h3 className="font-display text-[18px] font-black text-cream leading-[1.15] tracking-[-0.3px] mt-1.5">
-              {degree.degree}
-            </h3>
-            <p className="font-sans text-[11px] text-cream/50 mt-1">
-              {degree.institution}
-            </p>
-            <p className="font-sans text-[10px] font-semibold text-cream/25 tracking-[0.06em] mt-0.5">
-              {degree.period}
-            </p>
-          </div>
-          <div className="mt-auto pt-3">
-            <p className="font-sans text-[9px] text-cream/25 leading-relaxed max-w-[140px]">
-              FYP: Twitter sentiment analysis — bilingual NLP classification
-              model.
-            </p>
-          </div>
-        </motion.div>
-
-        {/* Foundation card */}
-        <motion.div
-          variants={card}
-          className="bg-amber/[0.07] border border-amber/[0.14] rounded-xl p-4 flex flex-col"
-        >
-          <p className="font-sans text-[9px] font-semibold text-amber/60 tracking-[0.18em] uppercase">
-            Foundation
-          </p>
-          <h3 className="font-display text-[15px] font-bold text-ink leading-[1.2] mt-1">
-            {foundation.degree}
-          </h3>
-          <p className="font-sans text-[11px] text-ink/50 mt-1">
-            {foundation.institution}
-          </p>
-          <p className="font-sans text-[10px] font-semibold text-amber/50 mt-0.5">
-            {foundation.period}
-          </p>
-        </motion.div>
-
-        {/* USM — incomplete degree */}
-        <motion.div
-          variants={card}
-          className="bg-ink/[0.03] border border-ink/[0.07] rounded-xl p-4 flex flex-col"
-        >
-          <p className="font-sans text-[9px] font-semibold text-ink/40 tracking-[0.18em] uppercase">
-            Incomplete
-          </p>
-          <h3 className="font-display text-[15px] font-bold text-ink leading-[1.2] mt-1">
-            {usm.degree}
-          </h3>
-          <p className="font-sans text-[11px] text-ink/50 mt-1">
-            {usm.institution}
-          </p>
-          <p className="font-sans text-[10px] font-semibold text-ink/30 mt-0.5">
-            {usm.period}
-          </p>
-        </motion.div>
-
-        {/* Pivot story — spans full bottom width */}
-        <motion.div
-          variants={card}
-          className="md:col-span-2 bg-amber/[0.07] border border-ink/[0.07] rounded-xl px-5 py-4"
-        >
-          <p className="font-sans text-[9px] font-semibold text-amber/60 tracking-[0.18em] uppercase mb-1.5">
-            The pivot
-          </p>
-          <p className="font-sans text-[11px] text-ink/60 leading-relaxed">
-            Started in{" "}
-            <strong className="text-ink font-semibold">
-              Electronic Engineering
-            </strong>{" "}
-            at USM — switched to{" "}
-            <strong className="text-ink font-semibold">
-              Computer Science
-            </strong>{" "}
-            at UiTM when the pull towards coding became impossible to ignore.
-            Never looked back.
-          </p>
-        </motion.div>
-      </motion.div>
     </div>
   );
-};
+}

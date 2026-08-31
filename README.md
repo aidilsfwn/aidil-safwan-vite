@@ -1,6 +1,6 @@
 # aidilsfwn.dev
 
-Personal portfolio of Aidil Safwan — Senior Software Engineer. Built with a bento-grid layout, dark/cream theme, and smooth snap-scroll navigation.
+Personal portfolio of Aidil Safwan — Senior Software Engineer. Built as a warm, editorial engineering workspace with chapter-based navigation.
 
 Live at **[aidilsfwn.dev](https://aidilsfwn.dev)**
 
@@ -14,10 +14,11 @@ Live at **[aidilsfwn.dev](https://aidilsfwn.dev)**
 
 ## Features
 
-- Bento-grid section layouts (Hero, Skills, Experience, Education, Projects, Contact)
-- Snap-scroll navigation on desktop; free-scroll with bottom tab bar on mobile
-- Professional / Personal project tabs with animated featured card
-- Dark `ink` / warm `cream` / `amber` accent colour system
+- Fixed workspace explorer and full-viewport chapters on desktop
+- Snap-scroll navigation on desktop; free-scroll with an accessible command dock and explorer drawer on mobile
+- Professional / Personal work ledger with an inline selected-project dossier
+- Live Spotify signal, career journey, education pivot, and reduced-motion support
+- Dark `ink` / warm `cream` / `amber` visual system
 
 ## Getting Started
 

@@ -9,21 +9,31 @@ export interface SpotifyTrack {
 export interface SpotifyState {
   isPlaying: boolean;
   current: SpotifyTrack | null;
+  recentStatus: "available" | "empty" | "authorization_required" | "unknown";
   topTracks: Pick<SpotifyTrack, "title" | "artist">[];
   loading: boolean;
   error: boolean;
 }
 
 async function fetchSpotify(): Promise<Omit<SpotifyState, "loading" | "error">> {
-  const res = await fetch("/.netlify/functions/spotify");
-  if (!res.ok) throw new Error("Spotify fetch failed");
-  return res.json();
+  const endpoint = "/.netlify/functions/spotify";
+  const res = await fetch(endpoint);
+
+  if (!res.ok) throw new Error(`Spotify fetch failed (${res.status})`);
+  const data = await res.json();
+  return {
+    isPlaying: Boolean(data.isPlaying),
+    current: data.current ?? null,
+    recentStatus: data.recentStatus ?? (data.current ? "available" : "unknown"),
+    topTracks: Array.isArray(data.topTracks) ? data.topTracks.slice(0, 3) : [],
+  };
 }
 
 export function useSpotify(): SpotifyState {
   const [state, setState] = useState<SpotifyState>({
     isPlaying: false,
     current: null,
+    recentStatus: "unknown",
     topTracks: [],
     loading: true,
     error: false,

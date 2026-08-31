@@ -7,7 +7,7 @@ const REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN!;
 const TOKEN_URL = "https://accounts.spotify.com/api/token";
 const NOW_PLAYING_URL = "https://api.spotify.com/v1/me/player/currently-playing";
 const RECENTLY_PLAYED_URL = "https://api.spotify.com/v1/me/player/recently-played?limit=1";
-const TOP_TRACKS_URL = "https://api.spotify.com/v1/me/top/tracks?limit=3&time_range=medium_term";
+const TOP_TRACKS_URL = "https://api.spotify.com/v1/me/top/tracks?limit=3&time_range=short_term";
 
 async function getAccessToken(): Promise<string> {
   const basic = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString("base64");
@@ -40,6 +40,7 @@ export const handler: Handler = async () => {
 
     let isPlaying = false;
     let current = null;
+    let recentStatus: "available" | "empty" | "authorization_required" = "empty";
 
     if (npRes.status === 200) {
       const npData = await npRes.json();
@@ -51,6 +52,7 @@ export const handler: Handler = async () => {
           artist: npData.item.artists.map((a: { name: string }) => a.name).join(", "),
           albumArt: images.at(-1)?.url ?? null,
         };
+        recentStatus = "available";
       }
     } else if (npRes.status !== 204) {
       throw new Error(`Now-playing request failed (${npRes.status})`);
@@ -69,7 +71,12 @@ export const handler: Handler = async () => {
             artist: item.artists.map((a: { name: string }) => a.name).join(", "),
             albumArt: images.at(-1)?.url ?? null,
           };
+          recentStatus = "available";
         }
+      } else if (rpRes.status === 403) {
+        recentStatus = "authorization_required";
+      } else {
+        throw new Error(`Recently-played request failed (${rpRes.status})`);
       }
     }
 
@@ -90,12 +97,14 @@ export const handler: Handler = async () => {
     const corsHeaders = {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
+      "Cache-Control": "no-store, max-age=0",
+      "Netlify-CDN-Cache-Control": "no-store",
     };
 
     return {
       statusCode: 200,
       headers: corsHeaders,
-      body: JSON.stringify({ isPlaying, current, topTracks }),
+      body: JSON.stringify({ isPlaying, current, recentStatus, topTracks }),
     };
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);

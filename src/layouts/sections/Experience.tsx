@@ -1,124 +1,26 @@
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { experiences } from "../../constants";
 
-const stagger: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
-};
-const card: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
-};
-
-export const Experience = () => {
-  const [current, ...previous] = experiences;
-
+export function Experience() {
   return (
-    <div className="flex-1 flex flex-col gap-3 p-4 overflow-y-auto md:overflow-hidden">
-      <div className="flex items-baseline justify-between flex-shrink-0 px-0.5">
-        <h2 className="font-display text-[26px] font-black text-ink tracking-[-1px]">
-          Work.
-        </h2>
-        <p className="font-sans text-[10px] text-ink/40 tracking-[0.12em] uppercase">
-          6 yrs · 4 companies
-        </p>
+    <div className="career-signal">
+      <header className="section-heading"><div><p className="eyebrow">03 / Career signal</p><h2>Work, in motion.</h2></div><p className="section-stat">6 yrs · 4 companies</p></header>
+      <div className="career-path">
+        <motion.div className="career-path__line" aria-hidden="true" initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }} />
+        {experiences.map((experience, index) => {
+          const current = index === 0;
+          return (
+            <motion.article className={`career-station ${current ? "career-station--current document-card" : ""}`} key={experience.company} initial={{ opacity: 0, x: index % 2 ? 20 : -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.25 }}>
+              <span className="career-station__node" aria-hidden="true" />
+              <div className="career-station__meta"><span>{current ? "Current" : `Station ${String(index + 1).padStart(2, "0")}`}</span><time>{experience.period}</time></div>
+              <h3>{experience.company}</h3><p className="career-station__role">{experience.title}</p>
+              {experience.description && <p className="career-station__description">{experience.description}</p>}
+              {experience.featuredAchievements && <ul className="achievement-list">{experience.featuredAchievements.map((achievement) => <li key={achievement}>{achievement}</li>)}</ul>}
+              {experience.tech && <ul className="tag-list" aria-label={`${experience.company} technologies`}>{experience.tech.map((tech) => <li key={tech}>{tech}</li>)}</ul>}
+            </motion.article>
+          );
+        })}
       </div>
-
-      <motion.div
-        className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-3 md:overflow-hidden"
-        variants={stagger}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
-      >
-        {/* Current role — full height, dark */}
-        <motion.div
-          variants={card}
-          className="bg-ink rounded-xl p-5 flex flex-col relative overflow-hidden"
-        >
-          <div className="absolute -bottom-12 -right-12 w-44 h-44 rounded-full bg-amber/[0.05] blur-3xl pointer-events-none" />
-          <div>
-            <div className="flex items-center gap-1.5 mb-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber flex-shrink-0" />
-              <span className="font-sans text-[9px] font-bold text-amber tracking-[0.2em] uppercase">
-                Current
-              </span>
-            </div>
-            <h3 className="font-display text-[20px] font-black text-cream leading-[1.1] tracking-[-0.5px]">
-              {current.company}
-            </h3>
-            <p className="font-sans text-[11px] text-cream/50 mt-0.5">
-              {current.title}
-            </p>
-            <p className="font-sans text-[10px] font-semibold text-cream/25 tracking-[0.08em] mt-0.5">
-              {current.period}
-            </p>
-            <div className="h-px bg-amber/[0.12] my-3" />
-            <div className="flex flex-col gap-2">
-              {(current.featuredAchievements ?? []).map(
-                (ach, i) => (
-                  <div key={i} className="flex gap-2 items-start">
-                    <span className="w-1 h-1 rounded-full bg-amber flex-shrink-0 mt-1.5" />
-                    <p className="font-sans text-[10px] text-cream/50 leading-relaxed">
-                      {ach}
-                    </p>
-                  </div>
-                )
-              )}
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-1 mt-auto pt-3">
-            {(current.tech ?? []).map((t) => (
-              <span
-                key={t}
-                className="font-sans text-[8px] font-semibold text-amber bg-amber/[0.1] px-1.5 py-0.5 rounded-[2px]"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Previous roles — stacked */}
-        <div className="flex flex-col gap-2.5">
-          {previous.map((exp, i) => (
-            <motion.div
-              key={exp.company}
-              variants={card}
-              className={`md:flex-1 rounded-xl px-4 py-3 flex flex-col gap-1 relative ${
-                i === 0
-                  ? "bg-amber/[0.05] border border-amber/[0.12]"
-                  : "bg-ink/[0.03] border border-ink/[0.07]"
-              }`}
-            >
-              <h4 className="font-display text-[14px] font-bold text-ink leading-tight">
-                {exp.company}
-              </h4>
-              <p className="font-sans text-[10px] text-amber/60">{exp.title}</p>
-              <p className="font-sans text-[9px] font-semibold text-ink/30 tracking-[0.06em]">
-                {exp.period}
-              </p>
-              {exp.description && (
-                <p className="font-sans text-[9px] text-ink/50 leading-relaxed border-t border-ink/[0.06] pt-1.5 mt-0.5">
-                  {exp.description}
-                </p>
-              )}
-              {(exp.tech ?? []).length > 0 && (
-                <div className="flex flex-wrap gap-1 mt-1">
-                  {(exp.tech ?? []).map((t) => (
-                    <span
-                      key={t}
-                      className="font-sans text-[8px] font-semibold text-ink/40 bg-ink/[0.06] px-1.5 py-0.5 rounded-[2px]"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
     </div>
   );
-};
+}
